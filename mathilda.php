@@ -2,11 +2,11 @@
 
 /*
 Plugin Name:  Mathilda
-Plugin URI:   http://www.unmus.de/wordpress-plugin-mathilda-tweets/
+Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
 Description:  Mathilda brings back control of your tweets. 
-Version:	  0.3
+Version:	  0.4
 Author:       Marco Hitschler
-Author URI:   http://www.unmus.de/
+Author URI:   https://www.unmus.de/
 License:      GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 Domain Path:  /languages
@@ -52,7 +52,7 @@ function mathilda_activate () {
 	add_option('mathilda_retweets', "0"); 
 	add_option('mathilda_replies', "0"); 
 	add_option('mathilda_initial_load', "0"); 
-	add_option('mathilda_latest_tweet', ""); 
+	add_option('mathilda_latest_tweet', ''); 
 	add_option('mathilda_tweets_on_page', "300"); 
 	add_option('mathilda_slug', "tweets"); 
 	add_option('mathilda_tweets_count', "0"); 
@@ -61,6 +61,9 @@ function mathilda_activate () {
 	add_option('mathilda_plugin_version', "2");
 	add_option('mathilda_import', "0");
 	add_option('mathilda_slug_is_changed', "0");
+	add_option('mathilda_cron_period', "900");
+	add_option('mathilda_highest_imported_tweet', '');
+	add_option('mathilda_navigation', 'Standard');
 	
 	/* Create Mathilda Tables */
 	
@@ -149,6 +152,9 @@ function mathilda_delete () {
 		delete_option('mathilda_tweets_count');
 		delete_option('mathilda_import');
 		delete_option('mathilda_slug_is_changed');
+		delete_option('mathilda_cron_period');
+		delete_option('mathilda_highest_imported_tweet');
+		delete_option('mathilda_navigation');
 		
 		/* Delete Tables */
 		
@@ -171,12 +177,15 @@ function mathilda_reset () {
 	update_option('mathilda_num_tweets_fetch_call', "200"); 
 	update_option('mathilda_num_fetches', "17"); 
 	update_option('mathilda_retweets', "0"); 
-	update_option('mathilda_replies', "0"); 
+	update_option('mathilda_replies', "0");
+	update_option('mathilda_initial_load', '0'); 
+	update_option('mathilda_latest_tweet', '');
 	update_option('mathilda_tweets_on_page', "300"); 
 	update_option('mathilda_slug', "tweets"); 
 	update_option('mathilda_activated', "1"); 
-	update_option('mathilda_database_version', "1");
-	update_option('mathilda_plugin_version', "2");
+	update_option('mathilda_import', '0');
+	update_option('mathilda_cron_period', "900");
+	update_option('mathilda_navigation', "Standard");
 	
 	mathilda_fresh_tables();
 	
@@ -193,9 +202,21 @@ function mathilda_update () {
 	
     $mathilda_previous_version = get_option('mathilda_plugin_version');
 	
+	/* Update Process Version 0.3 */ 
     if($mathilda_previous_version==1) {
 	add_option('mathilda_slug_is_changed', "0");
 	update_option('mathilda_plugin_version', "2");	   
+	}
+
+	/* Update Process Version 0.4 */
+	if($mathilda_previous_version==2) {
+	add_option('mathilda_cron_period', "900");
+	update_option('mathilda_plugin_version', "3");
+	$timestamp = wp_next_scheduled( 'mathilda_cron_hook' );
+   	wp_unschedule_event($timestamp, 'mathilda_cron_hook' );
+	$mathilda_replies_flag=get_option('mathilda_replies');
+	if( $mathilda_replies_flag == FALSE ) {update_option('mathilda_replies','0');}	 
+	add_option('mathilda_navigation', 'Numbering');  
 	}
 	
 }
@@ -207,19 +228,9 @@ Template
 */
 
 function mathilda_template($content) {
-
-	$is_mathilda_page=false;
-	$mathilda_slug=get_option('mathilda_slug');
-
-	// isPage (Mathilda)
-	if(! mathilda_is_pretty_permalink_enabled() ) {
-		$is_mathilda_slug_equal_page_title= strcasecmp ( $mathilda_slug , get_the_title() );
-		if( $is_mathilda_slug_equal_page_title == 0 ) { $is_mathilda_page=true; }
-	}
-	if ( is_page( get_option('mathilda_slug') ) ) { $is_mathilda_page=true; }
 	
 	// Run Mathilda
-	if ( $is_mathilda_page ) {
+	if ( mathilda_is_tweet_page() ) {
 		
 		// Prepare
 		$alliswell=mathilda_run_yes_or_no();
@@ -231,8 +242,7 @@ function mathilda_template($content) {
 		require_once('mathilda_template.php');
 		return $content . $mathilda_content_html;
 		
-		}
-		else {
+	} else {
 		
 		// Content without Tweets 	
 		return $content;
@@ -247,7 +257,7 @@ CSS @ Mathilda
 */
 
 function mathilda_css() {
-			if ( is_page( get_option('mathilda_slug') ) )
+			if ( mathilda_is_tweet_page() )
 			{
 			$add_css='<link rel="stylesheet" id="mathilda-css" href="'. plugins_url() .'/mathilda/mathilda_tweets.css" type="text/css" media="all">';
 			echo $add_css;
@@ -264,7 +274,7 @@ add_action( 'admin_head', 'mathilda_admin_css' );
 
 function mathilda_class( $classes ) {
 
-	if ( is_page( get_option('mathilda_slug') ) ) {
+	if ( mathilda_is_tweet_page() ) {
         $classes[] = 'mathilda-is-here';
         return $classes;
     }
@@ -397,9 +407,12 @@ add_filter( 'dashboard_glance_items', 'mathilda_glance_counter');
 /* Mathilda Cron Interval */
 
 function mathilda_cron_interval( $schedules ) {
-    $schedules['fifteen_minutes'] = array(
-        'interval' => 900,
-        'display'  => esc_html__( 'Every 15 Minutes' ),
+
+	$period=get_option('mathilda_cron_period');
+
+    $schedules['mathilda_duration'] = array(
+        'interval' => $period,
+        'display'  => esc_html__( 'Mathilda Custom Duration' ),
     );
  
     return $schedules;
@@ -423,7 +436,7 @@ add_action( 'mathilda_cron_hook', 'mathilda_cron_execute' );
 /* Schedule Mathilda Cron */
 
 if( !wp_next_scheduled( 'mathilda_cron_hook' ) ) {
-	wp_schedule_event( time(), 'fifteen_minutes', 'mathilda_cron_hook' );
+	wp_schedule_event( time(), 'mathilda_duration', 'mathilda_cron_hook' );
 }	
 
 ?>

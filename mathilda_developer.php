@@ -73,6 +73,16 @@ function mathilda_options_display_plugin_version()
 	echo '<input type="text" name="mathilda_plugin_version" id="mathilda_plugin_version" value="'. get_option('mathilda_plugin_version') .'"/>';
 }
 
+function mathilda_options_display_cron_period_seconds()
+{
+	echo '<input type="text" name="mathilda_cron_period" id="mathilda_cron_period" value="'. get_option('mathilda_cron_period') .'" disabled/>';
+}
+
+function mathilda_options_display_tweets_count()
+{
+	echo '<input type="text" name="mathilda_tweets_count" id="mathilda_tweets_count" value="'. get_option('mathilda_tweets_count') .'"/>';
+}
+
 /* 
 Sections
 */
@@ -87,7 +97,7 @@ Definitions
 function mathilda_options_developer_display()
 {
 	
-	add_settings_section("developer_settings_section", "Manipulate", "mathilda_options_display_developer_description", "mathilda-developer-options");
+	add_settings_section("developer_settings_section", "Read / Manipulate", "mathilda_options_display_developer_description", "mathilda-developer-options");
 	
 	add_settings_field("mathilda_num_tweets_fetch_call", "Number Tweets @ Call", "mathilda_options_display_num_tweets_fetch_call", "mathilda-developer-options", "developer_settings_section");
 	add_settings_field("mathilda_num_fetches", "Fetches", "mathilda_options_display_num_fetches", "mathilda-developer-options", "developer_settings_section");
@@ -95,8 +105,10 @@ function mathilda_options_developer_display()
 	add_settings_field("mathilda_latest_tweet", "Latest Tweet", "mathilda_options_display_latest_tweet", "mathilda-developer-options", "developer_settings_section");
 	add_settings_field("mathilda_database_version", "Database Version", "mathilda_options_display_database_version", "mathilda-developer-options", "developer_settings_section");
 	add_settings_field("mathilda_import", "Import", "mathilda_options_display_import", "mathilda-developer-options", "developer_settings_section");
-	add_settings_field("mathilda_import", "Plugin Version", "mathilda_options_display_plugin_version", "mathilda-developer-options", "developer_settings_section");
-	
+	add_settings_field("mathilda_plugin_version", "Plugin Version", "mathilda_options_display_plugin_version", "mathilda-developer-options", "developer_settings_section");
+	add_settings_field("mathilda_cron_period_seconds", "Cron Period Seconds", "mathilda_options_display_cron_period_seconds", "mathilda-developer-options", "developer_settings_section");
+	add_settings_field("mathilda_tweets_count", "Tweet Counter", "mathilda_options_display_tweets_count", "mathilda-developer-options", "developer_settings_section");
+
 	register_setting("mathilda_developer_settings", "mathilda_num_tweets_fetch_call");
 	register_setting("mathilda_developer_settings", "mathilda_num_fetches");
 	register_setting("mathilda_developer_settings", "mathilda_initial_load");
@@ -104,6 +116,7 @@ function mathilda_options_developer_display()
 	register_setting("mathilda_developer_settings", "mathilda_database_version");
 	register_setting("mathilda_developer_settings", "mathilda_import");
 	register_setting("mathilda_developer_settings", "mathilda_plugin_version");
+	register_setting("mathilda_developer_settings", "mathilda_tweets_count");
 
 }
 

@@ -1,9 +1,9 @@
 === Mathilda ===
 Contributors: unmus
-Tags: twitter, tweets, social, content, reclaim, network
+Tags: twitter, tweets, social, content, reclaim, network, blog
 Requires at least: 4.5
-Tested up to: 4.5.2
-Stable tag: 0.3
+Tested up to: 4.5.3
+Stable tag: 0.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://www.unmus.de/
@@ -56,7 +56,7 @@ Yes. But the first load must be done manually with the cron (Tools/Tweets). Othe
 
 = How often will the tweets be loaded? =
 
-Currently your tweets will be fetched from Twitter every 15 minutes.
+As Standard your tweets will be fetched from Twitter every 15 minutes. But you can define the period different in the plugin settings.
 
 = What is the difference between Cron and Import? =
 
@@ -77,6 +77,17 @@ Twitter API provides access to your 3200 latest tweets. If you have not written 
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.4 =
+* July 2016
+* Feature: Custom Mathilda Cron Period
+* Feature: Additional Bottom Navigation Type
+* Enhancement: W3C Validated HTML Code
+* Enhancement: W3C Validated CSS Code
+* Enhancement: Latest Plugin Code now available on [GitHub](https://github.com/circuscode/mathilda)
+* Bugfix: Display Tweets on pages with blank in the name
+* Bugfix: Hide Navigation if only a few tweets available
+* Bugfix: Flush Rewrite Rules, only if Slug is changed
 
 = 0.3 =
 * June 2016
@@ -110,6 +121,9 @@ Twitter API provides access to your 3200 latest tweets. If you have not written 
 
 == Upgrade Notice ==
 
+= 0.4 =
+This version supports custom defined cron periods, brings further navigation options and includes Bugfixes.
+
 = 0.3 =
 This version supports replies, makes import and cron more stable and includes many bugfixes.
 
@@ -118,11 +132,11 @@ This version does not require a webcron anymore.
 
 == Configuration ==
 
-1. Register your Mathilda-Instance as Twitter-Application for API Access [apps.twitter.com](https://apps.twitter.com)
+1. [Register](http://dev.unmus.de/wp-content/uploads/Mathilda-Twitter-App-Registration.pdf) your Mathilda-Instance as Twitter-Application for API Access [apps.twitter.com](https://apps.twitter.com)
 2. Activate the plugin in WordPress
 3. Maintain OAUTH Access Token, OAUTH Access Token Secret, Consumer Key, Consumer Secret and your Twitter Account in the settings
 4. Run the initial Mathilda Cron (Tools/Tweets) - this will take several minutes
-5. Create a WordPress page (the page name must match the mathilda slug) 
+5. Create a WordPress page (page slug must match the mathilda slug) 
 
 = How to setup Mathilda? =
 [Screencast Video](https://www.unmus.de/wordpress-plugin-mathilda/) (German)

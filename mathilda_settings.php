@@ -18,7 +18,7 @@ function mathilda_options_content() {
 	
 	$mathilda_slug_changed=get_option('mathilda_slug_is_changed');
 	if($mathilda_slug_changed==1)
-	{flush_rewrite_rules();}
+	{flush_rewrite_rules();update_option('mathilda_slug_is_changed','0');}
 	
 	echo '
 	<div class="wrap">
@@ -68,6 +68,13 @@ function mathilda_options_display_slug()
 	echo '<input type="text" name="mathilda_slug" id="mathilda_slug" value="'. get_option('mathilda_slug') .'"/>';
 }
 
+function mathilda_options_display_cron_period()
+{
+	$custom_cron_period=get_option('mathilda_cron_period');
+	$custom_cron_period=$custom_cron_period/60;
+	echo '<input type="text" name="mathilda_cron_period" id="mathilda_cron_period" value="'. $custom_cron_period .'"/>';
+}
+
 function mathilda_options_display_tweets_on_page()
 {
 	echo '<input type="text" name="mathilda_tweets_on_page" id="mathilda_tweets_on_page" value="'. get_option('mathilda_tweets_on_page') .'"/>';
@@ -77,6 +84,15 @@ function mathilda_options_display_show_replies()
 {
 	 
 	echo '<input type="checkbox" name="mathilda_replies" value="1" ' .  checked(1, get_option('mathilda_replies'), false) . '/>'; 
+}	
+
+function mathilda_options_display_navigation()
+{
+	echo '<input type="radio" id="mathilda_navigation_standard" name="mathilda_navigation" value="Standard" ' .  checked('Standard', get_option('mathilda_navigation'), false) . '/>'; 
+	echo '<label for="mathilda_navigation_standard">Standard</label>';
+	echo '<br/>&nbsp;<br/>';
+	echo '<input type="radio" id="mathilda_navigation_numbering" name="mathilda_navigation" value="Numbering" ' .  checked('Numbering', get_option('mathilda_navigation'), false) . '/>'; 
+	echo '<label for="mathilda_navigation_numbering">Numbering</label>';
 }	
 
 /* 
@@ -124,9 +140,11 @@ function mathilda_options_plugin_display()
 	
 	add_settings_field("mathilda_twitter_user", "Twitter Account", "mathilda_options_display_twitter_user", "mathilda-options", "plugin_settings_section");
 	add_settings_field("mathilda_slug", "Slug", "mathilda_options_display_slug", "mathilda-options", "plugin_settings_section");
+	add_settings_field("mathilda_cron_period", "Cron Period", "mathilda_options_display_cron_period", "mathilda-options", "plugin_settings_section");
 	
 	register_setting("mathilda_settings", "mathilda_twitter_user", "mathilda_format_twitterlogin");
 	register_setting("mathilda_settings", "mathilda_slug", "mathilda_validate_slug");
+	register_setting("mathilda_settings", "mathilda_cron_period", "mathilda_validate_cron_period");
 
 }
 
@@ -139,9 +157,11 @@ function mathilda_options_userinterface_display()
 	
 	add_settings_field("mathilda_tweets_on_page", "Tweets on Page", "mathilda_options_display_tweets_on_page", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_replies", "Show Replies?", "mathilda_options_display_show_replies", "mathilda-options", "userinterface_settings_section");
+	add_settings_field("mathilda_navigation", "Navigation Type", "mathilda_options_display_navigation", "mathilda-options", "userinterface_settings_section");
 	
 	register_setting("mathilda_settings", "mathilda_tweets_on_page", "mathilda_validate_tweetsonpage");
-	register_setting("mathilda_settings", "mathilda_replies");
+	register_setting("mathilda_settings", "mathilda_replies", "mathilda_validate_replies");
+	register_setting("mathilda_settings", "mathilda_navigation");
 
 }
 

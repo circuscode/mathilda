@@ -4,6 +4,29 @@
 Mathilda Helper Functions
 */
 
+/*
+Mathilda Permalink Check
+*/
+
+function mathilda_is_tweet_page() {
+
+      $is_mathilda_page=false;
+	$mathilda_slug=get_option('mathilda_slug');
+
+	if(! mathilda_is_pretty_permalink_enabled() ) {
+		$is_mathilda_slug_equal_page_title= strcasecmp ( $mathilda_slug , get_the_title() );
+		if( $is_mathilda_slug_equal_page_title == 0 ) { $is_mathilda_page=true; }
+	}
+
+	if ( is_page( get_option('mathilda_slug') ) ) { $is_mathilda_page=true; }
+
+      return $is_mathilda_page;
+}
+
+/*
+Mathilda Permalink Check
+*/
+
 function mathilda_is_pretty_permalink_enabled() {
         if ( get_option('permalink_structure') ) { 
                 return true; 

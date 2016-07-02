@@ -106,54 +106,159 @@ Mathilda Menu
 
 function mathilda_create_menu($number_of_pages, $mathilda_show_page) {
 	
-	$slug=get_option('mathilda_slug');
-	$is_perma_enabled=mathilda_is_pretty_permalink_enabled();
-	
-	$menu_html='';
-	$menu_html.='<div class="mathilda_bottom_forward">';
+	$tweet_count_all=get_option('mathilda_tweets_count');
+	$tweets_on_page=get_option('mathilda_tweets_on_page');
 
-	for($i=0; $i<$number_of_pages; $i++)
-	{
+	if( $tweet_count_all >= $tweets_on_page ) {
 		
-		$mathilda_page_number=$i+1;
-		
-		/* URL Mathilda */ 
-		
-		$current_url=get_page_link();
-		$slug_pos=strpos($current_url, get_option('mathilda_slug') );
-		$path_to_mathilda=substr($current_url, 0, $slug_pos);
-		
-		/* Output */
-		
-		$menu_html.= '<a ';
-		
-		if ($i==0)
+		$menu_html='';
+		$menu_html.='<div class="mathilda_bottom_forward">';
+
+		$mathilda_menu_type=get_option('mathilda_navigation');
+		if ($mathilda_menu_type=='Numbering')
 		{
-			if($is_perma_enabled) {
-					$menu_html.='href="'.$path_to_mathilda . $slug.'/" class="mathilda_bottom_forward_number';
-				}
-				else {
-					$menu_html.='href="index.php?pagename='.$slug.'&mathilda='.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
-				}
+
+			$menu_html.=mathilda_menu_numbering($number_of_pages, $mathilda_show_page);
+
 		} 
-		else 
+		elseif ($mathilda_menu_type=='Standard') 
 		{
-			
-			if($is_perma_enabled) {
-					$menu_html.='href="'.$path_to_mathilda .$slug.'/'.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
-				}
-				else {
-					$menu_html.='href="index.php?pagename='.$slug.'&mathilda='.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
-				}
+
+			$menu_html.=mathilda_menu_standard($number_of_pages, $mathilda_show_page);
+
 		}
-		if($mathilda_show_page==$mathilda_page_number) {$menu_html.=' active'; }
-		$menu_html.='">'.$mathilda_page_number.'</a>';
 		
+		$menu_html.='</div>';
+		return $menu_html;
 	}
 	
-	$menu_html.='</div>';
-	return $menu_html;
+}
+
+/* 
+Mathilda Numbering Menu
+*/
+
+function mathilda_menu_numbering ($number_of_pages, $mathilda_show_page) {
+
+		$slug=get_option('mathilda_slug');
+		$is_perma_enabled=mathilda_is_pretty_permalink_enabled();
+		$menu_html='';
+
+		for($i=0; $i<$number_of_pages; $i++) {
+						
+				$mathilda_page_number=$i+1;
+				
+				/* URL Mathilda */ 
+				
+				$current_url=get_page_link();
+				$slug_pos=strpos($current_url, $slug );
+				$path_to_mathilda=substr($current_url, 0, $slug_pos);
+				
+				/* Output */
+				
+				$menu_html.= '<a ';
+				
+				if ($i==0)
+				{
+					if($is_perma_enabled) {
+							$menu_html.='href="'.$path_to_mathilda . $slug.'/" class="mathilda_bottom_forward_number';
+						}
+						else {
+							$menu_html.='href="index.php?pagename='.$slug.'&mathilda='.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
+						}
+				} 
+				else 
+				{
+					
+					if($is_perma_enabled) {
+							$menu_html.='href="'.$path_to_mathilda .$slug.'/'.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
+						}
+						else {
+							$menu_html.='href="index.php?pagename='.$slug.'&mathilda='.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
+						}
+				}
+				if($mathilda_show_page==$mathilda_page_number) {$menu_html.=' active'; }
+				$menu_html.='">'.$mathilda_page_number.'</a>';
+				
+		}
+		return $menu_html;
+}
+
+/* 
+Mathilda Standard Menu
+*/
+
+function mathilda_menu_standard ($number_of_pages, $mathilda_show_page) {
+
+	$slug=get_option('mathilda_slug');
+	$is_perma_enabled=mathilda_is_pretty_permalink_enabled();
+	$menu_html='';
+
+	/* URL Mathilda */ 
+				
+	$current_url=get_page_link();
+	$slug_pos=strpos($current_url, $slug );
+	$path_to_mathilda=substr($current_url, 0, $slug_pos);
+
+	/* Output */
+
+	$this_wp_language=get_locale();
+
+	if($is_perma_enabled) {
+
+		if($mathilda_show_page<$number_of_pages) {
+		$menu_html.='<a href="'.$path_to_mathilda . $slug.'/'.($mathilda_show_page+1).'/" class="mathilda_bottom_previous_tweets';
+			if($this_wp_language=='de_DE') {
+			$menu_html.='">Ältere Tweets</a>';
+			}
+			else {
+			$menu_html.='">Older Tweets</a>';	
+			}
+		}
+		
+		if($mathilda_show_page>1) {
+			if($mathilda_show_page==2)
+			{
+			$menu_html.='<a href="'.$path_to_mathilda . $slug.'/" class="mathilda_bottom_new_tweets';
+			}
+			else
+			{
+			$menu_html.='<a href="'.$path_to_mathilda . $slug.'/'.($mathilda_show_page-1).'/" class="mathilda_bottom_new_tweets';	
+			}
+			if($this_wp_language=='de_DE') {
+			$menu_html.='">Neuere Tweets</a>';
+			}
+			else {
+			$menu_html.='">Newer Tweets</a>';	
+			}
+		}
+
+	}
+	else {
+
+		if($mathilda_show_page<$number_of_pages) {
+		$menu_html.='<a href="index.php?pagename='.$slug.'&mathilda='.($mathilda_show_page+1).'/" class="mathilda_bottom_previous_tweets';
+		if($this_wp_language=='de_DE') {
+			$menu_html.='">Ältere Tweets</a>';
+			}
+			else {
+			$menu_html.='">Older Tweets</a>';	
+			}
+		}
+
+		if($mathilda_show_page>1) {
+		$menu_html.='<a href="index.php?pagename='.$slug.'&mathilda='.($mathilda_show_page-1).'/" class="mathilda_bottom_new_tweets';
+		if($this_wp_language=='de_DE') {
+			$menu_html.='">Neuere Tweets</a>';
+			}
+			else {
+			$menu_html.='">Newer Tweets</a>';	
+			}
+		}
 	
+	}
+	return $menu_html;
+
 }
 
 /* 
@@ -206,7 +311,7 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	
 	/* Twitter Logo & Tweet Hyperlink */
 	$mathilda_content.='<a href="https://twitter.com/'.$me.'/status/'.$id.'" target="_blank" class="mathilda-tweet-link">
-	<img class="mathilda-tweet-symbol" src="'. plugins_url() .'/mathilda/mathilda_tweet.png"/></a>';
+	<img class="mathilda-tweet-symbol" src="'. plugins_url() .'/mathilda/mathilda_tweet.png" alt="Tweet"/></a>';
 	
 	/* Date */
 	
@@ -261,7 +366,7 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	/* Paint URL */  
 	if ($url=='TRUE') 
 	{
-		$mathilda_content.='<p class="mathilda-tweet-url'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target=_blank">'.$tweet_urls[0][2].'</a></p>';	
+		$mathilda_content.='<p class="mathilda-tweet-url'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';	
 	}
 		  
 	/* Paint Image */

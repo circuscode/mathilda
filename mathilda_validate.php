@@ -39,8 +39,30 @@ function mathilda_validate_slug ( $slug ) {
         $output=get_option( 'mathilda_slug' );
      }
      else {
+        if(mathilda_is_pretty_permalink_enabled() ) {
+            $slug=str_replace (' ', '-', $slug);
+        }
         $output = $slug;
         update_option('mathilda_slug_is_changed',"1");
+     }
+     return $output;
+} 
+
+/* Validate Cron Period */
+
+function mathilda_validate_cron_period ( $period ) {
+
+     if ($period == '') {
+        add_settings_error( 'mathilda-options', 'invalid-period', 'Cron Period is required. Field cannot be empty.' );
+        $output=get_option( 'mathilda_cron_period' );
+     }
+     elseif ($period < 15) {
+        add_settings_error( 'mathilda-options', 'invalid-period', 'Cron cannot run more often as every 15 minutes.' );
+        $output=get_option( 'mathilda_cron_period' );
+     }
+     else {
+        $period=$period*60;
+        $output = $period;
      }
      return $output;
 } 
@@ -58,6 +80,19 @@ function mathilda_validate_tweetsonpage ( $tweetsonpage ) {
     if ( $tweetsonpage > 1000 ) {
         $output=get_option( 'mathilda_tweets_on_page' );
         add_settings_error( 'mathilda-options', 'invalid-tweetsonpage', 'More than 1000 Tweets are not allowed for Tweets on Page.' );
+    }
+  
+    return $output;
+} 
+
+/* Validate Input: Replies */
+
+function mathilda_validate_replies ( $replies ) {
+    
+    $output = $replies;
+
+    if ( $replies == FALSE ) {
+        $output='0';
     }
   
     return $output;

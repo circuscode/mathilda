@@ -98,7 +98,7 @@ if ($number_of_content==0) {
 	echo '2. Upload all files from /data/js/tweets to /wp-content/uploads/mathilda-import.<br/>';
 	echo '3. Run the import again.</p>';
 	echo '<p><strong>Notice</strong></p>';
-	echo '<p>During the process you will see a white page.<br/>';
+	echo '<p>During the process you will see a blank page.<br/>';
 	echo 'The import will run several minutes.<br/>';
 	echo 'Please wait until you have the finish message at the bottom.<p>';
 	return;
