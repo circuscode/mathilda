@@ -4,7 +4,7 @@
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
 Description:  Mathilda brings back control of your tweets. 
-Version:	  0.4
+Version:	  0.4.1
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
 License:      GPL2
