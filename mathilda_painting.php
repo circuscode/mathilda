@@ -350,7 +350,7 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	
 	if ($url=='TRUE')
 	{
-		$tweet=str_replace ( $tweet_urls[0][1], '' , $tweet ) ;	
+		$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;	
 	}
 		  
 	/* Media Transformation @ Tweet */  

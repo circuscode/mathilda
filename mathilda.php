@@ -58,7 +58,7 @@ function mathilda_activate () {
 	add_option('mathilda_tweets_count', "0"); 
 	add_option('mathilda_activated', "1"); 
 	add_option('mathilda_database_version', "1");
-	add_option('mathilda_plugin_version', "2");
+	add_option('mathilda_plugin_version', "4");
 	add_option('mathilda_import', "0");
 	add_option('mathilda_slug_is_changed', "0");
 	add_option('mathilda_cron_period', "900");
@@ -217,6 +217,11 @@ function mathilda_update () {
 	$mathilda_replies_flag=get_option('mathilda_replies');
 	if( $mathilda_replies_flag == FALSE ) {update_option('mathilda_replies','0');}	 
 	add_option('mathilda_navigation', 'Numbering');  
+	}
+
+	/* Update Process Version 0.4.1 */ 
+    if($mathilda_previous_version==3) {
+	update_option('mathilda_plugin_version', "4");	   
 	}
 	
 }
