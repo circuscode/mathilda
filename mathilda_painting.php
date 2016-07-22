@@ -79,6 +79,7 @@ function mathilda_timezone_convert($date) {
 
 	$datetime = new DateTime($date_str);
 	$wpdate = get_option('timezone_string');
+	if($wpdate == '') {$wpdate='Atlantic/Reykjavik';} 
 	$ber_time = new DateTimeZone($wpdate);
 	$datetime->setTimezone($ber_time);
 

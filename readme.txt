@@ -3,7 +3,7 @@ Contributors: unmus
 Tags: twitter, tweets, social, content, reclaim, network, blog
 Requires at least: 4.5
 Tested up to: 4.5.3
-Stable tag: 0.4.1
+Stable tag: 0.4.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://www.unmus.de/
@@ -77,6 +77,10 @@ Twitter API provides access to your 3200 latest tweets. If you have not written 
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.4.2 =
+* July 2016
+* Bugfix: Fallback, if local TimeZone is not defined in the WordPress settings
 
 = 0.4.1 =
 * July 2016
