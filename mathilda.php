@@ -4,7 +4,7 @@
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
 Description:  Mathilda brings back control of your tweets. 
-Version:	  0.4.1
+Version:	  0.4.2
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
 License:      GPL2
@@ -58,7 +58,7 @@ function mathilda_activate () {
 	add_option('mathilda_tweets_count', "0"); 
 	add_option('mathilda_activated', "1"); 
 	add_option('mathilda_database_version', "1");
-	add_option('mathilda_plugin_version', "4");
+	add_option('mathilda_plugin_version', "5");
 	add_option('mathilda_import', "0");
 	add_option('mathilda_slug_is_changed', "0");
 	add_option('mathilda_cron_period', "900");
@@ -222,6 +222,11 @@ function mathilda_update () {
 	/* Update Process Version 0.4.1 */ 
     if($mathilda_previous_version==3) {
 	update_option('mathilda_plugin_version', "4");	   
+	}
+
+	/* Update Process Version 0.4.2 */ 
+    if($mathilda_previous_version==4) {
+	update_option('mathilda_plugin_version', "5");	   
 	}
 	
 }
