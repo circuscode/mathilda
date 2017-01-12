@@ -1,5 +1,14 @@
 <?php
 
+/* 
+Security
+*/
+
+if (!defined('ABSPATH')) 
+{  
+	exit;
+}
+
 function mathilda_cron_script() {
 
 /*
@@ -151,11 +160,17 @@ while ($i < $fetches) {
 		fclose($fp);
 	}
 	else {
+		if ($i==0) {
 		echo '<div>';
 		echo '<h2>Response from Twitter API</h2>';
 		echo '<p>New Tweets are not available.<br/>API Response will not be archived.</p>';
 		echo '<p><em>Mathilda Cron is stopped.</em></p></div>';
 		return;
+		}
+		else
+		{
+			break;
+		}
 	}
 
 	/* Tweet Loop */

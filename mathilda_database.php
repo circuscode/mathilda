@@ -1,6 +1,15 @@
 <?php
 
 /* 
+Security
+*/
+
+if (!defined('ABSPATH')) 
+{  
+	exit;
+}
+
+/* 
 Create Mathilda Tables 
 */
 
@@ -365,17 +374,6 @@ function mathilda_latest_tweet() {
 	global $wpdb;
 	$table_name=$wpdb->prefix . 'mathilda_tweets';
 	return $wpdb->get_var( "SELECT MAX(CONVERT(`mathilda_tweet_twitterid`, UNSIGNED)) FROM $table_name" );
-}
-
-/* 
-Number of Tweets 
-*/
-
-function mathilda_tweets_count() {
-	
-	global $wpdb;
-	$table_name=$wpdb->prefix . 'mathilda_tweets';
-	return $wpdb->get_var( "SELECT COUNT(*) FROM $table_name" );
 }
 
 /* 

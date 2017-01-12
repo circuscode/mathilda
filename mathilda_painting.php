@@ -1,6 +1,12 @@
 <?php
 
 /* 
+Security
+*/
+
+if (!defined('ABSPATH')) { exit; }
+
+/* 
 Date and Night Functions 
 */
 
@@ -79,7 +85,20 @@ function mathilda_timezone_convert($date) {
 
 	$datetime = new DateTime($date_str);
 	$wpdate = get_option('timezone_string');
-	if($wpdate == '') {$wpdate='Atlantic/Reykjavik';} 
+	if($wpdate == '') 
+	{
+		$wpdate = get_option('gmt_offset');
+		if($wpdate == '') 
+		{
+		// Fallback if TimeZone String or GMT Offset is not defined
+		$wpdate='Atlantic/Reykjavik';
+		}
+		else {
+		// Get TimeZone String from GMT Offset
+		$wpdate=$wpdate*60*60;
+		$wpdate=timezone_name_from_abbr("", $wpdate, 0);
+		}
+	} 
 	$ber_time = new DateTimeZone($wpdate);
 	$datetime->setTimezone($ber_time);
 
@@ -349,9 +368,17 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	
 	/* URL Transformation @ Tweet */
 	
+	$url_handling=get_option('mathilda_hyperlink_rendering');
+	
 	if ($url=='TRUE')
 	{
+		if ($url_handling=='Longlink') {
 		$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;	
+		}
+		elseif ($url_handling=='Shortlink') {
+		$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_urls[0][1].'" target="_blank">'.$tweet_urls[0][3].'</a>';	
+		$tweet=str_replace ( $tweet_urls[0][1], $shortlink , $tweet ) ;
+		}
 	}
 		  
 	/* Media Transformation @ Tweet */  
@@ -361,13 +388,17 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	}
 		  
 	/* Paint Tweet */
+
+	$tweet = nl2br($tweet);
 	if ( ( ($url=='TRUE') AND ($image=='TRUE') ) )  { $image_follows_class_tweet='X'; }
 	$mathilda_content.='<p class="mathilda-tweet-text'.$url_follows_class.' '.$image_follows_class_tweet.'">' . $tweet . '</p>';
 	
 	/* Paint URL */  
 	if ($url=='TRUE') 
 	{
-		$mathilda_content.='<p class="mathilda-tweet-url'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';	
+		if ($url_handling=='Longlink') {
+		$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
+		}	
 	}
 		  
 	/* Paint Image */

@@ -1,24 +1,25 @@
 === Mathilda ===
 Contributors: unmus
-Tags: twitter, tweets, social, content, reclaim, network, blog
+Tags: twitter, tweets, social network, content, reclaim, blog
 Requires at least: 4.5
-Tested up to: 4.5.3
-Stable tag: 0.4.2
+Tested up to: 4.7.1
+Stable tag: 0.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://www.unmus.de/
 
-Mathilda brings back control of your tweets.
+Mathilda takes your tweets from Twitter and displays them on the blog.
 
 == Description ==
 
-Mathilda is trying to give you back control of your tweets. The plugin takes your tweets from twitter and saves them into the WordPress database. The tweets can be displayed on the blog chronologically (but do not have to). Indeed, Twitter is also blogging, micro-blogging so to speak. 
+Mathilda is trying to give you back some control of your tweets. The plugin takes your tweets from twitter and saves them into the WordPress database. The tweets can be displayed on the blog chronologically (but do not have to). Indeed, Twitter is also blogging, micro-blogging so to speak. 
 
 = Functions =
 
 * Copy your tweets back
 * Copy your tweeted images back
 * Display your tweets on the blog
+* Shows basic tweet statistics
 * Import your complete tweet history
 * Export your tweets as CSV file
 * Plugin Healthy Check
@@ -70,6 +71,14 @@ All the same. It works both. Mathilda is flexible. But the autoload will only be
 
 Twitter API provides access to your 3200 latest tweets. If you have not written more, the import is not required. To import your tweets, you must download your tweet archive from Twitter (Profile/Settings/Your Twitter Data). Your archive contains the folder "data/js/tweets". Upload the containing files to "www.yourblog.com/wp-content/uploads/mathilda-import/". Now you can run the import (Tools/Tweets).
 
+= How does Mathilda handle the canonical URL? =
+
+Mathilda does not modify the existing canonical url handling in WordPress. If you want to change the canonical url you must handle that with a SEO plugin.
+
+= What have to be considered with the usage of caching plugins?
+
+The length of the cron period in combination with the configuration of caching determines how early a tweet will be displayed within the blog. If a tweet should be displayed as early as possible, the caching must be deactivated for the page with tweets. 
+
 == Screenshots ==
 
 1. Mathilda Settings
@@ -77,6 +86,18 @@ Twitter API provides access to your 3200 latest tweets. If you have not written 
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.5 =
+* January 2017
+* Feature: Dashboard Widget with statistic Information about Tweet Data
+* Feature: Hyperlink Rendering Option (Shortlink or Reallink)
+* Feature: Support of Line Breaks within Tweets
+* Feature: Option to deactivate Mathilda CSS
+* Bugfix: Initial Cron has not started in some cases
+* Bugfix: Display correct Time if local TimeZone is defined with UTC-Offset
+* Bugfix: CSS Class for Image Alignment
+* Improvement: Twitter API Access optimized
+* Security: Call of Mathilda Functions without WordPress is not possible anymore
 
 = 0.4.2 =
 * July 2016
@@ -128,6 +149,9 @@ Twitter API provides access to your 3200 latest tweets. If you have not written 
 * Initial Release
 
 == Upgrade Notice ==
+
+= 0.5 =
+This version brings tweet reporting, more options, more security and some bugfixes.
 
 = 0.4 =
 This version supports custom defined cron periods, brings further navigation options and includes Bugfixes.

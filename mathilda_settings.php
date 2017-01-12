@@ -1,5 +1,8 @@
 <?php
 
+// Security
+if (!defined('ABSPATH')) { exit; }
+
 /* 
 Mathilda Options 
 */
@@ -95,6 +98,21 @@ function mathilda_options_display_navigation()
 	echo '<label for="mathilda_navigation_numbering">Numbering</label>';
 }	
 
+function mathilda_options_display_hyperlink_rendering()
+{
+	echo '<input type="radio" id="mathilda_hyperling_rendering_short" name="mathilda_hyperlink_rendering" value="Shortlink" ' .  checked('Shortlink', get_option('mathilda_hyperlink_rendering'), false) . '/>'; 
+	echo '<label for="mathilda_hyperling_rendering_short">Short Link</label>';
+	echo '<br/>&nbsp;<br/>';
+	echo '<input type="radio" id="mathilda_hyperling_rendering_long" name="mathilda_hyperlink_rendering" value="Longlink" ' .  checked('Longlink', get_option('mathilda_hyperlink_rendering'), false) . '/>'; 
+	echo '<label for="mathilda_hyperling_rendering_long">Real Link</label>';
+}	
+
+function mathilda_options_display_mathilda_css()
+{
+	 
+	echo '<input type="checkbox" name="mathilda_css" value="1" ' .  checked(1, get_option('mathilda_css'), false) . '/>'; 
+}	
+
 /* 
 Sections
 */
@@ -158,10 +176,14 @@ function mathilda_options_userinterface_display()
 	add_settings_field("mathilda_tweets_on_page", "Tweets on Page", "mathilda_options_display_tweets_on_page", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_replies", "Show Replies?", "mathilda_options_display_show_replies", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_navigation", "Navigation Type", "mathilda_options_display_navigation", "mathilda-options", "userinterface_settings_section");
+	add_settings_field("mathilda_hyperlink_rendering", "Hyperlink Rendering", "mathilda_options_display_hyperlink_rendering", "mathilda-options", "userinterface_settings_section");
+	add_settings_field("mathilda_css", "Deactivate Mathilda CSS?", "mathilda_options_display_mathilda_css", "mathilda-options", "userinterface_settings_section");
 	
 	register_setting("mathilda_settings", "mathilda_tweets_on_page", "mathilda_validate_tweetsonpage");
 	register_setting("mathilda_settings", "mathilda_replies", "mathilda_validate_replies");
 	register_setting("mathilda_settings", "mathilda_navigation");
+	register_setting("mathilda_settings", "mathilda_hyperlink_rendering");
+	register_setting("mathilda_settings", "mathilda_css", "mathilda_validate_css");
 
 }
 

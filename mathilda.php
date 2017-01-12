@@ -3,8 +3,8 @@
 /*
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
-Description:  Mathilda brings back control of your tweets. 
-Version:	  0.4.2
+Description:  Mathilda takes your tweets from Twitter and displays them on the blog.
+Version:	  0.5
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
 License:      GPL2
@@ -12,6 +12,15 @@ License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 Domain Path:  /languages
 Text Domain:  mathilda
 */
+
+/* 
+Security
+*/
+
+if (!defined('ABSPATH')) 
+{  
+	exit;
+}
 
 /*
 Basic Setup
@@ -31,6 +40,8 @@ require_once('mathilda_twitterapi.php');
 require_once('mathilda_cron.php');
 require_once('mathilda_import.php');
 require_once('mathilda_scripting.php');
+require_once('mathilda_dashboard.php');
+require_once('mathilda_reporting.php');
 
 /* 
 Activate Plugin
@@ -58,12 +69,14 @@ function mathilda_activate () {
 	add_option('mathilda_tweets_count', "0"); 
 	add_option('mathilda_activated', "1"); 
 	add_option('mathilda_database_version', "1");
-	add_option('mathilda_plugin_version', "5");
+	add_option('mathilda_plugin_version', "6");
 	add_option('mathilda_import', "0");
 	add_option('mathilda_slug_is_changed', "0");
 	add_option('mathilda_cron_period', "900");
 	add_option('mathilda_highest_imported_tweet', '');
 	add_option('mathilda_navigation', 'Standard');
+	add_option('mathilda_hyperlink_rendering', 'Longlink');
+	add_option('mathilda_css', "0");
 	
 	/* Create Mathilda Tables */
 	
@@ -155,6 +168,8 @@ function mathilda_delete () {
 		delete_option('mathilda_cron_period');
 		delete_option('mathilda_highest_imported_tweet');
 		delete_option('mathilda_navigation');
+		delete_option('mathilda_hyperlink_rendering');
+		delete_option('mathilda_css');
 		
 		/* Delete Tables */
 		
@@ -186,6 +201,8 @@ function mathilda_reset () {
 	update_option('mathilda_import', '0');
 	update_option('mathilda_cron_period', "900");
 	update_option('mathilda_navigation', "Standard");
+	update_option('mathilda_navigation', "Longlink");
+	update_option('mathilda_css', "0");
 	
 	mathilda_fresh_tables();
 	
@@ -228,6 +245,13 @@ function mathilda_update () {
     if($mathilda_previous_version==4) {
 	update_option('mathilda_plugin_version', "5");	   
 	}
+
+	/* Update Process Version 0.5 */ 
+    if($mathilda_previous_version==5) {
+	update_option('mathilda_plugin_version', "6");	 
+	add_option('mathilda_hyperlink_rendering', 'Longlink');   
+	add_option('mathilda_css', '0'); 
+	}
 	
 }
 
@@ -269,8 +293,10 @@ CSS @ Mathilda
 function mathilda_css() {
 			if ( mathilda_is_tweet_page() )
 			{
-			$add_css='<link rel="stylesheet" id="mathilda-css" href="'. plugins_url() .'/mathilda/mathilda_tweets.css" type="text/css" media="all">';
-			echo $add_css;
+				if(get_option('mathilda_css')==0) {
+				$add_css='<link rel="stylesheet" id="mathilda-css" href="'. plugins_url() .'/mathilda/mathilda_tweets.css" type="text/css" media="all">';
+				echo $add_css;
+				}
 			}
 }
 
@@ -400,19 +426,6 @@ function mathilda_shortcode() {
 }
 
 add_shortcode('mathilda','mathilda_shortcode');
-
-/* Mathilda @ Auf einen Blick */
- 
-function mathilda_glance_counter() {
-	
-	$mathilda_tweets_count=get_option('mathilda_tweets_count');
-	$text='<li class="post-count"><a href="tools.php?page=mathilda-tools-menu">';
-	$text.=$mathilda_tweets_count . ' Tweets</a</a></li>';
-	echo $text;
-
-}
-
-add_filter( 'dashboard_glance_items', 'mathilda_glance_counter');
 
 /* Mathilda Cron Interval */
 

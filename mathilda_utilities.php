@@ -1,5 +1,11 @@
 <?php 
 
+/* 
+Security
+*/
+
+if (!defined('ABSPATH')) { exit; }
+
 /*
 Mathilda Helper Functions
 */

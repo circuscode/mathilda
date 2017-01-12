@@ -1,5 +1,11 @@
 <?php
 
+/* 
+Security
+*/
+
+if (!defined('ABSPATH')) { exit; }
+
 /* Validate Twitter API Authentification Options */ 
 
 function mathilda_valdidate_twitterauthdata ($oauthdata) {
@@ -112,6 +118,19 @@ function mathilda_format_twitterlogin ( $twitterlogin ) {
      }
   
      return $output;
+} 
+
+/* Validate Input: Mathilda CSS */
+
+function mathilda_validate_css ( $css ) {
+    
+    $output = $css;
+
+    if ( $css == FALSE ) {
+        $output='0';
+    }
+  
+    return $output;
 } 
 
 ?>

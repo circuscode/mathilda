@@ -15,8 +15,8 @@
 .mathilda-tweet-text, .mathilda-tweet-url, .mathilda-tweet-dateandtime
 {margin-left:50px;}
 
-.mathilda_tweet_image
-{width:100%;}
+.mathilda-tweet-image
+{width:100%;padding-left:50px;}
 
 .mathilda-url-follows
 {margin-bottom:0px;}

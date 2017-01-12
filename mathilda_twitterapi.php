@@ -11,6 +11,12 @@
  * @license  MIT License
  * @link     http://github.com/j7mbo/twitter-api-php
  */
+
+ /* 
+Security
+*/
+
+if (!defined('ABSPATH')) { exit; }
  
 class TwitterAPIExchange
 {

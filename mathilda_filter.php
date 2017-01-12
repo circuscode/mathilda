@@ -1,5 +1,11 @@
 <?php
 
+/* 
+Security
+*/
+
+if (!defined('ABSPATH')) { exit; }
+
 function mathilda_tweet_filter ($tweet_cache, $num_tweets) {
 
 /* Building Fiter Array */

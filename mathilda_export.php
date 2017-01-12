@@ -1,5 +1,11 @@
 <?php 
 
+/* 
+Security
+*/
+
+if (!defined('ABSPATH')) { exit; }
+
 function mathilda_export_csv() {
 
 /* 
