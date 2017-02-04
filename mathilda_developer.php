@@ -89,6 +89,11 @@ function mathilda_options_display_tweets_count()
 	echo '<input type="text" name="mathilda_tweets_count" id="mathilda_tweets_count" value="'. get_option('mathilda_tweets_count') .'"/>';
 }
 
+function mathilda_options_display_highest_tweet()
+{
+	echo '<input type="text" name="mathilda_highest_imported_tweet" id="mathilda_highest_imported_tweet" value="'. get_option('mathilda_highest_imported_tweet') .'"/>';
+}
+
 /* 
 Sections
 */
@@ -114,6 +119,7 @@ function mathilda_options_developer_display()
 	add_settings_field("mathilda_plugin_version", "Plugin Version", "mathilda_options_display_plugin_version", "mathilda-developer-options", "developer_settings_section");
 	add_settings_field("mathilda_cron_period_seconds", "Cron Period Seconds", "mathilda_options_display_cron_period_seconds", "mathilda-developer-options", "developer_settings_section");
 	add_settings_field("mathilda_tweets_count", "Tweet Counter", "mathilda_options_display_tweets_count", "mathilda-developer-options", "developer_settings_section");
+	add_settings_field("mathilda_highest_imported_tweet", "Highest Imported Tweet", "mathilda_options_display_highest_tweet", "mathilda-developer-options", "developer_settings_section");
 
 	register_setting("mathilda_developer_settings", "mathilda_num_tweets_fetch_call");
 	register_setting("mathilda_developer_settings", "mathilda_num_fetches");
@@ -123,6 +129,7 @@ function mathilda_options_developer_display()
 	register_setting("mathilda_developer_settings", "mathilda_import");
 	register_setting("mathilda_developer_settings", "mathilda_plugin_version");
 	register_setting("mathilda_developer_settings", "mathilda_tweets_count");
+	register_setting("mathilda_developer_settings", "mathilda_highest_imported_tweet");
 
 }
 

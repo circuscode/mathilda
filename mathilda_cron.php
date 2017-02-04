@@ -22,7 +22,7 @@ Headline
 */
 
 echo '
-<h1 class="mathilda_tools_headline">Mathilda Cron</h1>
+<h1 class="mathilda_tools_headline">Load Tweets</h1>
 <p class="mathilda_tools_description">Output</p>';
 
 /* 
@@ -323,6 +323,26 @@ while ($i < $fetches) {
 			
 			/* Tweets */
 			
+			$tweet_truncate="FALSE";
+			$tweet_reply="FALSE";
+			$tweet_retweet="FALSE";
+			$tweet_quote="FALSE";
+
+			if(isset($items['retweeted_status'])) {
+			$tweet_retweet="TRUE";
+			}
+			if($items['truncated']=='true') {
+			$tweet_truncate="TRUE";
+			}
+			if($items['in_reply_to_status_id']!=null) {
+			$tweet_reply="TRUE";
+			}
+			if(isset($items['quoted_status_id'])) {
+			$tweet_quote="TRUE";
+			}
+
+			// if(isset($items['entities']['media'])) 
+
 			$tweet_cache[]=array($num_tweets,
 								$items['id_str'],
 								$items['text'],
@@ -330,7 +350,11 @@ while ($i < $fetches) {
 								$hashtags_yes_or_no,
 								$mentions_yes_or_no,
 								$media_yes_or_no,
-								$urls_yes_or_no
+								$urls_yes_or_no,
+								$tweet_truncate,
+								$tweet_reply,
+								$tweet_retweet,
+								$tweet_quote
 								);
 								
 			/* Prepare Next Tweet Loop */
@@ -388,7 +412,7 @@ for($i=0; $i < $num_tweets; $i++)
 		
 		/* Save Tweet @ MySQL */
 		
-		mathilda_add_tweets($tweet_cache[$i][1],$tweet_cache[$i][2],$dateconverted,$tweet_cache[$i][4],$tweet_cache[$i][5], $tweet_cache[$i][6], $tweet_cache[$i][7]);
+		mathilda_add_tweets($tweet_cache[$i][1],$tweet_cache[$i][2],$dateconverted,$tweet_cache[$i][4],$tweet_cache[$i][5], $tweet_cache[$i][6], $tweet_cache[$i][7], $tweet_cache[$i][8], $tweet_cache[$i][9], $tweet_cache[$i][10], $tweet_cache[$i][11]);
 		if ($i==0) { echo '<h2>Tweet Import</h2>'; }
 		echo ($i+1) . ': Tweet ' . $tweet_cache[$i][1] . ' added.<br/>';
 }
@@ -448,8 +472,10 @@ Update Meta
 if($initial_load == 0) { update_option('mathilda_initial_load', 1); }
 $latest_tweet=mathilda_latest_tweet();
 $number_of_tweets=mathilda_tweets_count();
+$number_of_select=mathilda_select_count();
 update_option('mathilda_latest_tweet', $latest_tweet);
 update_option('mathilda_tweets_count', $number_of_tweets);
+update_option('mathilda_select_amount', $number_of_select);
 
 /*
 Close 

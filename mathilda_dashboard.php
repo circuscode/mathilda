@@ -37,12 +37,42 @@ add_action( 'wp_dashboard_setup', 'register_mathilda_dashboard_widget_reporting'
 
 // Mathilda Dashboard User Interface
 function mathilda_dashboard_widget_reporting_display() {
-    echo '<p>Hello, I am Mathilda and you have posted the following.</p>';
-    echo '<p>' . mathilda_tweets_count() . " Tweets<br/>";
-    echo mathilda_images_count() . " Images<br/>";
-    echo mathilda_mentions_count() . " Mentions<br/>";
-    echo mathilda_hashtags_count() . " Hashtags<br/>";
-    echo mathilda_urls_count() . " Links</p>";
+
+	if(mathilda_select_count()==0) {
+		echo '<p>Hello, I am Mathilda and I will show you some tweet statistics here, after you have loaded your tweets with me.</p>';
+	} else {
+		echo '<p>Hello, I am Mathilda and you have posted the following.</p>';
+		echo '<table>';
+		echo '<tr><td>' . mathilda_tweets_count() . '&nbsp;&nbsp;&nbsp;</td><td>Tweets</td></tr>';
+		echo '<tr><td>' . mathilda_retweets_count() . '</td><td>Retweets</td></tr>';
+		echo '<tr><td>' . mathilda_replies_count() . '</td><td>Replies</td></tr>';
+		echo '<tr><td>' . mathilda_quotes_count() . '</td><td>Quotes</td></tr>';
+		echo '<tr><td>' . mathilda_images_count() . '</td><td>Images</td></tr>';
+		echo '<tr><td>' . mathilda_mentions_count() . '&nbsp;&nbsp;&nbsp;</td><td>Mentions</td></tr>';
+		echo '<tr><td>' . mathilda_hashtags_count() . '&nbsp;&nbsp;&nbsp;</td><td>Hashtags</td></tr>';
+		echo '<tr><td>' . mathilda_urls_count() . '</td><td>Links</td></tr>';
+		echo '</table>';
+	}
 }
+
+// mathilda_update_notice
+// The function brings a message, if activites are required
+// Input: none
+// Output: none
+
+function mathilda_update_notice(){
+    global $pagenow;
+    if ( $pagenow == 'index.php' OR $pagenow == 'tools.php' OR $pagenow == 'options-general.php' OR $pagenow == 'plugins.php') {
+		if(get_option('mathilda_plugin_version')==7) {
+			if(mathilda_update_seven_aftercheck()==false) {
+				echo '<div class="notice notice-warning is-dismissible"><p>';
+         		echo 'Mathilda Update Notice: Please reset Mathilda and reload your data from twitter! <a href="'.admin_url().'tools.php?page=mathilda-tools-menu">Yes, I do it now!</a>';
+         		echo '</p></div>';
+			}
+		}
+    }
+}
+
+add_action('admin_notices', 'mathilda_update_notice');
 
 ?>

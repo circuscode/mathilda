@@ -23,6 +23,9 @@ function mathilda_options_content() {
 	if($mathilda_slug_changed==1)
 	{flush_rewrite_rules();update_option('mathilda_slug_is_changed','0');}
 	
+	$number_of_select=mathilda_select_count();
+	update_option('mathilda_select_amount', $number_of_select);
+
 	echo '
 	<div class="wrap">
 	<h1>Options › Mathilda</h1>
@@ -89,6 +92,12 @@ function mathilda_options_display_show_replies()
 	echo '<input type="checkbox" name="mathilda_replies" value="1" ' .  checked(1, get_option('mathilda_replies'), false) . '/>'; 
 }	
 
+function mathilda_options_display_show_quotes()
+{
+	 
+	echo '<input type="checkbox" name="mathilda_quotes" value="1" ' .  checked(1, get_option('mathilda_quotes'), false) . '/>'; 
+}	
+
 function mathilda_options_display_navigation()
 {
 	echo '<input type="radio" id="mathilda_navigation_standard" name="mathilda_navigation" value="Standard" ' .  checked('Standard', get_option('mathilda_navigation'), false) . '/>'; 
@@ -126,6 +135,9 @@ function mathilda_options_display_plugin_description()
 function mathilda_options_display_userinterface_description()
 { echo '<p>FrondEnd Settings</p>'; }
 
+function mathilda_options_display_expert_description()
+{ echo '<p>Expert Settings</p>'; }
+
 /* 
 Definitions
 */
@@ -158,11 +170,9 @@ function mathilda_options_plugin_display()
 	
 	add_settings_field("mathilda_twitter_user", "Twitter Account", "mathilda_options_display_twitter_user", "mathilda-options", "plugin_settings_section");
 	add_settings_field("mathilda_slug", "Slug", "mathilda_options_display_slug", "mathilda-options", "plugin_settings_section");
-	add_settings_field("mathilda_cron_period", "Cron Period", "mathilda_options_display_cron_period", "mathilda-options", "plugin_settings_section");
 	
 	register_setting("mathilda_settings", "mathilda_twitter_user", "mathilda_format_twitterlogin");
 	register_setting("mathilda_settings", "mathilda_slug", "mathilda_validate_slug");
-	register_setting("mathilda_settings", "mathilda_cron_period", "mathilda_validate_cron_period");
 
 }
 
@@ -175,14 +185,29 @@ function mathilda_options_userinterface_display()
 	
 	add_settings_field("mathilda_tweets_on_page", "Tweets on Page", "mathilda_options_display_tweets_on_page", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_replies", "Show Replies?", "mathilda_options_display_show_replies", "mathilda-options", "userinterface_settings_section");
+	add_settings_field("mathilda_quotes", "Show Quotes?", "mathilda_options_display_show_quotes", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_navigation", "Navigation Type", "mathilda_options_display_navigation", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_hyperlink_rendering", "Hyperlink Rendering", "mathilda_options_display_hyperlink_rendering", "mathilda-options", "userinterface_settings_section");
-	add_settings_field("mathilda_css", "Deactivate Mathilda CSS?", "mathilda_options_display_mathilda_css", "mathilda-options", "userinterface_settings_section");
 	
 	register_setting("mathilda_settings", "mathilda_tweets_on_page", "mathilda_validate_tweetsonpage");
 	register_setting("mathilda_settings", "mathilda_replies", "mathilda_validate_replies");
+	register_setting("mathilda_settings", "mathilda_quotes", "mathilda_validate_quotes");
 	register_setting("mathilda_settings", "mathilda_navigation");
 	register_setting("mathilda_settings", "mathilda_hyperlink_rendering");
+
+}
+
+// Expert Settings 
+
+function mathilda_options_expert_display()
+{
+	
+	add_settings_section("expert_settings_section", "Expert", "mathilda_options_display_expert_description", "mathilda-options");
+	
+	add_settings_field("mathilda_css", "Deactivate Mathilda CSS?", "mathilda_options_display_mathilda_css", "mathilda-options", "expert_settings_section");;
+	add_settings_field("mathilda_cron_period", "Cron Period", "mathilda_options_display_cron_period", "mathilda-options", "expert_settings_section");
+	
+	register_setting("mathilda_settings", "mathilda_cron_period", "mathilda_validate_cron_period");
 	register_setting("mathilda_settings", "mathilda_css", "mathilda_validate_css");
 
 }
@@ -194,5 +219,6 @@ Actions
 add_action("admin_init", "mathilda_options_twitterapi_display");
 add_action("admin_init", "mathilda_options_plugin_display");
 add_action("admin_init", "mathilda_options_userinterface_display");
+add_action("admin_init", "mathilda_options_expert_display");
 
 ?>

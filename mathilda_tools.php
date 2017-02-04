@@ -32,6 +32,7 @@ function mathilda_tools_controller() {
 	$run_import=false;
 	$run_initial=false;
 	$handbook_show=false;
+	$mathilda_reset=false;
 
 	// WordPress Crons
 	if(isset($_GET['showwpcrons'])) {
@@ -75,11 +76,18 @@ function mathilda_tools_controller() {
 		$run_import=true;
 		}	
 	}
-	// Import
+	// Handbook
 	if(isset($_GET['handbook'])) {
 		if($_GET['handbook']=='true')
 		{
 		$handbook_show=true;
+		}	
+	}
+	// Reset
+	if(isset($_GET['reset'])) {
+		if($_GET['reset']=='true')
+		{
+		$mathilda_reset=true;
 		}	
 	}
 	
@@ -104,6 +112,9 @@ function mathilda_tools_controller() {
 	}
 	elseif ($handbook_show) {
 		mathilda_handbook();
+	}
+	elseif ($mathilda_reset) {
+		mathilda_reset_confirmation();
 	}
 	else {
 		mathilda_tools();
@@ -144,11 +155,11 @@ function mathilda_tools() {
 		}	
 	}
 
-	// Truncate
-	if(isset($_GET['truncate'])) {
-		if($_GET['truncate']=='true')
+	// Reset
+	if(isset($_GET['resetisconfirmed'])) {
+		if($_GET['resetisconfirmed']=='true')
 		{
-		$result=mathilda_fresh_tables();
+		$result=mathilda_reset_data();
 		echo '<div class="updated fade">
 		<p><strong>'.$result.'</strong></p> 
 		</div>';
@@ -157,13 +168,13 @@ function mathilda_tools() {
 	
 	/* Display Tools */
 	
-	echo'
+	echo '
 	<table class="form-table">
 	
 	<!-- Cron -->
 	<tr valign="top">
 	<th scope="row">
-	<label for="cron">Cron</label>
+	<label for="cron">Load Tweets</label>
 	</th>
 	<td>
 	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&cron=true" target="_blank">Run!</a>
@@ -208,6 +219,15 @@ function mathilda_tools() {
 	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&handbook=true">Read!</a>
 	</td>
 
+	<!-- Reset Mathilda -->
+	<tr valign="top">
+	<th scope="row">
+	<label for="cron">Reset Mathilda</label>
+	</th>
+	<td>
+	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&reset=true">Yes!</a>
+	</td>
+
 	</tr></table>';
 	
 }
@@ -218,16 +238,6 @@ function mathilda_tools_developer() {
 	
 	<br/>&nbsp;<h2 class="mathilda_tools_developer_headline">Developer Tools</h2>
 	<table class="form-table">
-	
-	<!-- Refresh Tweet Table -->
-	<tr valign="top">
-	<th scope="row">
-	<label for="cron">Truncate Tables</label>
-	</th>
-	<td>
-	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&truncate=true">Fresh!</a>
-	</td>
-	</tr>
 	
 	<!-- Run the script -->
 	<tr valign="top">
@@ -262,20 +272,40 @@ function mathilda_cron_initial_notice() {
 	$initial_load = get_option('mathilda_initial_load');
 	
 	if($initial_load==0) {
+
+	$custom_cron_period=get_option('mathilda_cron_period');
+	$custom_cron_period=$custom_cron_period/60;
 	
-	echo '<h1 class="mathilda_tools_headline">Mathilda Cron</h1>';
+	echo '<h1 class="mathilda_tools_headline">Load Tweets</h1>';
 	echo '<p class="mathilda_tools_description">';
-	echo 'This is the first time you run the cron!<br/>';
+	echo 'This is the first time you copy your tweets!<br/>';
 	echo 'Initial Load takes several minutes.<br/>';
 	echo 'During the process you will see a blank page.<br/>';
 	echo 'Please wait until you have the finish message at the bottom.<br/>';
-	echo 'After inital load the cron will run automaticly every in the background.';
+	echo 'After inital load the Mathilda cron will load your tweets automaticly in the background every '.$custom_cron_period.' minutes.';
 	echo '</p>';
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&initialrun=true">Yes, go for it!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
 	}
 	else {
 		mathilda_cron_script();
 	}
+
+}
+
+/*
+Mathilda Reset
+*/
+
+function mathilda_reset_confirmation() {
+	
+	echo '<h1 class="mathilda_tools_headline">Mathilda Reset</h1>';
+	echo '<p class="mathilda_tools_description">';
+	echo 'This will delete all your data from Twitter in the Mathilda WordPress tables.<br/>';
+	echo 'Your custom settings will remain in the plugin options.<br/>';
+	echo 'Images and logfiles on the webspace will also not deleted.<br/>';
+	echo 'After the reset you can use the inital cron or import to catch the data again.<br/>';
+	echo '</p>';
+	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&resetisconfirmed=true">Yes, go for it!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
 
 }
 
@@ -312,7 +342,7 @@ Mathilda Healthy Check
 function mathilda_healthy_check_load() {
 	
 	echo '<h1 class="mathilda_tools_headline">Mathilda Healthy Check</h1>';
-	echo '<p class="mathilda_tools_description">Result<br/>&nbsp;</p>';
+	echo '<p class="mathilda_tools_description">Analysis<br/>&nbsp;</p>';
 	$health=mathilda_healthy_check();
 	echo $health;
 	mathilda_tools_close();

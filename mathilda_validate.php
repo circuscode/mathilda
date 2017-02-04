@@ -104,6 +104,19 @@ function mathilda_validate_replies ( $replies ) {
     return $output;
 } 
 
+/* Validate Input: Quotes */
+
+function mathilda_validate_quotes ( $quotes ) {
+    
+    $output = $quotes;
+
+    if ( $quotes == FALSE ) {
+        $output='0';
+    }
+  
+    return $output;
+} 
+
 /* Format Input: Twitter Login */
 
 function mathilda_format_twitterlogin ( $twitterlogin ) {

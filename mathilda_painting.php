@@ -112,7 +112,7 @@ Pages
 
 function mathilda_pages() {
 	
-	$number_of_tweets=get_option('mathilda_tweets_count');
+	$number_of_tweets=get_option('mathilda_select_amount');
 	$tweets_on_page=get_option('mathilda_tweets_on_page');
 	$number_of_pages=$number_of_tweets/$tweets_on_page;
 	$number_of_pages=ceil($number_of_pages);
@@ -125,6 +125,11 @@ Mathilda Menu
 */
 
 function mathilda_create_menu($number_of_pages, $mathilda_show_page) {
+
+	if($number_of_pages==1) {
+		$menu_html='<!-- No Bottom Navigation required -->';
+		return $menu_html;
+		}
 	
 	$tweet_count_all=get_option('mathilda_tweets_count');
 	$tweets_on_page=get_option('mathilda_tweets_on_page');
@@ -376,8 +381,13 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 		$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;	
 		}
 		elseif ($url_handling=='Shortlink') {
-		$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_urls[0][1].'" target="_blank">'.$tweet_urls[0][3].'</a>';	
-		$tweet=str_replace ( $tweet_urls[0][1], $shortlink , $tweet ) ;
+			if(mathilda_is_youtube($tweet_urls[0][3])) {
+				$url_handling="Longlink";
+				$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;
+			} else {
+				$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_urls[0][1].'" target="_blank">'.$tweet_urls[0][3].'</a>';	
+				$tweet=str_replace ( $tweet_urls[0][1], $shortlink , $tweet ) ;
+			}
 		}
 	}
 		  
@@ -397,7 +407,15 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	if ($url=='TRUE') 
 	{
 		if ($url_handling=='Longlink') {
-		$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
+			if(mathilda_is_youtube($tweet_urls[0][2])) {
+				$mathilda_content.='<p class="mathilda-tweet-url mathilda-embed-youtube mathilda-longlink'.$image_follows_class_url.'">';
+				$mathilda_content.=mathilda_youtube_rendering($tweet_urls[0][2]);
+				$mathilda_content.='</p>';
+			}
+			else {
+				$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
+			}
+	
 		}	
 	}
 		  
@@ -418,6 +436,27 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	
 	return $mathilda_content;
 		  
+}
+
+/*
+Mathilda YouTube Embedded
+*/
+
+// The function generates the YouTube Embedded HTML Markup
+// Input: URL
+// Output: Embedded YouTube HTML
+
+function mathilda_youtube_rendering($mathilda_tweet_url) {
+
+    $mathilda_embed_code = wp_oembed_get($mathilda_tweet_url);
+    $mathilda_embed_code_length = strlen($mathilda_embed_code);
+    
+	if($mathilda_embed_code_length!=0) {
+    	return $mathilda_embed_code;
+    }
+    else {
+    	return FALSE;
+    }
 }
 
 ?>

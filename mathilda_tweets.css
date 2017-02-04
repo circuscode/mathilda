@@ -16,7 +16,7 @@
 {margin-left:50px;}
 
 .mathilda-tweet-image
-{width:100%;padding-left:50px;}
+{padding-left:50px;}
 
 .mathilda-url-follows
 {margin-bottom:0px;}
@@ -38,3 +38,6 @@
 
 .mathilda_bottom_forward .active
 {font-weight:bold;}
+
+.mathilda-embed-youtube
+{margin-top:10px;}

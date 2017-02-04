@@ -2,13 +2,13 @@
 Contributors: unmus
 Tags: twitter, tweets, social network, content, reclaim, blog
 Requires at least: 4.5
-Tested up to: 4.7.1
-Stable tag: 0.5
+Tested up to: 4.7.2
+Stable tag: 0.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://www.unmus.de/
 
-Mathilda takes your tweets from Twitter and displays them on the blog.
+Mathilda takes your tweets from Twitter, saves them in the WordPress database and displays them on the blog.
 
 == Description ==
 
@@ -32,12 +32,13 @@ Mathilda is trying to give you back some control of your tweets. The plugin take
 = Related Links =
 
 [Plugin Page (German)](https://www.unmus.de/wordpress-plugin-mathilda/)
+[Source Code @ GitHub](https://github.com/circuscode/mathilda)
 
 == Installation ==
 
 1. Upload plugin folder to the /wp-content/plugins/ directory
 2. Activate the plugin through the Plugins menu in WordPress
-3. Follow the configuration manual [See other Notes](https://de.wordpress.org/plugins/mathilda/other_notes/)
+3. Follow the configuration manual > [See other Notes](https://de.wordpress.org/plugins/mathilda/other_notes/)
 
 Of course the installation through wordpress plugin menu is more convienient as the procedure above.
 
@@ -75,9 +76,17 @@ Twitter API provides access to your 3200 latest tweets. If you have not written 
 
 Mathilda does not modify the existing canonical url handling in WordPress. If you want to change the canonical url you must handle that with a SEO plugin.
 
-= What have to be considered with the usage of caching plugins?
+= What have to be considered with the usage of caching plugins? =
 
 The length of the cron period in combination with the configuration of caching determines how early a tweet will be displayed within the blog. If a tweet should be displayed as early as possible, the caching must be deactivated for the page with tweets. 
+
+= Why are some quotes truncated? =
+
+Mathilda does not support the latest changes on the Twitter API from mid of 2016, which allow Quotes in full length of a tweet (140 characters). These new type of quote will be delivered by Twitter with the "Extended API Mode". Mathilda works with the classic API mode, which does not contain the new tweet format. 
+
+= Why require some updates a reset of the plugin and reload of the data?  =
+
+The plugin remains is an early stage of development. It is still a long way to the first stable 1.0 version. To avoid data inconsistency and process errors some updates require a reload of the data. Sometime Mathilda will have an maturity level, which does not require such resets anymore.
 
 == Screenshots ==
 
@@ -86,6 +95,21 @@ The length of the cron period in combination with the configuration of caching d
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.6 "Poison Ivy" =
+* February 2017
+* Feature: YouTube Embedding
+* Feature: Plugin Reset
+* Enhancement: Fetches Meta Data from Twitter API to enable better Processing
+* Enhancement: Reporting on Retweets, Replies and Quotes
+* Enhancement: Update Notices
+* Enhancement: Data Consistency Verification in Plugin Healthy Check 
+* Enhancement: Check on allow_url_fopen in Plugin Healthy Check 
+* Enhancement: Additional Processing Information in Plugin Healty Check
+* Enhancement: Include or Exclude Quotes from Mathilda Loop
+* Enhancement: Expert Settings
+* Bugfix: Display Images in original Width
+* Bugfix: Hide Bottom Navigation, if Navigation is not required
 
 = 0.5 =
 * January 2017
@@ -149,6 +173,9 @@ The length of the cron period in combination with the configuration of caching d
 * Initial Release
 
 == Upgrade Notice ==
+
+= 0.6 =
+This version brings YouTube Embedds, better Reporting, improved Processing and bugfixes.
 
 = 0.5 =
 This version brings tweet reporting, more options, more security and some bugfixes.

@@ -24,7 +24,7 @@ global $wpdb;
 $table_name=$wpdb->prefix . 'mathilda_tweets';
 
 $tweet_cache=array();
-$tweet_cache=$wpdb->get_results( "SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM $table_name ORDER BY mathilda_tweet_date DESC", ARRAY_N);	
+$tweet_cache=$wpdb->get_results( "SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls, mathilda_tweet_truncate, mathilda_tweet_reply, mathilda_tweet_retweet, mathilda_tweet_quote FROM $table_name ORDER BY mathilda_tweet_date DESC", ARRAY_N);	
 
 $num_tweets=count($tweet_cache);
 
@@ -33,7 +33,7 @@ Filter
 */
 
 $tweet_filter_cache=array();
-$tweet_filter_cache=mathilda_tweet_filter($tweet_cache, $num_tweets);
+$tweet_filter_cache=mathilda_tweet_filter($tweet_cache, $num_tweets, 'E');
 
 /*
 Manipulate
@@ -53,7 +53,7 @@ for($i=0; $i < $num_tweets; $i++)
 Create CSV 
 */
 
-$csv_head = array("Date", "Tweet", "ID", "Hashtags", "Mentions", "Media", "URLs");
+$csv_head = array("Date", "Tweet", "ID", "Hashtags", "Mentions", "Media", "URLs", "Truncate", "Reply", "Retweet", "Quote");
 $csv_head_written=false;
 
 $fp = fopen($upload_dir_path . $filename, "w");

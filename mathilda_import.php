@@ -96,8 +96,8 @@ Check Number of Files
 if ($number_of_content==0) {
 	echo '<p><strong>About Import</strong></p>';
 	echo '<p>Unfortunately Twitter API provides access to your latest 3200 tweets only.<br/>';
-	echo 'That is why Mathilda Cron can not copy the tweets before.<br/>';
-	echo 'With this import function you can load your older tweets into WordPress manually.<br/>';
+	echo 'That is why Mathilda can not copy online the tweets before.<br/>';
+	echo 'With this import script you can load your older tweets into WordPress manually.<br/>';
 	echo 'If you have written less than 3200 tweets, the import is not required.</p>';
 	echo '<p><strong>Required Steps</strong></p>';
 	echo '<p>1. Download your tweet archive from Twitter (Profile/Settings).<br/>';
@@ -321,16 +321,40 @@ for($k=0; $k<$number_of_content; $k++)
 				}
 			
 				/* Tweets */
+			
+				$tweet_truncate="FALSE";
+				$tweet_reply="FALSE";
+				$tweet_retweet="FALSE";
+				$tweet_quote="FALSE";
+
+				if(isset($items['retweeted_status'])) {
+				$tweet_retweet="TRUE";
+				}
+				if($items['truncated']=='true') {
+				$tweet_truncate="TRUE";
+				}
+				if($items['in_reply_to_status_id']!=null) {
+				$tweet_reply="TRUE";
+				}
+				// Special Query for Quotes from Import 
+				$url_to_tweet = strpos($url_extended, 'twitter.com');
+				if($url_to_tweet!==false) {
+				$tweet_quote="TRUE";
+				}
 				
 				$tweet_cache[]=array($num_tweets,
-										$items['id_str'],
-										$items['text'],
-										$items['created_at'],
-										$hashtags_yes_or_no,
-										$mentions_yes_or_no,
-										$media_yes_or_no,
-										$urls_yes_or_no
-										);
+									$items['id_str'],
+									$items['text'],
+									$items['created_at'],
+									$hashtags_yes_or_no,
+									$mentions_yes_or_no,
+									$media_yes_or_no,
+									$urls_yes_or_no,
+									$tweet_truncate,
+									$tweet_reply,
+									$tweet_retweet,
+									$tweet_quote
+									);
 										
 				$num_tweets=$num_tweets+1;
 
@@ -363,7 +387,7 @@ for($k=0; $k<$number_of_content; $k++)
 					echo ($i+1) . ': Tweet ' . $tweet_cache[$i][1] . ' already exists.<br/>';
 			}
 			else {
-					mathilda_add_tweets($tweet_cache[$i][1],$tweet_cache[$i][2],$tweet_cache[$i][3],$tweet_cache[$i][4],$tweet_cache[$i][5], $tweet_cache[$i][6], $tweet_cache[$i][7]);		
+					mathilda_add_tweets($tweet_cache[$i][1],$tweet_cache[$i][2],$tweet_cache[$i][3],$tweet_cache[$i][4],$tweet_cache[$i][5], $tweet_cache[$i][6], $tweet_cache[$i][7], $tweet_cache[$i][8], $tweet_cache[$i][9], $tweet_cache[$i][10], $tweet_cache[$i][11]);		
 					echo ($i+1) . ': Tweet ' . $tweet_cache[$i][1] . ' imported.<br/>';
 			}
 			
@@ -466,10 +490,12 @@ Update Meta
 $json_import=1;
 $latest_tweet=mathilda_latest_tweet();
 $number_of_tweets=mathilda_tweets_count();
+$number_of_select=mathilda_select_count();
 update_option('mathilda_import', $json_import);
 update_option('mathilda_latest_tweet', $latest_tweet);
 update_option('mathilda_tweets_count', $number_of_tweets);
 update_option('mathilda_highest_imported_tweet', $highest_imported_tweet);
+update_option('mathilda_select_amount', $number_of_select);
 
 /*
 HTML Close 
