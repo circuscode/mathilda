@@ -204,7 +204,7 @@ function mathilda_template($content) {
 		$mathilda_content_html='';
 
 		// Template
-		require_once('mathilda_template.php');
+		require('mathilda_template.php');
 		return $content . $mathilda_content_html;
 
 	} else {
