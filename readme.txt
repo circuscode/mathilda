@@ -3,7 +3,7 @@ Contributors: unmus
 Tags: twitter, tweets, social network, content, reclaim, blog
 Requires at least: 4.5
 Tested up to: 4.7.2
-Stable tag: 0.6
+Stable tag: 0.6.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://www.unmus.de/
@@ -31,42 +31,40 @@ Mathilda is trying to give you back some control of your tweets. The plugin take
 
 = Related Links =
 
-[Plugin Page (German)](https://www.unmus.de/wordpress-plugin-mathilda/)
-[Source Code @ GitHub](https://github.com/circuscode/mathilda)
+* [Plugin Page (German)](https://www.unmus.de/wordpress-plugin-mathilda/)
+* [Source Code @ GitHub](https://github.com/circuscode/mathilda)
 
 == Installation ==
 
-1. Upload plugin folder to the /wp-content/plugins/ directory
+1. Upload plugin folder to /wp-content/plugins/ or download the plugin directly via WordPress
 2. Activate the plugin through the Plugins menu in WordPress
 3. Follow the configuration manual > [See other Notes](https://de.wordpress.org/plugins/mathilda/other_notes/)
-
-Of course the installation through wordpress plugin menu is more convienient as the procedure above.
 
 == Frequently Asked Questions ==
 
 = Which Tweets are displayed in the blog? =
 
-Mathilda focuses on the core functionality of Twitter meaning only Text-Tweets, Images, Hashtags, Mentions and Links are displayed. Image Series, Surveys, Quotes, Videos and GEO-Locations are not supported. 
+Mathilda focuses on the core functionality of Twitter meaning only Text-Tweets, Images, Hashtags, Mentions and Links are displayed. Image Series, Surveys, Quotes, Videos and GEO-Locations are not or only partly supported. 
 
-= Why does Mathilda not support Retweets? =
+= Why does Mathilda not support Retweets or Quotes? =
 
-Retweets are not your data. That is why we do not show them.
+Retweets are not your data. That is why we do not show them. The same is valid for quotes.
 
 = Will the tweets be loaded automaticly? =
 
-Yes. But the first load must be done manually with the cron (Tools/Tweets). Otherwise the autoload will not activated.
+Yes. But the first load must be done manually (Tools/Tweets/Load Tweets). Otherwise the autoload will not activated.
 
 = How often will the tweets be loaded? =
 
-As Standard your tweets will be fetched from Twitter every 15 minutes. But you can define the period different in the plugin settings.
+As Standard your tweets will be fetched from Twitter every 15 minutes. But you can define the period in minutes different in the plugin settings.
 
-= What is the difference between Cron and Import? =
+= What is the difference between Load and Import? =
 
-The cron takes your tweets online through the Twitter API and saves them into the WordPress Database regularly. The Import takes your tweets from the files of your Twitter Archieve and saves them into the WordPress Database. For this, you must download your archieve from Twitter before.
+Load takes your tweets online through the Twitter API and saves them into the WordPress Database regularly. The Import takes your tweets from the files of your Twitter Archieve and saves them into the WordPress Database. For this, you must download your archieve from Twitter before.
 
 = What do I have to do first, run the cron or import my tweets? =
 
-All the same. It works both. Mathilda is flexible. But the autoload will only be activated with an initial cron.
+All the same. It works both. Mathilda is flexible. But the autoload will only be activated with an initial cron. In addition import is only required if you have posted more than 3200 tweets.
 
 = How can I import my tweet history? =
 
@@ -74,19 +72,19 @@ Twitter API provides access to your 3200 latest tweets. If you have not written 
 
 = How does Mathilda handle the canonical URL? =
 
-Mathilda does not modify the existing canonical url handling in WordPress. If you want to change the canonical url you must handle that with a SEO plugin.
+Mathilda does not modify the existing canonical url handling in WordPress. If you want to change the canonical url you must control that with a SEO plugin.
 
 = What have to be considered with the usage of caching plugins? =
 
 The length of the cron period in combination with the configuration of caching determines how early a tweet will be displayed within the blog. If a tweet should be displayed as early as possible, the caching must be deactivated for the page with tweets. 
 
-= Why are some quotes truncated? =
+= Why are some tweets truncated? =
 
-Mathilda does not support the latest changes on the Twitter API from mid of 2016, which allow Quotes in full length of a tweet (140 characters). These new type of quote will be delivered by Twitter with the "Extended API Mode". Mathilda works with the classic API mode, which does not contain the new tweet format. 
+Mathilda does not support the latest changes on the Twitter API from mid of 2016, which allow that some type of tweets contain more as 140 characters. These new type of tweet will be delivered by Twitter with the "Extended API Mode". Mathilda works with the classic API mode, which does not contain the new tweet format. 
 
 = Why require some updates a reset of the plugin and reload of the data?  =
 
-The plugin remains is an early stage of development. It is still a long way to the first stable 1.0 version. To avoid data inconsistency and process errors some updates require a reload of the data. Sometime Mathilda will have an maturity level, which does not require such resets anymore.
+The plugin is an early stage of development. It is still a long way to the first stable 1.0 version. To avoid data inconsistency and process errors some updates require a reload of the data. Sometime Mathilda will have an maturity level, which does not require such resets anymore.
 
 == Screenshots ==
 
@@ -95,6 +93,10 @@ The plugin remains is an early stage of development. It is still a long way to t
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.6.1 "Calamity" =
+* February 2017
+* Bugfix: Mathilda works now with the Yoast SEO Plugin
 
 = 0.6 "Poison Ivy" =
 * February 2017
@@ -194,7 +196,7 @@ This version does not require a webcron anymore.
 1. [Register](http://dev.unmus.de/wp-content/uploads/Mathilda-Twitter-App-Registration.pdf) your Mathilda-Instance as Twitter-Application for API Access [apps.twitter.com](https://apps.twitter.com)
 2. Activate the plugin in WordPress
 3. Maintain OAUTH Access Token, OAUTH Access Token Secret, Consumer Key, Consumer Secret and your Twitter Account in the settings
-4. Run the initial Mathilda Cron (Tools/Tweets) - this will take several minutes
+4. Run the initial load (Tools/Tweets) - this will take several minutes
 5. Create a WordPress page (page slug must match the mathilda slug) 
 
 = How to setup Mathilda? =

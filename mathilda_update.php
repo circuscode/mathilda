@@ -10,10 +10,14 @@ if (!defined('ABSPATH')) { exit; }
 Mathilda Update Related Functions
 */
 
-// mathilda_update
-// Description: Runs the update procedure
-// Input: none
-// Output: none
+/*
+* Mathilda Update
+*
+* Plugin Update Procedure
+*
+* @param None
+* @return None
+*/
 
 function mathilda_update () {
 
@@ -88,6 +92,11 @@ function mathilda_update () {
 	$wpdb->query($wpdb->prepare("UPDATE {$table_name} SET mathilda_tweet_retweet = %s", $notnull));
 	$wpdb->query($wpdb->prepare("UPDATE {$table_name} SET mathilda_tweet_quote = %s", $notnull));
 
+	}
+
+	/* Update Process Version 0.6.1 */
+    if($mathilda_previous_version==7) {
+	update_option('mathilda_plugin_version', "8");
 	}
 
 }
