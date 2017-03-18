@@ -27,6 +27,7 @@ function mathilda_tools_controller() {
 	// Application Flags
 	$wpcron_scheduled_show=false;
 	$mathilda_scripting=false;
+	$mathilda_embedding=false;
 	$run_healthy_check=false;
 	$run_cron=false;
 	$run_import=false;
@@ -46,6 +47,13 @@ function mathilda_tools_controller() {
 		if($_GET['scripting']=='true')
 		{
 		$mathilda_scripting=true;
+		}	
+	}
+	// Embedding
+	if(isset($_GET['embedding'])) {
+		if($_GET['embedding']=='true')
+		{
+		$mathilda_embedding=true;
 		}	
 	}
 	// Healthy Check
@@ -97,6 +105,9 @@ function mathilda_tools_controller() {
 	}
 	elseif ($mathilda_scripting) {
 		mathilda_script_load();
+	}
+	elseif ($mathilda_embedding) {
+		mathilda_script_embed();
 	}
 	elseif ($run_healthy_check) {
 		mathilda_healthy_check_load();
@@ -155,7 +166,18 @@ function mathilda_tools() {
 		}	
 	}
 
-	// Reset
+	// Mathilda Reset
+	if(isset($_GET['embedreset'])) {
+		if($_GET['embedreset']=='true')
+		{
+		$result=mathilda_reset_embed();
+		echo '<div class="updated fade">
+		<p><strong>'.$result.'</strong></p> 
+		</div>';
+		}
+	}
+
+	// Embed Reset
 	if(isset($_GET['resetisconfirmed'])) {
 		if($_GET['resetisconfirmed']=='true')
 		{
@@ -248,6 +270,26 @@ function mathilda_tools_developer() {
 	<a class="button" href="'.admin_url(). 'tools.php?page=mathilda-tools-menu&scripting=true">Yes!</a>
 	</td>
 	</tr>
+
+	<!-- Run Embed -->
+	<tr valign="top">
+	<th scope="row">
+	<label for="cron">Embedding</label>
+	</th>
+	<td>
+	<a class="button" href="'.admin_url(). 'tools.php?page=mathilda-tools-menu&embedding=true">Run!</a>
+	</td>
+	</tr>
+
+	<!-- Embed Reset -->
+	<tr valign="top">
+	<th scope="row">
+	<label for="cron">Reset Embeds</label>
+	</th>
+	<td>
+	<a class="button" href="'.admin_url(). 'tools.php?page=mathilda-tools-menu&embedreset=true">Delete!</a>
+	</td>
+	</tr>
 	
 	<!-- Show WordPress Crons -->
 	<tr valign="top">
@@ -331,6 +373,19 @@ function mathilda_script_load() {
 	echo '<h1 class="mathilda_tools_headline">Mathilda Scripting</h1>';
 	echo '<p class="mathilda_tools_description">Output<br/>&nbsp;</p>';
 	mathilda_scripting();
+	mathilda_tools_close();
+
+}
+
+/*
+Mathilda Embedding
+*/
+
+function mathilda_script_embed() {
+	
+	echo '<h1 class="mathilda_tools_headline">Mathilda Embedding</h1>';
+	echo '<p class="mathilda_tools_description">Output<br/>&nbsp;</p>';
+	mathilda_update_embed();
 	mathilda_tools_close();
 
 }

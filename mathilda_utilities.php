@@ -84,7 +84,7 @@ function mathilda_healthy_check() {
         $upload_dir = wp_upload_dir();
         $upload_dir_url=$upload_dir['basedir'];
         
-        $healthy_check_result=array(6);
+        $healthy_check_result=array(7);
 
         $output='<p><strong>Checkpoints</strong></p>';
         $output.='<p>';
@@ -94,7 +94,7 @@ function mathilda_healthy_check() {
               $output.='Directory mathilda-export is writable.';
               $healthy_check_result[0]=1;
         } else {
-              $output.='Error: Directory mathilda-export is not writable.';
+              $output.='<span class="mathilda-healtycheck-error">&nbsp;Error:&nbsp;</span> Directory mathilda-export is not writable.';
               $healthy_check_result[0]=0;
         }
         
@@ -105,7 +105,7 @@ function mathilda_healthy_check() {
               $output.='Directory mathilda-images is writable.';
               $healthy_check_result[1]=1;
         } else {
-              $output.='Error: Directory mathilda-images is not writable.';
+              $output.='<span class="mathilda-healtycheck-error">&nbsp;Error:&nbsp;</span> Directory mathilda-images is not writable.';
               $healthy_check_result[1]=0;
         }
         
@@ -116,7 +116,7 @@ function mathilda_healthy_check() {
               $output.='Directory mathilda-twitterapidata is writable.';
               $healthy_check_result[2]=1;
         } else {
-              $output.='Error: Directory mathilda-twitterapidata is not writable.';
+              $output.='<span class="mathilda-healtycheck-error">&nbsp;Error:&nbsp;</span> Directory mathilda-twitterapidata is not writable.';
               $healthy_check_result[2]=0;
         }
         
@@ -127,7 +127,7 @@ function mathilda_healthy_check() {
               $output.='Directory mathilda-import is writable.';
               $healthy_check_result[3]=1;
         } else {
-              $output.='Error: Directory mathilda-import is not writable.';
+              $output.='<span class="mathilda-healtycheck-error">&nbsp;Error:&nbsp;</span> Directory mathilda-import is not writable.';
               $healthy_check_result[3]=0;
         }
         
@@ -138,7 +138,7 @@ function mathilda_healthy_check() {
               $output.='Data are consistent.';
               $healthy_check_result[4]=1;
         } else {
-              $output.='Error: Data are inconsistent. Please reset Mathilda and reload the data again.';
+              $output.='<span class="mathilda-healtycheck-error">&nbsp;Error:&nbsp;</span> Data are inconsistent. Please reset Mathilda and reload the data again.';
               $healthy_check_result[4]=0;
         }
 
@@ -149,8 +149,19 @@ function mathilda_healthy_check() {
               $output.='PHP option allow_url_fopen is set to TRUE.';
               $healthy_check_result[5]=1;
         } else {
-              $output.='Error: PHP option allow_url_fopen is set to FALSE (0) on the webhosting environment. Please change to TRUE (1).';
+              $output.='<span class="mathilda-healtycheck-error">&nbsp;Error:&nbsp;</span> PHP option allow_url_fopen is set to FALSE (0) on the webhosting environment. Please change to TRUE (1).';
               $healthy_check_result[5]=0;
+        }
+
+        $output.='<br/>';
+
+        // 7. Check
+        if (mathilda_update_eight_aftercheck()==true)  {
+              $output.='None tweets are truncated.';
+              $healthy_check_result[6]=1;
+        } else {
+              $output.='<span class="mathilda-healtycheck-warning">&nbsp;Warning:&nbsp;</span> Some tweets are truncated. Please reset Mathilda and reload the data again.';
+              $healthy_check_result[6]=0;
         }
 
         $output.='</p>';

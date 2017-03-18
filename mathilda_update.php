@@ -99,6 +99,64 @@ function mathilda_update () {
 	update_option('mathilda_plugin_version', "8");
 	}
 
+	/* Update Process Version 0.7 */
+    if($mathilda_previous_version==8) {
+	update_option('mathilda_plugin_version', "9");
+	add_option('mathilda_embed', "0");
+
+	global $wpdb;
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$table_name = $wpdb->prefix . "mathilda_tweets";
+	$sql = "CREATE TABLE $table_name (
+	mathilda_tweet_id bigint NOT NULL AUTO_INCREMENT,
+	mathilda_tweet_date varchar(14) NOT NULL,
+	mathilda_tweet_content varchar(3000) NOT NULL,
+	mathilda_tweet_twitterid varchar(20) NOT NULL,
+	mathilda_tweet_hashtags varchar(5) NOT NULL,
+	mathilda_tweet_mentions varchar(5) NOT NULL,
+	mathilda_tweet_media varchar(5) NOT NULL,
+	mathilda_tweet_urls varchar(5) NOT NULL,
+	mathilda_tweet_truncate varchar(5) NOT NULL,
+	mathilda_tweet_reply varchar(5) NOT NULL,
+	mathilda_tweet_retweet varchar(5) NOT NULL,
+	mathilda_tweet_quote varchar(5) NOT NULL,
+	mathilda_tweet_content_display_index_start varchar(5) NOT NULL,
+	mathilda_tweet_content_display_index_end varchar(5) NOT NULL,
+	mathilda_tweet_source varchar(7) NOT NULL,
+	PRIMARY KEY (mathilda_tweet_id),
+ 	UNIQUE KEY id (mathilda_tweet_twitterid)
+	) $charset_collate;";
+	dbDelta( $sql );
+
+	$valueupdate='FALSE';
+	$wpdb->query($wpdb->prepare("UPDATE {$table_name} SET mathilda_tweet_content_display_index_start= %s",$valueupdate));
+	$wpdb->query($wpdb->prepare("UPDATE {$table_name} SET mathilda_tweet_content_display_index_end= %s",$valueupdate));
+	$source_update='UNKNOWN';
+	$wpdb->query($wpdb->prepare("UPDATE {$table_name} SET mathilda_tweet_source= %s",$source_update));
+
+	$table_name = $wpdb->prefix . "mathilda_urls";
+	$sql = "CREATE TABLE $table_name (
+	mathilda_url_id bigint NOT NULL AUTO_INCREMENT,
+	mathilda_url_tco varchar(23) NOT NULL,
+	mathilda_url_extended text NOT NULL,
+	mathilda_url_display varchar(50) NOT NULL,
+	mathilda_url_index_start varchar(3) NOT NULL,
+	mathilda_url_index_end varchar(3) NOT NULL,
+	mathilda_url_reference_tweet varchar(20) NOT NULL,
+	mathilda_url_embed varchar(3000) NOT NULL,
+	PRIMARY KEY (mathilda_url_id)
+	) $charset_collate;";
+	dbDelta( $sql );
+
+	$valueupdate='OPEN';
+	$wpdb->query($wpdb->prepare("UPDATE {$table_name} SET mathilda_url_embed= %s",$valueupdate));
+
+	$timestamp = wp_next_scheduled( 'mathilda_cron_hook' );
+   	wp_unschedule_event($timestamp, 'mathilda_cron_hook' );
+
+	}
+
 }
 add_action( 'plugins_loaded', 'mathilda_update' );
 
@@ -112,6 +170,17 @@ function mathilda_update_seven_aftercheck () {
 	$table_name=$wpdb->prefix . 'mathilda_tweets';
 	$nd=$wpdb->get_var( "SELECT COUNT(*) FROM $table_name WHERE mathilda_tweet_quote='ND'" );
     if($nd>0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function mathilda_update_eight_aftercheck () {
+    global $wpdb;
+	$table_name=$wpdb->prefix . 'mathilda_tweets';
+	$truncates=$wpdb->get_var( "SELECT COUNT(*) FROM $table_name WHERE mathilda_tweet_truncate='TRUE'" );
+    if($truncates>0) {
         return false;
     } else {
         return true;

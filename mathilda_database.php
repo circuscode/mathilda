@@ -24,7 +24,7 @@ function mathilda_tables_create () {
 	$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 	mathilda_tweet_id bigint NOT NULL AUTO_INCREMENT,
 	mathilda_tweet_date varchar(14) NOT NULL,
-	mathilda_tweet_content varchar(300) NOT NULL,
+	mathilda_tweet_content varchar(3000) NOT NULL,
 	mathilda_tweet_twitterid varchar(20) NOT NULL,
 	mathilda_tweet_hashtags varchar(5) NOT NULL,
 	mathilda_tweet_mentions varchar(5) NOT NULL,
@@ -34,6 +34,9 @@ function mathilda_tables_create () {
 	mathilda_tweet_reply varchar(5) NOT NULL,
 	mathilda_tweet_retweet varchar(5) NOT NULL,
 	mathilda_tweet_quote varchar(5) NOT NULL,
+	mathilda_tweet_content_display_index_start varchar(5) NOT NULL,
+	mathilda_tweet_content_display_index_end varchar(5) NOT NULL,
+	mathilda_tweet_source varchar(7) NOT NULL,
 	PRIMARY KEY (mathilda_tweet_id),
  	UNIQUE KEY id (mathilda_tweet_twitterid)
 	) $charset_collate;";
@@ -102,6 +105,7 @@ function mathilda_tables_create () {
 	mathilda_url_index_start varchar(3) NOT NULL,
 	mathilda_url_index_end varchar(3) NOT NULL,
 	mathilda_url_reference_tweet varchar(20) NOT NULL,
+	mathilda_url_embed varchar(3000) NOT NULL,
 	PRIMARY KEY (mathilda_url_id)
 	) $charset_collate;";
 	dbDelta( $sql );
@@ -130,7 +134,7 @@ function mathilda_tables_delete() {
 Add Tweets
 */
 
-function mathilda_add_tweets($id,$tweet,$date,$hashtags,$mentions,$media,$urls,$truncate,$reply,$retweet,$quote) {
+function mathilda_add_tweets($id,$tweet,$date,$hashtags,$mentions,$media,$urls,$truncate,$reply,$retweet,$quote,$index_start,$index_end,$source) {
 
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'mathilda_tweets';
@@ -148,7 +152,10 @@ function mathilda_add_tweets($id,$tweet,$date,$hashtags,$mentions,$media,$urls,$
 			'mathilda_tweet_truncate' => $truncate,
 			'mathilda_tweet_reply' => $reply,
 			'mathilda_tweet_retweet' => $retweet,
-			'mathilda_tweet_quote' => $quote)
+			'mathilda_tweet_quote' => $quote,
+			'mathilda_tweet_content_display_index_start' => $index_start,
+			'mathilda_tweet_content_display_index_end' => $index_end,
+			'mathilda_tweet_source' => $source)
 		);
 }
 
@@ -227,7 +234,7 @@ function mathilda_add_media($media_idstr, $media_mediaurl, $media_mediaurlhttps,
 Add URLs
 */
 
-function mathilda_add_urls($url_tco,$url_extended,$url_display,$index_start,$index_end,$reference_tweet) {
+function mathilda_add_urls($url_tco,$url_extended,$url_display,$index_start,$index_end,$reference_tweet,$url_embed='OPEN') {
 
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'mathilda_urls';
@@ -240,7 +247,8 @@ function mathilda_add_urls($url_tco,$url_extended,$url_display,$index_start,$ind
 			'mathilda_url_display' => $url_display,
 			'mathilda_url_index_start' => $index_start,
 			'mathilda_url_index_end' => $index_end,
-			'mathilda_url_reference_tweet' => $reference_tweet)
+			'mathilda_url_reference_tweet' => $reference_tweet,
+			'mathilda_url_embed' => $url_embed)
 		);
 }
 
@@ -440,6 +448,64 @@ function mathilda_reset_data() {
 
 	$message="Mathilda Reset is done.";
 	return $message;
+
+}
+
+/*
+Reset Embed
+*/
+
+// Resets the Embeds
+// Input: None
+// Output: Message
+
+function mathilda_reset_embed() {
+
+	global $wpdb;
+	$table_name=$wpdb->prefix . 'mathilda_urls';
+
+	$reset_value='OPEN';
+
+	$wpdb->query($wpdb->prepare("UPDATE {$table_name} SET mathilda_url_embed= %s",$reset_value));
+
+	$message="Embed Reset is done.";
+	return $message;
+
+}
+
+/*
+Get Embed
+*/
+
+// Returns the Embed Value
+// Input: Mathilda URL-ID
+// Output: Embed Value
+
+function mathilda_get_embed($mathilda_url_id) {
+
+	global $wpdb;
+	$table_name=$wpdb->prefix . 'mathilda_urls';
+
+	$result=$wpdb->get_var("SELECT mathilda_url_embed FROM {$table_name} WHERE mathilda_url_id=$mathilda_url_id");
+
+	return $result;
+
+}
+
+/*
+Add Embed 
+*/
+
+// Saves the Embed Value
+// Input: Embed Value
+// Output: None
+
+function mathilda_add_embed($mathilda_embed_value,$mathilda_url_id) {
+
+	global $wpdb;
+	$table_name=$wpdb->prefix . 'mathilda_urls';
+
+	$wpdb->query($wpdb->prepare("UPDATE {$table_name} SET mathilda_url_embed= %s WHERE mathilda_url_id=%d",$mathilda_embed_value, $mathilda_url_id));
 
 }
 

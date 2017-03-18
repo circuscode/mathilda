@@ -117,6 +117,19 @@ function mathilda_validate_quotes ( $quotes ) {
     return $output;
 } 
 
+/* Validate Input: Quotes */
+
+function mathilda_validate_embed ( $embed ) {
+    
+    $output = $embed;
+
+    if ( $embed == FALSE ) {
+        $output='0';
+    }
+  
+    return $output;
+} 
+
 /* Format Input: Twitter Login */
 
 function mathilda_format_twitterlogin ( $twitterlogin ) {

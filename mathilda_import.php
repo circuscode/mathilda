@@ -387,7 +387,7 @@ for($k=0; $k<$number_of_content; $k++)
 					echo ($i+1) . ': Tweet ' . $tweet_cache[$i][1] . ' already exists.<br/>';
 			}
 			else {
-					mathilda_add_tweets($tweet_cache[$i][1],$tweet_cache[$i][2],$tweet_cache[$i][3],$tweet_cache[$i][4],$tweet_cache[$i][5], $tweet_cache[$i][6], $tweet_cache[$i][7], $tweet_cache[$i][8], $tweet_cache[$i][9], $tweet_cache[$i][10], $tweet_cache[$i][11]);		
+					mathilda_add_tweets($tweet_cache[$i][1],$tweet_cache[$i][2],$tweet_cache[$i][3],$tweet_cache[$i][4],$tweet_cache[$i][5], $tweet_cache[$i][6], $tweet_cache[$i][7], $tweet_cache[$i][8], $tweet_cache[$i][9], $tweet_cache[$i][10], $tweet_cache[$i][11], "FALSE", "FALSE", "IMPORT");		
 					echo ($i+1) . ': Tweet ' . $tweet_cache[$i][1] . ' imported.<br/>';
 			}
 			

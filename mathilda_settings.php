@@ -98,6 +98,12 @@ function mathilda_options_display_show_quotes()
 	echo '<input type="checkbox" name="mathilda_quotes" value="1" ' .  checked(1, get_option('mathilda_quotes'), false) . '/>'; 
 }	
 
+function mathilda_options_display_embed()
+{
+	 
+	echo '<input type="checkbox" name="mathilda_embed" value="1" ' .  checked(1, get_option('mathilda_embed'), false) . '/>'; 
+}	
+
 function mathilda_options_display_navigation()
 {
 	echo '<input type="radio" id="mathilda_navigation_standard" name="mathilda_navigation" value="Standard" ' .  checked('Standard', get_option('mathilda_navigation'), false) . '/>'; 
@@ -188,10 +194,12 @@ function mathilda_options_userinterface_display()
 	add_settings_field("mathilda_quotes", "Show Quotes?", "mathilda_options_display_show_quotes", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_navigation", "Navigation Type", "mathilda_options_display_navigation", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_hyperlink_rendering", "Hyperlink Rendering", "mathilda_options_display_hyperlink_rendering", "mathilda-options", "userinterface_settings_section");
+	add_settings_field("mathilda_embed", "Embed Link Content?", "mathilda_options_display_embed", "mathilda-options", "userinterface_settings_section");
 	
 	register_setting("mathilda_settings", "mathilda_tweets_on_page", "mathilda_validate_tweetsonpage");
 	register_setting("mathilda_settings", "mathilda_replies", "mathilda_validate_replies");
 	register_setting("mathilda_settings", "mathilda_quotes", "mathilda_validate_quotes");
+	register_setting("mathilda_settings", "mathilda_embed", "mathilda_validate_embed");
 	register_setting("mathilda_settings", "mathilda_navigation");
 	register_setting("mathilda_settings", "mathilda_hyperlink_rendering");
 

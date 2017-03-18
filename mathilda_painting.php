@@ -374,6 +374,7 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	/* URL Transformation @ Tweet */
 	
 	$url_handling=get_option('mathilda_hyperlink_rendering');
+	$embed_content=get_option('mathilda_embed');
 	
 	if ($url=='TRUE')
 	{
@@ -381,9 +382,15 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 		$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;	
 		}
 		elseif ($url_handling=='Shortlink') {
-			if(mathilda_is_youtube($tweet_urls[0][3])) {
-				$url_handling="Longlink";
-				$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;
+			if($embed_content) {
+				$embed_value=mathilda_embed_rendering($tweet_urls[0][0],$tweet_urls[0][2]);
+				if($embed_value) {
+					$url_handling="Longlink";
+					$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;
+				}
+				else {
+					$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_urls[0][1].'" target="_blank">'.$tweet_urls[0][3].'</a>';$tweet=str_replace ( $tweet_urls[0][1], $shortlink , $tweet ) ;
+				}
 			} else {
 				$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_urls[0][1].'" target="_blank">'.$tweet_urls[0][3].'</a>';	
 				$tweet=str_replace ( $tweet_urls[0][1], $shortlink , $tweet ) ;
@@ -407,15 +414,22 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	if ($url=='TRUE') 
 	{
 		if ($url_handling=='Longlink') {
-			if(mathilda_is_youtube($tweet_urls[0][2])) {
-				$mathilda_content.='<p class="mathilda-tweet-url mathilda-embed-youtube mathilda-longlink'.$image_follows_class_url.'">';
-				$mathilda_content.=mathilda_youtube_rendering($tweet_urls[0][2]);
-				$mathilda_content.='</p>';
+			if($embed_content) { 
+
+				$embed_value=mathilda_embed_rendering($tweet_urls[0][0],$tweet_urls[0][2]);
+
+				if ($embed_value) {
+					$mathilda_content.='<p class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'">';
+					$mathilda_content.=$embed_value;
+					$mathilda_content.='</p>';
+				} else {
+					$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
+				}
+
 			}
 			else {
 				$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
-			}
-	
+			} 
 		}	
 	}
 		  
@@ -439,24 +453,31 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 }
 
 /*
-Mathilda YouTube Embedded
+Mathilda Embed Rendering
 */
 
-// The function generates the YouTube Embedded HTML Markup
-// Input: URL
-// Output: Embedded YouTube HTML
+// Retrieves and Delivers the Embed Code 
+// Input: URL-ID, URL
+// Output: Embedded Code or FALSE
 
-function mathilda_youtube_rendering($mathilda_tweet_url) {
+function mathilda_embed_rendering($mathilda_url_id,$mathilda_tweet_url) {
 
-    $mathilda_embed_code = wp_oembed_get($mathilda_tweet_url);
-    $mathilda_embed_code_length = strlen($mathilda_embed_code);
-    
-	if($mathilda_embed_code_length!=0) {
-    	return $mathilda_embed_code;
-    }
-    else {
-    	return FALSE;
-    }
+	$embed_value=mathilda_get_embed($mathilda_url_id);
+
+	if($embed_value=='OPEN') {
+
+		return false;
+
+	} elseif ($embed_value=='NOEMBED') {
+
+		return false;
+	
+	} else {
+	
+		$embed_value = html_entity_decode($embed_value, ENT_QUOTES);
+		return $embed_value;
+	
+	}
 }
 
 ?>

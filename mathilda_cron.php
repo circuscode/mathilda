@@ -135,6 +135,7 @@ while ($i < $fetches) {
 
 	/* Call Twitter API */
 
+	$getfield .= "&tweet_mode=extended"; 
 	$twitter = new TwitterAPIExchange($authorization);
 	$json_output=$twitter->setGetfield($getfield)
 	->buildOauth($url, $requestMethod)
@@ -341,11 +342,19 @@ while ($i < $fetches) {
 			$tweet_quote="TRUE";
 			}
 
-			// if(isset($items['entities']['media'])) 
+			$tweet_index_start=$items['display_text_range'][0];
+			$tweet_index_end=$items['display_text_range'][1];
+
+			$source='';
+			if($initial_load == 0) {
+				$source='INITIAL';
+			} else {
+				$source='REGULAR';
+			}
 
 			$tweet_cache[]=array($num_tweets,
 								$items['id_str'],
-								$items['text'],
+								$items['full_text'],
 								$items['created_at'],
 								$hashtags_yes_or_no,
 								$mentions_yes_or_no,
@@ -354,7 +363,10 @@ while ($i < $fetches) {
 								$tweet_truncate,
 								$tweet_reply,
 								$tweet_retweet,
-								$tweet_quote
+								$tweet_quote,
+								$tweet_index_start,
+								$tweet_index_end,
+								$source
 								);
 								
 			/* Prepare Next Tweet Loop */
@@ -412,7 +424,7 @@ for($i=0; $i < $num_tweets; $i++)
 		
 		/* Save Tweet @ MySQL */
 		
-		mathilda_add_tweets($tweet_cache[$i][1],$tweet_cache[$i][2],$dateconverted,$tweet_cache[$i][4],$tweet_cache[$i][5], $tweet_cache[$i][6], $tweet_cache[$i][7], $tweet_cache[$i][8], $tweet_cache[$i][9], $tweet_cache[$i][10], $tweet_cache[$i][11]);
+		mathilda_add_tweets($tweet_cache[$i][1],$tweet_cache[$i][2],$dateconverted,$tweet_cache[$i][4],$tweet_cache[$i][5], $tweet_cache[$i][6], $tweet_cache[$i][7], $tweet_cache[$i][8], $tweet_cache[$i][9], $tweet_cache[$i][10], $tweet_cache[$i][11],$tweet_cache[$i][12], $tweet_cache[$i][13], $tweet_cache[$i][14]);
 		if ($i==0) { echo '<h2>Tweet Import</h2>'; }
 		echo ($i+1) . ': Tweet ' . $tweet_cache[$i][1] . ' added.<br/>';
 }

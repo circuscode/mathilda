@@ -4,7 +4,7 @@
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
 Description:  Mathilda takes your tweets from Twitter, saves them in the WordPress database and displays the tweets on the blog.
-Version:	  0.6
+Version:	  0.7
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
 License:      GPL2
@@ -43,6 +43,7 @@ require_once('mathilda_scripting.php');
 require_once('mathilda_dashboard.php');
 require_once('mathilda_reporting.php');
 require_once('mathilda_update.php');
+require_once('mathilda_schedule.php');
 
 /*
 Activate Plugin
@@ -71,7 +72,7 @@ function mathilda_activate () {
 	add_option('mathilda_tweets_count', "0");
 	add_option('mathilda_activated', "1");
 	add_option('mathilda_database_version', "1");
-	add_option('mathilda_plugin_version', "6");
+	add_option('mathilda_plugin_version', "9");
 	add_option('mathilda_import', "0");
 	add_option('mathilda_slug_is_changed', "0");
 	add_option('mathilda_cron_period', "900");
@@ -80,6 +81,7 @@ function mathilda_activate () {
 	add_option('mathilda_hyperlink_rendering', 'Longlink');
 	add_option('mathilda_css', "0");
 	add_option('mathilda_select_amount', "0");
+	add_option('mathilda_embed', "0");
 
 	/* Create Mathilda Tables */
 
@@ -131,8 +133,11 @@ function mathilda_deactivate () {
 
 	flush_rewrite_rules();
 
-	$timestamp = wp_next_scheduled( 'mathilda_cron_hook' );
-   	wp_unschedule_event($timestamp, 'mathilda_cron_hook' );
+	$timestamp = wp_next_scheduled( 'mathilda_embed_schedule' );
+   	wp_unschedule_event($timestamp, 'mathilda_embed_schedule' );
+
+	$timestamp = wp_next_scheduled( 'mathilda_tweetload_schedule' );
+   	wp_unschedule_event($timestamp, 'mathilda_tweetload_schedule' );
 
 }
 
@@ -175,6 +180,7 @@ function mathilda_delete () {
 		delete_option('mathilda_css');
 		delete_option('mathilda_select_amount');
 		delete_option('mathilda_quotes');
+		delete_option('mathilda_embed');
 
 		/* Delete Tables */
 
@@ -358,39 +364,15 @@ function mathilda_shortcode() {
 
 add_shortcode('mathilda','mathilda_shortcode');
 
-/* Mathilda Cron Interval */
+/*
+Links @ Plugin Page
+*/
 
-function mathilda_cron_interval( $schedules ) {
-
-	$period=get_option('mathilda_cron_period');
-
-    $schedules['mathilda_duration'] = array(
-        'interval' => $period,
-        'display'  => esc_html__( 'Mathilda Custom Duration' ),
-    );
-
-    return $schedules;
+function add_mathilda_action_links ( $links ) {
+$mathildalinks = array('<a href="' . admin_url( 'options-general.php?page=mathilda-options' ) . '">Settings</a>','<a href="' . admin_url( 'tools.php?page=mathilda-tools-menu' ) . '">Tools</a>');
+return array_merge( $links, $mathildalinks );
 }
 
-add_filter( 'cron_schedules', 'mathilda_cron_interval' );
-
-/* Mathilda WP-Cron */
-
-function mathilda_cron_execute() {
-
-	$initial_load = get_option('mathilda_initial_load');
-	if($initial_load==1) {
-	mathilda_cron_script();
-	}
-
-}
-
-add_action( 'mathilda_cron_hook', 'mathilda_cron_execute' );
-
-/* Schedule Mathilda Cron */
-
-if( !wp_next_scheduled( 'mathilda_cron_hook' ) ) {
-	wp_schedule_event( time(), 'mathilda_duration', 'mathilda_cron_hook' );
-}
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_mathilda_action_links' );
 
 ?>

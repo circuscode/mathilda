@@ -2,17 +2,17 @@
 Contributors: unmus
 Tags: twitter, tweets, social network, content, reclaim, blog
 Requires at least: 4.5
-Tested up to: 4.7.2
-Stable tag: 0.6.1
+Tested up to: 4.7.3
+Stable tag: 0.7
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: http://www.unmus.de/
 
-Mathilda takes your tweets from Twitter, saves them in the WordPress database and displays them on the blog.
+Mathilda takes your tweets from Twitter continuously, saves them in the WordPress database and displays them on the blog.
 
 == Description ==
 
-Mathilda is trying to give you back some control of your tweets. The plugin takes your tweets from twitter and saves them into the WordPress database. The tweets can be displayed on the blog chronologically (but do not have to). Indeed, Twitter is also blogging, micro-blogging so to speak. 
+Mathilda is trying to give you back some control of your tweets. The plugin takes your tweets from twitter continuously and saves them into the WordPress database. The tweets can be displayed on the blog chronologically (but do not have to). Indeed, Twitter is also blogging, micro-blogging so to speak. 
 
 = Functions =
 
@@ -36,7 +36,7 @@ Mathilda is trying to give you back some control of your tweets. The plugin take
 
 == Installation ==
 
-1. Upload plugin folder to /wp-content/plugins/ or download the plugin directly via WordPress
+1. Upload plugin folder to /wp-content/plugins/ or download plugin directly via WordPress
 2. Activate the plugin through the Plugins menu in WordPress
 3. Follow the configuration manual > [See other Notes](https://de.wordpress.org/plugins/mathilda/other_notes/)
 
@@ -78,13 +78,21 @@ Mathilda does not modify the existing canonical url handling in WordPress. If yo
 
 The length of the cron period in combination with the configuration of caching determines how early a tweet will be displayed within the blog. If a tweet should be displayed as early as possible, the caching must be deactivated for the page with tweets. 
 
-= Why are some tweets truncated? =
+= Does Mathila support extended tweets? =
 
-Mathilda does not support the latest changes on the Twitter API from mid of 2016, which allow that some type of tweets contain more as 140 characters. These new type of tweet will be delivered by Twitter with the "Extended API Mode". Mathilda works with the classic API mode, which does not contain the new tweet format. 
+Mathilda does support extended tweets with version 0.7 of the plugin. Extended tweets were introduced by Twitter in mid of 2016. Extended tweets are having more as 140 characters, which is allowed in specific cases. 
 
-= Why require some updates a reset of the plugin and reload of the data?  =
+= Why require some updates a reset of the plugin and reload of the data? =
 
 The plugin is an early stage of development. It is still a long way to the first stable 1.0 version. To avoid data inconsistency and process errors some updates require a reload of the data. Sometime Mathilda will have an maturity level, which does not require such resets anymore.
+
+= Does Mathilda support WordPress Multisite? =
+
+No. Mathilda does not support the WordPress Multisite Feature. The plugin is working on the master-site, but is not working on all other child sites within the wordpress network.
+
+= I have activated Link Content Embed, but no linked content will be embedded.  =
+
+The embedded content will be retrieved and generated every 15 minutes (or with the same period as the autoload of the tweets). If you have activated embed content for the first time, it takes 15 minutes latest until the changes appear. 
 
 == Screenshots ==
 
@@ -93,6 +101,18 @@ The plugin is an early stage of development. It is still a long way to the first
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.7 "Undercloud" =
+* March 2017
+* Feature: Support of Extended Tweets (Extended API Mode)
+* Feature: Full oEmbed Support  
+* Feature: Embedding Cache for better Performance
+* Enhancement: Truncate Check added in Plugin Healthy Check
+* Enhancement: Highlighting of Warnings and Errors in Plugin Healthy Check
+* Enhancement: Embed Yes or No Option in the Plugin Settings
+* Enhancement: Links within the Plugin Entry on the Plugins Overview
+* Enhancement: Documentation of Tweet Source
+* Bugfix: Mathilda Multisite Support Notice on Child Sites 
 
 = 0.6.1 "Calamity" =
 * February 2017
@@ -176,6 +196,9 @@ The plugin is an early stage of development. It is still a long way to the first
 
 == Upgrade Notice ==
 
+= 0.7 =
+This version supports extended tweets and full oEmbed capability.
+
 = 0.6 =
 This version brings YouTube Embedds, better Reporting, improved Processing and bugfixes.
 
@@ -214,3 +237,8 @@ Mathilda creates 4 folders within wp-content/uploads.
 * mathilda-images = Tweet Image Folder
 * mathilda-export = Export Directory 
 * mathilda-import = Import Directory 
+
+= Mathilda Cron Jobs @ WordPress =
+
+* Autoload Tweets (every 15 minutes, customizable)
+* Get Embedding Code from External Source (every 15 minutes, customizable)

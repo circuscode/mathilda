@@ -39,5 +39,8 @@
 .mathilda_bottom_forward .active
 {font-weight:bold;}
 
-.mathilda-embed-youtube
+.mathilda-embed
 {margin-top:10px;}
+
+iframe.wp-embedded-content, iframe.twitter-tweet
+{padding-left: 50px !important;}

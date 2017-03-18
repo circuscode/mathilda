@@ -75,4 +75,33 @@ function mathilda_update_notice(){
 
 add_action('admin_notices', 'mathilda_update_notice');
 
+/*
+WordPress Multisite Notice
+*/
+
+// Shows Message Box on Child Sites within WordPress Multisite Network
+// Input: None
+// Output: None
+
+function mathilda_multisite_notice(){
+    
+	if ( is_multisite() ) { 
+		if (get_current_blog_id()>1) {
+
+			global $pagenow;
+
+			if ( $pagenow == 'index.php' OR $pagenow == 'tools.php' OR $pagenow == 'options-general.php' OR $pagenow == 'plugins.php') {
+
+				echo '<div class="notice notice-warning is-dismissible"><p>';
+				echo '<strong>Mathilda Plugin Notice:</strong><br/>Mathilda does not support child sites within WordPress Networks. Please deactivate the plugin on this instance! <a href="'.get_admin_url( get_current_blog_id() ) .'plugins.php?">Understood, I do it now!</a>';
+				echo '</p></div>';	
+					
+			}
+		}
+	} 
+    
+}
+
+add_action('admin_notices', 'mathilda_multisite_notice');
+
 ?>
