@@ -15,6 +15,9 @@
 .mathilda-tweet-text, .mathilda-tweet-url, .mathilda-tweet-dateandtime
 {margin-left:50px;}
 
+.mathilda-tweet-text
+{margin-bottom:10px;}
+
 .mathilda-tweet-image
 {padding-left:50px;}
 
@@ -42,5 +45,5 @@
 .mathilda-embed
 {margin-top:10px;}
 
-iframe.wp-embedded-content, iframe.twitter-tweet
-{padding-left: 50px !important;}
+iframe.wp-embedded-content
+{padding-left: 0px !important;}

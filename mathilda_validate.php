@@ -117,13 +117,26 @@ function mathilda_validate_quotes ( $quotes ) {
     return $output;
 } 
 
-/* Validate Input: Quotes */
+/* Validate Input: Embed */
 
 function mathilda_validate_embed ( $embed ) {
     
     $output = $embed;
 
     if ( $embed == FALSE ) {
+        $output='0';
+    }
+  
+    return $output;
+} 
+
+/* Validate Input: Tweet Backlink */
+
+function mathilda_validate_tweet_backlink ( $backlink ) {
+    
+    $output = $backlink;
+
+    if ( $backlink == FALSE ) {
         $output='0';
     }
   

@@ -52,6 +52,10 @@ function mathilda_dashboard_widget_reporting_display() {
 		echo '<tr><td>' . mathilda_hashtags_count() . '&nbsp;&nbsp;&nbsp;</td><td>Hashtags</td></tr>';
 		echo '<tr><td>' . mathilda_urls_count() . '</td><td>Links</td></tr>';
 		echo '</table>';
+		$lastjobrun=get_option('mathilda_cron_lastrun');
+		if($lastjobrun !== '0') {
+		echo '<p>Last Tweet Update @ WordPress:<br/>'. $lastjobrun .'</p>';
+		}
 	}
 }
 

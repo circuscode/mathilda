@@ -335,8 +335,14 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	$mathilda_content.='<div class="mathilda-tweet">';
 	
 	/* Twitter Logo & Tweet Hyperlink */
-	$mathilda_content.='<a href="https://twitter.com/'.$me.'/status/'.$id.'" target="_blank" class="mathilda-tweet-link">
-	<img class="mathilda-tweet-symbol" src="'. plugins_url() .'/mathilda/mathilda_tweet.png" alt="Tweet"/></a>';
+	$tweet_backlink=get_option('mathilda_tweet_backlink');
+	if($tweet_backlink==1){
+			$mathilda_content.='<a href="https://twitter.com/'.$me.'/status/'.$id.'" target="_blank" rel="nofollow" class="mathilda-tweet-link">';
+	}
+	$mathilda_content.='<img class="mathilda-tweet-symbol" src="'. plugins_url() .'/mathilda/mathilda_tweet.png" alt="Tweet"/>';
+	if($tweet_backlink==1){
+			$mathilda_content.='</a>';
+	}
 	
 	/* Date */
 	
@@ -351,7 +357,7 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 		$num_hashtags=count($tweet_hashtags);
 		for($i=0; $i<$num_hashtags; $i++)
 		{
-			$hashtag_html='<a href="https://twitter.com/search?q=%23'.$tweet_hashtags[$i][1].'" class="mathilda-hashtag" target="_blank">#'.$tweet_hashtags[$i][1].'</a>';
+			$hashtag_html='<a href="https://twitter.com/search?q=%23'.$tweet_hashtags[$i][1].'" class="mathilda-hashtag" rel="nofollow" target="_blank">#'.$tweet_hashtags[$i][1].'</a>';
 			$hashtag_search='#'.$tweet_hashtags[$i][1];
 			$tweet=str_replace ( $hashtag_search, $hashtag_html , $tweet ) ;	
 		}
@@ -365,7 +371,7 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 		$num_mentions=count($tweet_mentions);
 		for($i=0; $i<$num_mentions; $i++)
 		{
-			$mention_html='<a href="https://twitter.com/'.$tweet_mentions[$i][2].'" class="mathilda-mention" target="_blank">@'.$tweet_mentions[$i][2].'</a>';
+			$mention_html='<a href="https://twitter.com/'.$tweet_mentions[$i][2].'" class="mathilda-mention" target="_blank" rel="nofollow">@'.$tweet_mentions[$i][2].'</a>';
 			$mention_search='@'.$tweet_mentions[$i][2];
 			$tweet=str_replace ( $mention_search, $mention_html , $tweet ) ;	
 		}
@@ -419,9 +425,9 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 				$embed_value=mathilda_embed_rendering($tweet_urls[0][0],$tweet_urls[0][2]);
 
 				if ($embed_value) {
-					$mathilda_content.='<p class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'">';
+					$mathilda_content.='<div class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'"> ';
 					$mathilda_content.=$embed_value;
-					$mathilda_content.='</p>';
+					$mathilda_content.=' </div>';
 				} else {
 					$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
 				}

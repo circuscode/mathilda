@@ -157,6 +157,13 @@ function mathilda_update () {
 
 	}
 
+	/* Update Process Version 0.8 */
+    if($mathilda_previous_version==9) {
+	update_option('mathilda_plugin_version', "10");
+	add_option('mathilda_tweet_backlink', "1");
+	add_option('mathilda_cron_lastrun', "0");
+	}
+
 }
 add_action( 'plugins_loaded', 'mathilda_update' );
 

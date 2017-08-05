@@ -166,6 +166,7 @@ while ($i < $fetches) {
 		echo '<h2>Response from Twitter API</h2>';
 		echo '<p>New Tweets are not available.<br/>API Response will not be archived.</p>';
 		echo '<p><em>Mathilda Cron is stopped.</em></p></div>';
+		mathilda_update_cron_lastrun();
 		return;
 		}
 		else
@@ -488,6 +489,7 @@ $number_of_select=mathilda_select_count();
 update_option('mathilda_latest_tweet', $latest_tweet);
 update_option('mathilda_tweets_count', $number_of_tweets);
 update_option('mathilda_select_amount', $number_of_select);
+mathilda_update_cron_lastrun();
 
 /*
 Close 

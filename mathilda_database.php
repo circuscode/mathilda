@@ -509,4 +509,19 @@ function mathilda_add_embed($mathilda_embed_value,$mathilda_url_id) {
 
 }
 
+/*
+Update Cron LastRun Timestamp
+*/
+
+// Saves the time of the last cron run
+// Input: None
+// Output: None
+
+function mathilda_update_cron_lastrun() {
+
+	$crontime = current_time( 'mysql', $gmt = 0 );
+	update_option('mathilda_cron_lastrun', $crontime);
+
+}
+
 ?>

@@ -3,8 +3,8 @@
 /*
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
-Description:  Mathilda takes your tweets from Twitter, saves them in the WordPress database and displays the tweets on the blog.
-Version:	  0.7
+Description:  Mathilda takes your tweets from Twitter continuously, saves them in the WordPress database and displays the tweets on the blog.
+Version:	  0.8
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
 License:      GPL2
@@ -82,6 +82,8 @@ function mathilda_activate () {
 	add_option('mathilda_css', "0");
 	add_option('mathilda_select_amount', "0");
 	add_option('mathilda_embed', "0");
+	add_option('mathilda_tweet_backlink', "0");
+	add_option('mathilda_cron_lastrun', "0");
 
 	/* Create Mathilda Tables */
 
@@ -181,6 +183,8 @@ function mathilda_delete () {
 		delete_option('mathilda_select_amount');
 		delete_option('mathilda_quotes');
 		delete_option('mathilda_embed');
+		delete_option('mathilda_tweet_backlink');
+		delete_option('mathilda_cron_lastrun');
 
 		/* Delete Tables */
 

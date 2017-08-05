@@ -1,12 +1,12 @@
 === Mathilda ===
 Contributors: unmus
-Tags: twitter, tweets, social network, content, reclaim, blog
+Tags: twitter, tweets, microblogging, reclaim, blog, social network
 Requires at least: 4.5
-Tested up to: 4.7.3
-Stable tag: 0.7
+Tested up to: 4.8.1
+Stable tag: 0.8
 License: GPLv2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Donate link: http://www.unmus.de/
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Donate link: https://www.unmus.de/
 
 Mathilda takes your tweets from Twitter continuously, saves them in the WordPress database and displays them on the blog.
 
@@ -38,7 +38,7 @@ Mathilda is trying to give you back some control of your tweets. The plugin take
 
 1. Upload plugin folder to /wp-content/plugins/ or download plugin directly via WordPress
 2. Activate the plugin through the Plugins menu in WordPress
-3. Follow the configuration manual > [See other Notes](https://de.wordpress.org/plugins/mathilda/other_notes/)
+3. Follow the configuration manual
 
 == Frequently Asked Questions ==
 
@@ -94,6 +94,10 @@ No. Mathilda does not support the WordPress Multisite Feature. The plugin is wor
 
 The embedded content will be retrieved and generated every 15 minutes (or with the same period as the autoload of the tweets). If you have activated embed content for the first time, it takes 15 minutes latest until the changes appear. 
 
+= How is Mathilda handling the nofollow Attribute?  =
+
+Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentions and the Backlink of the Tweet itself. Links within the tweets are declared as follow.
+
 == Screenshots ==
 
 1. Mathilda Settings
@@ -101,6 +105,12 @@ The embedded content will be retrieved and generated every 15 minutes (or with t
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.8 "Neo Gotham" =
+* July 2017
+* New Option: Set Tweet Backlink to Twitter
+* SEO: Backlinks to Twitter are declared as NoFollow
+* Enhancement: Last Tweet Update @ WordPress is shown in the Dashboard 
 
 = 0.7 "Undercloud" =
 * March 2017
@@ -195,6 +205,9 @@ The embedded content will be retrieved and generated every 15 minutes (or with t
 * Initial Release
 
 == Upgrade Notice ==
+
+= 0.8 =
+This version brings SEO improvements.
 
 = 0.7 =
 This version supports extended tweets and full oEmbed capability.
