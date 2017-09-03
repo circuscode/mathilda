@@ -497,6 +497,10 @@ update_option('mathilda_tweets_count', $number_of_tweets);
 update_option('mathilda_highest_imported_tweet', $highest_imported_tweet);
 update_option('mathilda_select_amount', $number_of_select);
 
+/* Fire: Tweets are updated */
+
+do_action('mathilda_tweets_updated');
+
 /*
 HTML Close 
 */

@@ -15,7 +15,7 @@ function mathilda_cron_script() {
 Runtime
 */
 
-set_time_limit(300);
+set_time_limit(900);
 	
 /*
 Headline
@@ -490,6 +490,10 @@ update_option('mathilda_latest_tweet', $latest_tweet);
 update_option('mathilda_tweets_count', $number_of_tweets);
 update_option('mathilda_select_amount', $number_of_select);
 mathilda_update_cron_lastrun();
+
+/* Fire: Tweets are updated */
+
+do_action('mathilda_tweets_updated');
 
 /*
 Close 

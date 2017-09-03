@@ -291,13 +291,16 @@ function mathilda_read_tweets($tweets_on_page, $mathilda_show_page) {
 
 	if($mathilda_show_page==1)
 			{
-			 return $wpdb->get_results( "SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM (SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM $table_name $mathilda_select_condition ORDER BY mathilda_tweet_date DESC) AS SOURCE LIMIT $tweets_on_page", ARRAY_N);
+			 /* return $wpdb->get_results( "SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM (SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM $table_name $mathilda_select_condition ORDER BY mathilda_tweet_date DESC) AS SOURCE ORDER BY mathilda_tweet_date DESC LIMIT $tweets_on_page", ARRAY_N);*/
+			 return $wpdb->get_results( "SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM $table_name $mathilda_select_condition ORDER BY mathilda_tweet_date DESC LIMIT $tweets_on_page", ARRAY_N);
 			}
 			
 	else
 			{
+			/*$offset=$tweets_on_page*($mathilda_show_page-1);
+			return $wpdb->get_results( "SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM (SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM $table_name $mathilda_select_condition ORDER BY mathilda_tweet_date DESC) AS SOURCE LIMIT $offset, $tweets_on_page", ARRAY_N);*/
 			$offset=$tweets_on_page*($mathilda_show_page-1);
-			return $wpdb->get_results( "SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM (SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM $table_name $mathilda_select_condition ORDER BY mathilda_tweet_date DESC) AS SOURCE LIMIT $offset, $tweets_on_page", ARRAY_N);
+			return $wpdb->get_results( "SELECT mathilda_tweet_date, mathilda_tweet_content, mathilda_tweet_twitterid,  mathilda_tweet_hashtags, mathilda_tweet_mentions, mathilda_tweet_media, mathilda_tweet_urls FROM $table_name $mathilda_select_condition ORDER BY mathilda_tweet_date DESC LIMIT $offset, $tweets_on_page", ARRAY_N);
 			}
 }
 
