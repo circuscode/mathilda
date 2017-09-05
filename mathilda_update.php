@@ -164,6 +164,11 @@ function mathilda_update () {
 	add_option('mathilda_cron_lastrun', "0");
 	}
 
+	/* Update Process Version 0.8.1 */
+	if($mathilda_previous_version==10) {
+		update_option('mathilda_plugin_version', "11");
+	}
+
 }
 add_action( 'plugins_loaded', 'mathilda_update' );
 

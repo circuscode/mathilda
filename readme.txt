@@ -3,7 +3,7 @@ Contributors: unmus
 Tags: twitter, tweets, microblogging, reclaim, blog, social network
 Requires at least: 4.5
 Tested up to: 4.8.1
-Stable tag: 0.8
+Stable tag: 0.8.1
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.unmus.de/
@@ -76,7 +76,7 @@ Mathilda does not modify the existing canonical url handling in WordPress. If yo
 
 = What have to be considered with the usage of caching plugins? =
 
-The length of the cron period in combination with the configuration of caching determines how early a tweet will be displayed within the blog. If a tweet should be displayed as early as possible, the caching must be deactivated for the page with tweets. 
+The length of the cron period in combination with the configuration of caching determines how early a tweet will be displayed within the blog. If a tweet should be displayed as early as possible, the caching must be deactivated for the page with tweets. Another possibility is removing the affected page from the cache, if new tweets have loaded.
 
 = Does Mathila support extended tweets? =
 
@@ -98,6 +98,10 @@ The embedded content will be retrieved and generated every 15 minutes (or with t
 
 Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentions and the Backlink of the Tweet itself. Links within the tweets are declared as follow.
 
+= I always receive Timeout or Internal Server Error, when I start the Load or Import.  =
+
+Currently the procedure, which is loading and importing tweets, is one large script. Dependent of the amount of tweets this script will run serveral minutes until all data is loaded. Some hosting environments do only allow a runtime of 40 seconds (for example). Unfortunately this is not enough to complete the loading process for the plugin. Please check with your provider, if there are possiblities to increase the limited runtime for scripts. If you have no options, try to import your tweets in small portions. On mid-term this large program will be split into threads, which enable the plugin to run on these environments too. But at the moment is not realized.
+
 == Screenshots ==
 
 1. Mathilda Settings
@@ -105,6 +109,11 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.8.1 "Maps" =
+* September 2017
+* Bugfix: Support of MariaDB
+* API: New Action mathilda_tweets_updated
 
 = 0.8 "Neo Gotham" =
 * July 2017
@@ -241,6 +250,10 @@ This version does not require a webcron anymore.
 = CSS classes =
 
 You know the game! Mathilda can not assure that it looks fine on your theme. That is why all mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes. 
+
+= API =
+
+Action: mathilda_tweets_updated (fired on tweet update)
 
 = Data & Files =
 
