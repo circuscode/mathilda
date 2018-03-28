@@ -34,6 +34,7 @@ function mathilda_tools_controller() {
 	$run_initial=false;
 	$handbook_show=false;
 	$mathilda_reset=false;
+	$run_import_reloaded=false;
 
 	// WordPress Crons
 	if(isset($_GET['showwpcrons'])) {
@@ -84,6 +85,13 @@ function mathilda_tools_controller() {
 		$run_import=true;
 		}	
 	}
+	// Import Reloaded
+	if(isset($_GET['reimport'])) {
+		if($_GET['reimport']=='true')
+		{
+		$run_import_reloaded=true;
+		}	
+	}
 	// Handbook
 	if(isset($_GET['handbook'])) {
 		if($_GET['handbook']=='true')
@@ -116,7 +124,10 @@ function mathilda_tools_controller() {
 		mathilda_cron_initial_notice();
 	}
 	elseif ($run_import) {
-		mathilda_import_script();
+		mathilda_import_script(); 
+	}
+	elseif ($run_import_reloaded) {
+		mathilda_import_process(); 
 	}
 	elseif ($run_initial) {
 		mathilda_cron_script();
@@ -210,6 +221,16 @@ function mathilda_tools() {
 	</th>
 	<td>
 	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true" target="_blank">Load!</a>
+	</td>
+	</tr>
+
+	<!-- Load Twitter Export Reloaded -->
+	<tr valign="top">
+	<th scope="row">
+	<label for="importreloaded">Reloaded Import Archive</label>
+	</th>
+	<td>
+	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&reimport=true" target="_blank">ReLoad!</a>
 	</td>
 	</tr>
 	

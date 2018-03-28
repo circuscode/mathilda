@@ -4,7 +4,7 @@
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
 Description:  Mathilda takes your tweets from Twitter continuously, saves them in the WordPress database and displays the tweets on the blog.
-Version:	  0.8.1
+Version:	  0.9
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
 License:      GPL2
@@ -44,6 +44,7 @@ require_once('mathilda_dashboard.php');
 require_once('mathilda_reporting.php');
 require_once('mathilda_update.php');
 require_once('mathilda_schedule.php');
+require_once('mathilda_importalt.php');
 
 /*
 Activate Plugin

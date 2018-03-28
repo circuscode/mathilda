@@ -3,7 +3,7 @@ Contributors: unmus
 Tags: twitter, tweets, microblogging, reclaim, blog, social network
 Requires at least: 4.5
 Tested up to: 4.8.1
-Stable tag: 0.8.1
+Stable tag: 0.9
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.unmus.de/
@@ -31,7 +31,7 @@ Mathilda is trying to give you back some control of your tweets. The plugin take
 
 = Related Links =
 
-* [Plugin Page (German)](https://www.unmus.de/wordpress-plugin-mathilda/)
+* [Plugin Page (German)](https://www.unmus.de/mathilda/)
 * [Source Code @ GitHub](https://github.com/circuscode/mathilda)
 
 == Installation ==
@@ -109,6 +109,10 @@ Currently the procedure, which is loading and importing tweets, is one large scr
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.9 "Renee Montoya" =
+* MONTH YEAR
+* Bugfix: Embedding on encrpyted sites only if source is encrypted too
 
 = 0.8.1 "Maps" =
 * September 2017
