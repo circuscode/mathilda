@@ -425,9 +425,22 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 				$embed_value=mathilda_embed_rendering($tweet_urls[0][0],$tweet_urls[0][2]);
 
 				if ($embed_value) {
-					$mathilda_content.='<div class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'"> ';
-					$mathilda_content.=$embed_value;
-					$mathilda_content.=' </div>';
+
+					if (is_ssl()) {
+						if (strpos($tweet_urls[0][2], 'https://') !== false) {
+							$mathilda_content.='<div class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'"> ';
+							$mathilda_content.=$embed_value;
+							$mathilda_content.=' </div>';
+						}
+						else {
+							$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
+						}
+					} else {
+						$mathilda_content.='<div class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'"> ';
+						$mathilda_content.=$embed_value;
+						$mathilda_content.=' </div>';
+					}
+
 				} else {
 					$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
 				}

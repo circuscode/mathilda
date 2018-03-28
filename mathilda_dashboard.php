@@ -12,7 +12,7 @@ Mathilda Dashboard
 function mathilda_glance_counter() {
 	
 	$mathilda_tweets_count=get_option('mathilda_tweets_count');
-	$text='<li class="post-count"><a href="tools.php?page=mathilda-tools-menu">';
+	$text='<li class="post-count"><a class="tweet-count" href="tools.php?page=mathilda-tools-menu">';
 	$text.=$mathilda_tweets_count . ' Tweets</a</a></li>';
 	echo $text;
 
