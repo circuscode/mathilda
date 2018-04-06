@@ -44,7 +44,6 @@ require_once('mathilda_dashboard.php');
 require_once('mathilda_reporting.php');
 require_once('mathilda_update.php');
 require_once('mathilda_schedule.php');
-require_once('mathilda_importalt.php');
 
 /*
 Activate Plugin
@@ -73,7 +72,7 @@ function mathilda_activate () {
 	add_option('mathilda_tweets_count', "0");
 	add_option('mathilda_activated', "1");
 	add_option('mathilda_database_version', "1");
-	add_option('mathilda_plugin_version', "9");
+	add_option('mathilda_plugin_version', "12");
 	add_option('mathilda_import', "0");
 	add_option('mathilda_slug_is_changed', "0");
 	add_option('mathilda_cron_period', "900");
@@ -85,6 +84,12 @@ function mathilda_activate () {
 	add_option('mathilda_embed', "0");
 	add_option('mathilda_tweet_backlink', "0");
 	add_option('mathilda_cron_lastrun', "0");
+	add_option('mathilda_import_running',"0");
+	add_option('mathilda_import_open',"0");
+	add_option('mathilda_import_files',"0");
+	add_option('mathilda_import_numberoffiles',"0");
+	add_option('mathilda_import_interval', "60");
+	add_option('mathilda_import_finish', "0");
 
 	/* Create Mathilda Tables */
 
@@ -186,6 +191,12 @@ function mathilda_delete () {
 		delete_option('mathilda_embed');
 		delete_option('mathilda_tweet_backlink');
 		delete_option('mathilda_cron_lastrun');
+		delete_option('mathilda_import_running');
+		delete_option('mathilda_import_open');
+		delete_option('mathilda_import_files');
+		delete_option('mathilda_import_numberoffiles');
+		delete_option('mathilda_import_interval');
+		delete_option('mathilda_import_finish');
 
 		/* Delete Tables */
 

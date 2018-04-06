@@ -448,6 +448,11 @@ function mathilda_reset_data() {
 	update_option('mathilda_import', "0");
 	update_option('mathilda_highest_imported_tweet','');
 	update_option('mathilda_select_amount','0');
+	update_option('mathilda_cron_lastrun', "0");
+	update_option('mathilda_import_running',"0");
+	update_option('mathilda_import_open',"0");
+	update_option('mathilda_import_files',"0");
+	update_option('mathilda_import_numberoffiles',"0");
 
 	$message="Mathilda Reset is done.";
 	return $message;

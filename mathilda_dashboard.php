@@ -79,6 +79,27 @@ function mathilda_update_notice(){
 
 add_action('admin_notices', 'mathilda_update_notice');
 
+// mathilda_import_notice
+// The function brings a message, if import is finished
+// Input: none
+// Output: none
+
+function mathilda_import_notice(){
+    global $pagenow;
+    if ( $pagenow == 'index.php' OR $pagenow == 'tools.php' OR $pagenow == 'options-general.php' OR $pagenow == 'plugins.php') {
+		if(get_option('mathilda_import_finish')==1) {
+			
+			$number_of_files=get_option('mathilda_import_numberoffiles');
+			echo '<div class="notice notice-success is-dismissible"><p>';
+			echo 'Mathilda Import Notice: Tweet History imported completly. '.$number_of_files.' Files processed.</p></div>';
+			update_option('mathilda_import_finish',0);
+			
+		}
+    }
+}
+
+add_action('admin_notices', 'mathilda_import_notice');
+
 /*
 WordPress Multisite Notice
 */

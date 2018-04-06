@@ -28,6 +28,21 @@ function mathilda_cron_interval( $schedules ) {
 }
 add_filter( 'cron_schedules', 'mathilda_cron_interval' );
 
+/* Import Interval */
+
+function mathilda_import_interval( $schedules ) {
+
+	$period=get_option('mathilda_import_interval');
+
+    $schedules['mathilda_import_window'] = array(
+        'interval' => $period,
+        'display'  => esc_html__( 'Mathilda Import' ),
+    );
+
+    return $schedules;
+}
+add_filter( 'cron_schedules', 'mathilda_import_interval' );
+
 /* Mathilda Tweet Load Cron */
 
 function mathilda_cron_execute_tweetload() {
@@ -36,9 +51,19 @@ function mathilda_cron_execute_tweetload() {
 	if($initial_load==1) {
 		mathilda_cron_script();
 	}
-
 }
 add_action( 'mathilda_tweetload_schedule', 'mathilda_cron_execute_tweetload' );
+
+/* Mathilda Import Cron */
+
+function mathilda_import_execute() {
+
+	$import_status=get_option('mathilda_import_running');
+	if($import_status==1) {
+		mathilda_import_process();
+	}
+}
+add_action( 'mathilda_import_schedule', 'mathilda_import_execute' );
 
 /* Mathilda Embed Cron */
 
@@ -92,6 +117,9 @@ function mathilda_update_embed() {
 
 if( !wp_next_scheduled( 'mathilda_tweetload_schedule' ) ) {
 	wp_schedule_event( time(), 'mathilda_duration', 'mathilda_tweetload_schedule' );
+}
+if( !wp_next_scheduled( 'mathilda_import_schedule' ) ) {
+		wp_schedule_event( time(), 'mathilda_import_window', 'mathilda_import_schedule' );
 }
 if( !wp_next_scheduled( 'mathilda_embed_schedule' ) ) {
 	wp_schedule_event( time(), 'mathilda_duration', 'mathilda_embed_schedule' );

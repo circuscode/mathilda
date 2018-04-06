@@ -169,6 +169,17 @@ function mathilda_update () {
 		update_option('mathilda_plugin_version', "11");
 	}
 
+	/* Update Process Version 0.9 */
+	if($mathilda_previous_version==11) {
+		update_option('mathilda_plugin_version', "12");
+		add_option('mathilda_import_running',"0");
+		add_option('mathilda_import_open',"0");
+		add_option('mathilda_import_files',"0");
+		add_option('mathilda_import_numberoffiles',"0");
+		add_option('mathilda_import_interval', "60");
+		add_option('mathilda_import_finish', "0");
+	}
+
 }
 add_action( 'plugins_loaded', 'mathilda_update' );
 

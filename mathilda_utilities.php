@@ -69,6 +69,71 @@ function mathilda_is_pretty_permalink_enabled() {
                 }
 }
 
+/*
+Mathilda Import Directory
+
+* Function runs the path of the import directory
+* Input: none
+* Output: String
+
+*/
+
+function mathilda_get_import_directory() {
+      $upload_dir = wp_upload_dir();
+      $twitter_import_directory="mathilda-import";
+      $twitter_import_path = $upload_dir['basedir'].'/'.$twitter_import_directory;
+      return $twitter_import_path;
+}
+
+/*
+Mathilda Image Directory
+
+* Function runs the path of the image directory
+* Input: none
+* Output: String
+
+*/
+
+function mathilda_get_image_directory() {
+      $upload_dir = wp_upload_dir();
+      $mathilda_images_directory="mathilda-images";
+      $mathilda_images_path = $upload_dir['basedir'].'/'.$mathilda_images_directory .'/';
+      return $mathilda_images_path;
+}
+
+/*
+Mathilda Import Status
+
+* Function returns the Import Status in Dezimal
+* Input: none
+* Output: Number
+
+*/
+
+function mathilda_get_import_status() {
+      $mathilda_import_numberoffiles=get_option('mathilda_import_numberoffiles');
+      $mathilda_import_open=get_option('mathilda_import_open');
+      $mathilda_import_done=$mathilda_import_numberoffiles-$mathilda_import_open;
+      $mathilda_import_status=(100/$mathilda_import_numberoffiles)*$mathilda_import_done;
+      return $mathilda_import_status;
+}
+
+/*
+Mathilda Import Done files
+
+* Function returns the amount of done files
+* Input: none
+* Output: Number
+
+*/
+
+function mathilda_get_import_files_done() {
+      $mathilda_import_numberoffiles=get_option('mathilda_import_numberoffiles');
+      $mathilda_import_open=get_option('mathilda_import_open');
+      $mathilda_import_done=$mathilda_import_numberoffiles-$mathilda_import_open;
+      return $mathilda_import_done;
+}
+
 /* 
 
 Mathilda Healthy Check

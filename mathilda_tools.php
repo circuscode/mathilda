@@ -34,7 +34,6 @@ function mathilda_tools_controller() {
 	$run_initial=false;
 	$handbook_show=false;
 	$mathilda_reset=false;
-	$run_import_reloaded=false;
 
 	// WordPress Crons
 	if(isset($_GET['showwpcrons'])) {
@@ -85,13 +84,6 @@ function mathilda_tools_controller() {
 		$run_import=true;
 		}	
 	}
-	// Import Reloaded
-	if(isset($_GET['reimport'])) {
-		if($_GET['reimport']=='true')
-		{
-		$run_import_reloaded=true;
-		}	
-	}
 	// Handbook
 	if(isset($_GET['handbook'])) {
 		if($_GET['handbook']=='true')
@@ -124,10 +116,10 @@ function mathilda_tools_controller() {
 		mathilda_cron_initial_notice();
 	}
 	elseif ($run_import) {
-		mathilda_import_script(); 
+		mathilda_import_tool(); 
 	}
 	elseif ($run_import_reloaded) {
-		mathilda_import_process(); 
+		mathilda_import_tool(); 
 	}
 	elseif ($run_initial) {
 		mathilda_cron_script();
@@ -221,16 +213,6 @@ function mathilda_tools() {
 	</th>
 	<td>
 	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true" target="_blank">Load!</a>
-	</td>
-	</tr>
-
-	<!-- Load Twitter Export Reloaded -->
-	<tr valign="top">
-	<th scope="row">
-	<label for="importreloaded">Reloaded Import Archive</label>
-	</th>
-	<td>
-	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&reimport=true" target="_blank">ReLoad!</a>
 	</td>
 	</tr>
 	
@@ -369,6 +351,21 @@ function mathilda_reset_confirmation() {
 	echo 'After the reset you can use the inital cron or import to catch the data again.<br/>';
 	echo '</p>';
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&resetisconfirmed=true">Yes, go for it!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
+
+}
+
+/*
+Mathilda Reset
+*/
+
+function mathilda_confirm_import() {
+	
+	echo '<h1 class="mathilda_tools_headline">Import Archive</h1>';
+	echo '<p class="mathilda_tools_description">';
+	echo 'Your tweet history was already imported.<br/>';
+	echo 'Do you want to run the import again?<br/>';
+	echo '</p>';
+	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&importisconfirmed=true">Yes, do it again!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
 
 }
 
