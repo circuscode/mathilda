@@ -28,7 +28,7 @@ Mathilda Dashboard Widget
 function register_mathilda_dashboard_widget_reporting() {
 	wp_add_dashboard_widget(
 		'mathilda_dashboard_widget_reporting',
-		'Mathilda Report',
+		'Mathilda',
 		'mathilda_dashboard_widget_reporting_display'
 	);
 
@@ -56,7 +56,15 @@ function mathilda_dashboard_widget_reporting_display() {
 		if($lastjobrun !== '0') {
 		echo '<p>Last Tweet Update @ WordPress:<br/>'. $lastjobrun .'</p>';
 		}
+
 	}
+
+	$mathilda_import_running=get_option('mathilda_import_running');
+	$mathilda_import_status=mathilda_get_import_status();
+	if($mathilda_import_running == 1) {
+		echo '<p>Mathilda Import Status: '. $mathilda_import_status .' %</p>';
+	}
+
 }
 
 ?>
