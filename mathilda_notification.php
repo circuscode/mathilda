@@ -28,7 +28,7 @@ function mathilda_import_status_notification(){
 	if ( $pagenow == 'index.php' ) { $mathilda_notification_show=true;}
 
 	if ( isset($_GET['page']) ) {
-		if( in_array( $pagenow, array('tools.php') ) && ( $_GET['page'] == 'mathilda-tools-menu' ) ){ $mathilda_notification_show=true; }
+		if( in_array( $pagenow, array('tools.php') ) && ( $_GET['page'] == 'mathilda-tools-menu') && !( $_GET['import'] == 'true') ){ $mathilda_notification_show=true; }
 	}
 
 	if ( isset($_GET['page']) ) {

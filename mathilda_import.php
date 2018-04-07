@@ -118,6 +118,7 @@ function mathilda_import_tool() {
 			echo '<p>1. Download your tweet archive from Twitter (Profile/Settings).<br/>';
 			echo '2. Upload all files from /data/js/tweets to /wp-content/uploads/mathilda-import.<br/>';
 			echo '3. Run this import script again.</p>';
+			echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 			return;
 		}
 
@@ -137,6 +138,7 @@ function mathilda_import_tool() {
 				echo 'You can close the window and work with WordPress as normal.<br/>';
 				echo 'If the import process has finished, you get a notification at the dashboard.<br/>';
 				echo '<p>Estimate to finish: '.$number_of_files.' Minutes</p>';
+				echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 
 		}
 
@@ -162,6 +164,7 @@ function mathilda_import_tool() {
 		echo 'Files open: '.$mathilda_import_open.'<br/>';
 		echo 'Files done: '.$mathilda_import_done.'</p>';
 		echo '<p>Status: '.$mathilda_import_status .' %</p>';
+		echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 
 	}
 

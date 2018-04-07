@@ -212,7 +212,7 @@ function mathilda_tools() {
 	<label for="cron">Import Archive</label>
 	</th>
 	<td>
-	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true" target="_blank">Load!</a>
+	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true">Load!</a>
 	</td>
 	</tr>
 	
