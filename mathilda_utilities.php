@@ -115,6 +115,7 @@ function mathilda_get_import_status() {
       $mathilda_import_open=get_option('mathilda_import_open');
       $mathilda_import_done=$mathilda_import_numberoffiles-$mathilda_import_open;
       $mathilda_import_status=(100/$mathilda_import_numberoffiles)*$mathilda_import_done;
+      $mathilda_import_status=round($mathilda_import_status);
       return $mathilda_import_status;
 }
 
