@@ -112,6 +112,7 @@ Currently the procedure, which is loading and importing tweets, is one large scr
 
 = 0.9 "Renee Montoya" =
 * MONTH YEAR
+* Feature: New Navigation Type with limited Numbering
 * Improvement: Import Tweet Archive reinvented
 * Bugfix: Embedding on encrpyted sites only if source is encrypted too
 

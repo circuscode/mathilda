@@ -117,6 +117,9 @@ function mathilda_options_display_navigation()
 	echo '<br/>&nbsp;<br/>';
 	echo '<input type="radio" id="mathilda_navigation_numbering" name="mathilda_navigation" value="Numbering" ' .  checked('Numbering', get_option('mathilda_navigation'), false) . '/>'; 
 	echo '<label for="mathilda_navigation_numbering">Numbering</label>';
+	echo '<br/>&nbsp;<br/>';
+	echo '<input type="radio" id="mathilda_navigation_numbering_limit" name="mathilda_navigation" value="Limited Numbering" ' .  checked('Limited Numbering', get_option('mathilda_navigation'), false) . '/>'; 
+	echo '<label for="mathilda_navigation_numbering_limit">Limited Numbering</label>';
 }	
 
 function mathilda_options_display_hyperlink_rendering()

@@ -146,6 +146,12 @@ function mathilda_create_menu($number_of_pages, $mathilda_show_page) {
 			$menu_html.=mathilda_menu_numbering($number_of_pages, $mathilda_show_page);
 
 		} 
+		elseif ($mathilda_menu_type=='Limited Numbering') 
+		{
+
+			$menu_html.=mathilda_menu_numbering_limit($number_of_pages, $mathilda_show_page);
+
+		}
 		elseif ($mathilda_menu_type=='Standard') 
 		{
 
@@ -165,11 +171,59 @@ Mathilda Numbering Menu
 
 function mathilda_menu_numbering ($number_of_pages, $mathilda_show_page) {
 
+	$slug=get_option('mathilda_slug');
+	$is_perma_enabled=mathilda_is_pretty_permalink_enabled();
+	$menu_html='';
+
+	for($i=0; $i<$number_of_pages; $i++) {
+					
+			$mathilda_page_number=$i+1;
+			
+			/* URL Mathilda */ 
+			
+			$current_url=get_page_link();
+			$slug_pos=strpos($current_url, $slug );
+			$path_to_mathilda=substr($current_url, 0, $slug_pos);
+			
+			/* Output */
+			
+			$menu_html.= '<a ';
+			
+			if ($i==0)
+			{
+				if($is_perma_enabled) {
+						$menu_html.='href="'.$path_to_mathilda . $slug.'/" class="mathilda_bottom_forward_number';
+					}
+					else {
+						$menu_html.='href="index.php?pagename='.$slug.'&mathilda='.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
+					}
+			} 
+			else 
+			{
+				
+				if($is_perma_enabled) {
+						$menu_html.='href="'.$path_to_mathilda .$slug.'/'.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
+					}
+					else {
+						$menu_html.='href="index.php?pagename='.$slug.'&mathilda='.$mathilda_page_number.'/" class="mathilda_bottom_forward_number';
+					}
+			}
+			if($mathilda_show_page==$mathilda_page_number) {$menu_html.=' active'; }
+			$menu_html.='">'.$mathilda_page_number.'</a>';
+			
+	}
+	return $menu_html;
+}
+
+/* 
+Mathilda Numbering Menu Limit
+*/
+
+function mathilda_menu_numbering_limit ($number_of_pages, $mathilda_show_page) {
+
 		$slug=get_option('mathilda_slug');
 		$is_perma_enabled=mathilda_is_pretty_permalink_enabled();
 		$menu_html='';
-
-		$mathilda_pages_max=5; //
 
 		for($i=0; $i<$number_of_pages; $i++) {
 						
