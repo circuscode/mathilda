@@ -71,6 +71,7 @@ function mathilda_cron_update_embed() {
 	$number_of_links=mathilda_urls_count();
 	if($number_of_links>0) {
 		mathilda_update_embed();
+		mathilda_tweets_updated_fire();
 	}
 }
 add_action( 'mathilda_embed_schedule', 'mathilda_cron_update_embed' );

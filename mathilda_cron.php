@@ -68,12 +68,14 @@ function mathilda_cron_script() {
 	if(mathilda_valdidate_twitterauthdata($authorization)==false)
 	{
 	echo "<p>Error: Twitter Authentification Data is missing! Please check the Mathilda Options!</p>";
+	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'options-general.php?page=mathilda-options">Go to Mathilda Options</a></p>';
 	return;
 	}
 
 	if(mathilda_valdidate_twitteruser($user)==false)
 	{
 	echo "<p>Error: Twitter User is missing! Please check the Mathilda Options!</p>";
+	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'options-general.php?page=mathilda-options">Go to Mathilda Options</a></p>';
 	return;
 	}
 
@@ -163,6 +165,7 @@ function mathilda_cron_script() {
 			echo '<p><strong>Response from Twitter API</strong></p>';
 			echo '<p>New Tweets are not available.<br/>API Response will not be archived.</p>';
 			echo '<p><em>Load Script is stopped.</em></p></div>';
+			echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 			mathilda_update_cron_lastrun();
 			return;
 			}
@@ -493,7 +496,7 @@ echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathil
 
 /* Fire: Tweets are updated */
 
-// do_action('mathilda_tweets_updated');
+mathilda_tweets_updated_fire();
 
 }
 

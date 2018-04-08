@@ -215,6 +215,10 @@ function mathilda_import_process() {
 
 		echo '<p>***</p>';
 		echo '<p>Finished!</p>';
+
+		/* Fire: Tweets are updated */
+
+		mathilda_tweets_updated_fire();
 	}
 
 } 

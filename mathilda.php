@@ -45,6 +45,7 @@ require_once('mathilda_reporting.php');
 require_once('mathilda_update.php');
 require_once('mathilda_schedule.php');
 require_once('mathilda_notification.php');
+require_once('mathilda_hooks.php');
 
 /*
 Activate Plugin

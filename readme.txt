@@ -118,6 +118,7 @@ Currently the procedure, which is loading and importing tweets, is one large scr
 * Changed: Mathilda Initial Load is limited 200 tweets now
 * Changed: Date Rendering
 * Bugfix: Embedding on encrpyted sites only if source is encrypted too
+* API: Action Fired after Clear Cache
 
 = 0.8.1 "Maps" =
 * September 2017

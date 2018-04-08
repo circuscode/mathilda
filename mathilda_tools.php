@@ -199,7 +199,7 @@ function mathilda_tools() {
 	<label for="cron">Load Tweets</label>
 	</th>
 	<td>
-	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&cron=true" target="_blank">Run!</a>
+	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&cron=true" >Run!</a>
 	</td>
 	</tr>
 	
