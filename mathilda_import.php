@@ -138,7 +138,7 @@ function mathilda_import_tool() {
 				echo 'You can close the window and work with WordPress as normal.<br/>';
 				echo 'If the import process has finished, you get a notification at the dashboard.<br/>';
 				echo '<p>Estimate to finish: '.$number_of_files.' Minutes</p>';
-				echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
+				echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true">Show Status</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 
 		}
 
