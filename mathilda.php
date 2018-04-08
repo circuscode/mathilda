@@ -147,7 +147,10 @@ function mathilda_deactivate () {
    	wp_unschedule_event($timestamp, 'mathilda_embed_schedule' );
 
 	$timestamp = wp_next_scheduled( 'mathilda_tweetload_schedule' );
-   	wp_unschedule_event($timestamp, 'mathilda_tweetload_schedule' );
+	wp_unschedule_event($timestamp, 'mathilda_tweetload_schedule' );
+	   
+	$timestamp = wp_next_scheduled( 'mathilda_import_schedule' );
+   	wp_unschedule_event($timestamp, 'mathilda_import_schedule' );
 
 }
 

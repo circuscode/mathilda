@@ -146,6 +146,9 @@ function mathilda_import_tool() {
 		Status Flag 
 		*/
 
+		$timestamp = wp_next_scheduled( 'mathilda_import_schedule' );
+		wp_unschedule_event($timestamp, 'mathilda_import_schedule' );
+
 		update_option('mathilda_import_interval',60);
 		update_option('mathilda_import_open',$number_of_files);
 		update_option('mathilda_import_numberoffiles',$number_of_files);
