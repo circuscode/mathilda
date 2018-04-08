@@ -140,7 +140,9 @@ function mathilda_cron_script() {
 		->buildOauth($url, $requestMethod)
 		->performRequest();
 		$string = json_decode($json_output,$assoc = TRUE);
-		if($string["errors"][0]["message"] != "") {echo "<p><strong>Sorry, there was a problem.</strong></p><p>Twitter returned the following error message:</p><p><em>".$string['errors'][0]["message"]."</em></p>";return;}
+		if(isset($string['errors'])) {
+		if($string['errors'][0]['message'] != "") {echo "<p><strong>Sorry, there was a problem.</strong></p><p>Twitter returned the following error message:</p><p><em>".$string['errors'][0]['message']."</em></p>";return;}
+		}
 
 		/* Save JSON */
 

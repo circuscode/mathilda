@@ -441,21 +441,20 @@ function mathilda_handbook() {
 	/* Initial Config */
 
 	echo '<h2>Initial Configuration</h2><p>
-	1. <a href="https://www.unmus.de/wp-content/uploads/Mathilda-Twitter-App-Registration-EN.pdf" target="_blank">Register</a> your Mathilda-Instance as Twitter-Application for API Access.<br/>
+	1. <a href="https://www.unmus.de/wp-content/uploads/Mathilda-Twitter-App-Registration-EN.pdf" target="_blank">Register</a> your Mathilda-Instance for Twitter API Access.<br/>
 	2. Maintain OAUTH Access Token, OAUTH Access Token Secret, Consumer Key, Consumer Secret and your Twitter Account in the plugin settings.<br/>
-	3. Run the initial Mathilda Cron - this will take several minutes.<br/>
-	4. Create a WordPress page to show your tweets - the page slug must match the mathilda slug.</p>';
+	3. Run the initial Mathilda Cron.<br/>
+	4. Create a WordPress page to show your tweets (page slug must match to mathilda slug)</p>';
 
 	/* Remarks */
 	echo '<h2>Remarks</h2>
-	- Initial cron is able to copy your latest 3200 tweets from Twitter.<br/>
-	- If you have written more tweets, you must import your older tweets manually with the import function.<br/>
-	- After the execution of the initial cron, Mathilda will run the cron automaticly.</p>';
+	- Initial load is will copy your latest 200 tweets from Twitter.<br/>
+	- After execution of the initial load, Mathilda will load your future tweets automaticly.</p>';
 
 	echo '<h2>How to import your complete twitter history?</h2>
 	1. Download your tweet archive from Twitter (Profile/Settings/Your Data).<br/>
 	2. Upload all files from the folder data/js/tweets to the folder wp-content/uploads/mathilda-import.</br>
-	3. Run the import - this can take up to 30 minutes depending of the amount of your tweets.</p>';
+	3. Run the import.</p>';
 
 	mathilda_tools_close();
 

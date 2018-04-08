@@ -117,8 +117,10 @@ Currently the procedure, which is loading and importing tweets, is one large scr
 * Improvement: Differentiated Message to User if inital cron not yet done
 * Changed: Mathilda Initial Load is limited 200 tweets now
 * Changed: Date Rendering
+* Updated: Mathilda Handbook
 * Bugfix: Embedding on encrpyted sites only if source is encrypted too
 * API: Action Fired after Clear Cache
+* Others: Code Improvements
 
 = 0.8.1 "Maps" =
 * September 2017
