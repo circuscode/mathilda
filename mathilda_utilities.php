@@ -88,7 +88,7 @@ function mathilda_get_import_directory() {
 /*
 Mathilda Image Directory
 
-* Function runs the path of the image directory
+* Function returns the path of the image directory
 * Input: none
 * Output: String
 
@@ -99,6 +99,22 @@ function mathilda_get_image_directory() {
       $mathilda_images_directory="mathilda-images";
       $mathilda_images_path = $upload_dir['basedir'].'/'.$mathilda_images_directory .'/';
       return $mathilda_images_path;
+}
+
+/*
+Mathilda API Data Directory
+
+* Function return the path of the API Data directory
+* Input: none
+* Output: String
+
+*/
+
+function mathilda_get_apidata_directory() {
+      $upload_dir = wp_upload_dir();
+      $mathilda_apidata_directory="mathilda-twitterapidata";
+      $mathilda_apidata_path = $upload_dir['basedir'].'/'.$mathilda_apidata_directory .'/';
+      return $mathilda_apidata_path;
 }
 
 /*

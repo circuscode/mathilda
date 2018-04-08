@@ -118,9 +118,6 @@ function mathilda_tools_controller() {
 	elseif ($run_import) {
 		mathilda_import_tool(); 
 	}
-	elseif ($run_import_reloaded) {
-		mathilda_import_tool(); 
-	}
 	elseif ($run_initial) {
 		mathilda_cron_script();
 	}
@@ -323,11 +320,11 @@ function mathilda_cron_initial_notice() {
 	
 	echo '<h1 class="mathilda_tools_headline">Load Tweets</h1>';
 	echo '<p class="mathilda_tools_description">';
-	echo 'This is the first time you copy your tweets!<br/>';
-	echo 'Initial Load takes several minutes.<br/>';
+	echo 'This is the first time you copy your tweets from Twitter to WordPress!<br/>';
+	echo 'Initial Load may take several minutes.<br/>';
 	echo 'During the process you will see a blank page.<br/>';
 	echo 'Please wait until you have the finish message at the bottom.<br/>';
-	echo 'After inital load the Mathilda cron will load your tweets automaticly in the background every '.$custom_cron_period.' minutes.';
+	echo 'After this initial load Mathilda will load your tweets automaticly in the background every '.$custom_cron_period.' minutes.';
 	echo '</p>';
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&initialrun=true">Yes, go for it!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
 	}

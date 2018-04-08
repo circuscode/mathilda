@@ -62,7 +62,7 @@ function mathilda_activate () {
 	add_option('mathilda_consumer_secret', "");
 	add_option('mathilda_twitter_user', "");
 	add_option('mathilda_num_tweets_fetch_call', "200");
-	add_option('mathilda_num_fetches', "17");
+	add_option('mathilda_num_fetches', "1");
 	add_option('mathilda_retweets', "0");
 	add_option('mathilda_replies', "0");
 	add_option('mathilda_quotes', "0");

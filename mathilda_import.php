@@ -221,7 +221,15 @@ function mathilda_import_process() {
 
 function mathilda_import_file( $file ) {
 
-	// Echo
+	/*
+	Runtime
+	*/
+
+	set_time_limit(900);
+
+	/*
+	Echo
+	*/
 	echo '<h2>File Select</h2>'; 
 	echo '<p>'.$file . '</p>';
 
