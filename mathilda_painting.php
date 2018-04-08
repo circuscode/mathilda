@@ -407,6 +407,11 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	$year=mathilda_year($newdate);
 	$hours=mathilda_hours($newdate);
 	$minutes=mathilda_minutes($newdate);
+
+	$pos_zero = strpos($day, '0');
+	if ($pos_zero === 0 ) {
+		$day=substr_replace ( $day , '' , 0, 1);
+	}
 	 
 	/* Get Image */
 	$tweet_images=array();
