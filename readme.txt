@@ -1,5 +1,5 @@
 === Mathilda ===
-Contributors: unmus
+Contributors: unmus, vbachem
 Tags: twitter, tweets, microblogging, reclaim, blog, social network
 Requires at least: 4.5
 Tested up to: 4.8.1
@@ -111,9 +111,10 @@ Currently the procedure, which is loading and importing tweets, is one large scr
 == Changelog ==
 
 = 0.9 "Renee Montoya" =
-* MONTH YEAR
+* development in progress
 * Feature: New Navigation Type with limited Numbering
 * Improvement: Import Tweet Archive reinvented
+* Improvement: Differentiated Message to User if inital cron not yet done
 * Bugfix: Embedding on encrpyted sites only if source is encrypted too
 
 = 0.8.1 "Maps" =

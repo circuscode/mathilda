@@ -29,7 +29,15 @@ if($alliswell==true) {
 else {
 	
 	// Oh No!
-	$mathilda_content_html.='<p>This is Mathilda! Please run import or cron!</p>';
+
+	if ( is_user_logged_in() ) {
+		$mathilda_content_html.='<p>Hello! I am Mathilda.<br/>Please run import or cron!</p>';
+	}
+	else {
+		$mathilda_content_html.='<p>Hello! I am Mathilda.<br/>In a short while you find some nice tweets here.</p>';
+	}
+
+	
 
 }
 
