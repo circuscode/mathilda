@@ -89,7 +89,7 @@ function mathilda_activate () {
 	add_option('mathilda_import_open',"0");
 	add_option('mathilda_import_files',"0");
 	add_option('mathilda_import_numberoffiles',"0");
-	add_option('mathilda_import_interval', "60");
+	add_option('mathilda_import_interval', "86400");
 	add_option('mathilda_import_finish', "0");
 
 	/* Create Mathilda Tables */
