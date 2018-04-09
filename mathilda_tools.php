@@ -321,7 +321,7 @@ function mathilda_reset_confirmation() {
 	
 	echo '<h1 class="mathilda_tools_headline">Mathilda Reset</h1>';
 	echo '<p class="mathilda_tools_description">';
-	echo 'This will delete all your data from Twitter in the Mathilda WordPress tables.<br/>';
+	echo 'This will delete all your tweet data in WordPress.<br/>';
 	echo 'Your custom settings will remain in the plugin options.<br/>';
 	echo 'Images and logfiles on the webspace will also not deleted.<br/>';
 	echo 'After the reset you can use the inital cron or import to catch the data again.<br/>';
