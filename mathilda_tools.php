@@ -301,10 +301,9 @@ function mathilda_cron_initial_notice() {
 	echo '<p class="mathilda_tools_description">';
 	echo 'This is the first time you copy your tweets from Twitter to WordPress!<br/>';
 	echo 'Initial Load may take several minutes.<br/>';
-	echo 'Your latest 200 tweets are copied.<br/>';
 	echo 'During the process you will see a blank page.<br/>';
 	echo 'Please wait until you have the finish message at the bottom.<br/>';
-	echo 'After this initial action Mathilda will load your tweets automaticly in the background every '.$custom_cron_period.' minutes.';
+	echo 'After this initial action Mathilda will load your future tweets automaticly in the background every '.$custom_cron_period.' minutes.';
 	echo '</p>';
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&initialrun=true">Yes, go for it!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
 	}
@@ -415,7 +414,7 @@ function mathilda_handbook() {
 
 	/* Remarks */
 	echo '<h2>Remarks</h2>
-	- Initial load is will copy your latest 200 tweets from Twitter.<br/>
+	- Initial load will copy your latest 200 tweets from Twitter.<br/>
 	- After execution of the initial load, Mathilda will load your future tweets automaticly.</p>';
 
 	echo '<h2>How to import your complete twitter history?</h2>

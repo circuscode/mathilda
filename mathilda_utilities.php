@@ -255,12 +255,6 @@ function mathilda_healthy_check() {
         $output.='</p>';
         $output.='<p><strong>Additional Information</strong></p>';
         $output.='<p>';
-        
-        // 1. Info
-        $this_environment_php_execution_time=ini_get('max_execution_time');
-        $output.='Max PHP script execution time: '.$this_environment_php_execution_time.' seconds.';
-        
-        $output.='<br/>';
 
         // 2. Info
         $initial_load_done=get_option('mathilda_initial_load');
