@@ -90,6 +90,15 @@ function mathilda_update_embed() {
 
 	$number_of_open_embeds = count($open_embeds);
 
+	if($number_of_open_embeds<1) {
+		echo 'No embeds to load';
+		return;
+	}
+
+	if($number_of_open_embeds>30) {
+		$number_of_open_embeds=30;
+	}
+
 	$i=0;
 	while($i < $number_of_open_embeds) {
 

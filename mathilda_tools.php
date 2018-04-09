@@ -25,7 +25,6 @@ function mathilda_tools_controller() {
 	echo '<div class="wrap">';
 
 	// Application Flags
-	$wpcron_scheduled_show=false;
 	$mathilda_scripting=false;
 	$mathilda_embedding=false;
 	$run_healthy_check=false;
@@ -35,13 +34,13 @@ function mathilda_tools_controller() {
 	$handbook_show=false;
 	$mathilda_reset=false;
 
-	// WordPress Crons
-	if(isset($_GET['showwpcrons'])) {
-		if($_GET['showwpcrons']=='true')
-		{
-		$wpcron_scheduled_show=true;
-		}	
-	}
+	// Load Tweets
+  	if(isset($_GET['cron'])) {
+ 		if($_GET['cron']=='true')
+ 		{
+ 		$run_cron=true;
+ 		}	
+ 	}
 	// Scripting
 	if(isset($_GET['scripting'])) {
 		if($_GET['scripting']=='true')
@@ -302,9 +301,10 @@ function mathilda_cron_initial_notice() {
 	echo '<p class="mathilda_tools_description">';
 	echo 'This is the first time you copy your tweets from Twitter to WordPress!<br/>';
 	echo 'Initial Load may take several minutes.<br/>';
+	echo 'Your latest 200 tweets are copied.<br/>';
 	echo 'During the process you will see a blank page.<br/>';
 	echo 'Please wait until you have the finish message at the bottom.<br/>';
-	echo 'After this initial load Mathilda will load your tweets automaticly in the background every '.$custom_cron_period.' minutes.';
+	echo 'After this initial action Mathilda will load your tweets automaticly in the background every '.$custom_cron_period.' minutes.';
 	echo '</p>';
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&initialrun=true">Yes, go for it!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
 	}
