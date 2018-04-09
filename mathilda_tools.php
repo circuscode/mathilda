@@ -63,13 +63,6 @@ function mathilda_tools_controller() {
 		$run_healthy_check=true;
 		}	
 	}
-	// Cron
-	if(isset($_GET['cron'])) {
-		if($_GET['cron']=='true')
-		{
-		$run_cron=true;
-		}	
-	}
 	// Initial Cron Confirmed
 	if(isset($_GET['initialrun'])) {
 		if($_GET['initialrun']=='true')
@@ -100,10 +93,7 @@ function mathilda_tools_controller() {
 	}
 	
 	// Application Loader
-	if($wpcron_scheduled_show) {
-		mathilda_wpcron_show();
-	}
-	elseif ($mathilda_scripting) {
+	if ($mathilda_scripting) {
 		mathilda_script_load();
 	}
 	elseif ($mathilda_embedding) {
@@ -291,16 +281,6 @@ function mathilda_tools_developer() {
 	</td>
 	</tr>
 	
-	<!-- Show WordPress Crons -->
-	<tr valign="top">
-	<th scope="row">
-	<label for="cron">WordPress Crons</label>
-	</th>
-	<td>
-	<a class="button" href="'.admin_url(). 'tools.php?page=mathilda-tools-menu&showwpcrons=true">Show!</a>
-	</td>
-	</tr>
-	
 	</table>';
 	
 }
@@ -363,19 +343,6 @@ function mathilda_confirm_import() {
 	echo 'Do you want to run the import again?<br/>';
 	echo '</p>';
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&importisconfirmed=true">Yes, do it again!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
-
-}
-
-/*
-Scheduled Crons
-*/
-
-function mathilda_wpcron_show() {
-	
-	echo '<h1 class="mathilda_tools_headline">WordPress Crons</h1>';
-	echo '<p class="mathilda_tools_description">Scheduled scripts<br/>&nbsp;</p>';
-	echo '<pre>'; print_r( _get_cron_array() ); echo '</pre>';
-	mathilda_tools_close();
 
 }
 
