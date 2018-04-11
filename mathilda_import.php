@@ -176,6 +176,14 @@ function mathilda_import_tool() {
 
 function mathilda_import_process() {
 
+	$secure_execution=get_option('mathilda_import_subprocess_running');
+	if($secure_execution==1) {
+		return;
+	}
+	else {
+		update_option('mathilda_import_subprocess_running',1);
+	}
+
 	$number_of_files=get_option('mathilda_import_open');
 	$list_import_files=get_option('mathilda_import_files');
 
@@ -209,6 +217,7 @@ function mathilda_import_process() {
 
 	update_option('mathilda_import_open',$number_of_files);
 	update_option('mathilda_import_files',$list_import_files);
+	update_option('mathilda_import_subprocess_running',0);
 
 	if(empty($list_import_files)) {
 		

@@ -92,6 +92,7 @@ function mathilda_activate () {
 	add_option('mathilda_import_numberoffiles',"0");
 	add_option('mathilda_import_interval', "86400");
 	add_option('mathilda_import_finish', "0");
+	add_option('mathilda_import_subprocess_running', "0");
 
 	/* Create Mathilda Tables */
 
@@ -202,6 +203,7 @@ function mathilda_delete () {
 		delete_option('mathilda_import_numberoffiles');
 		delete_option('mathilda_import_interval');
 		delete_option('mathilda_import_finish');
+		delete_option('mathilda_import_subprocess_running');
 
 		/* Delete Tables */
 

@@ -453,6 +453,16 @@ function mathilda_reset_data() {
 	update_option('mathilda_import_open',"0");
 	update_option('mathilda_import_files',"0");
 	update_option('mathilda_import_numberoffiles',"0");
+	update_option('mathilda_import_subprocess_running',0);
+
+	$timestamp = wp_next_scheduled( 'mathilda_embed_schedule' );
+   	wp_unschedule_event($timestamp, 'mathilda_embed_schedule' );
+
+	$timestamp = wp_next_scheduled( 'mathilda_tweetload_schedule' );
+	wp_unschedule_event($timestamp, 'mathilda_tweetload_schedule' );
+	   
+	$timestamp = wp_next_scheduled( 'mathilda_import_schedule' );
+   	wp_unschedule_event($timestamp, 'mathilda_import_schedule' );
 
 	$message="Mathilda Reset is done.";
 	return $message;
