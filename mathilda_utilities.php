@@ -280,7 +280,13 @@ function mathilda_healthy_check() {
         // 3. Info
         $import_done=get_option('mathilda_import');
         if($import_done==0) {
-            $output.='Import was not executed.';
+            $import_running=get_option('mathilda_import_running');
+            if($import_running==1) {
+                  $output.='Import is running.';
+            }
+            else {
+                  $output.='Import was not executed.';
+            }
         } else {
             $output.='Import was executed.';
         }

@@ -148,7 +148,7 @@ function mathilda_import_tool() {
 
 		$timestamp = wp_next_scheduled( 'mathilda_import_schedule' );
 		wp_unschedule_event($timestamp, 'mathilda_import_schedule' );
-
+		
 		update_option('mathilda_import_interval',60);
 		update_option('mathilda_import_open',$number_of_files);
 		update_option('mathilda_import_numberoffiles',$number_of_files);
@@ -197,9 +197,6 @@ function mathilda_import_process() {
 	update_option('mathilda_tweets_count', $number_of_tweets);
 	update_option('mathilda_select_amount', $number_of_select);
 
-	$json_import=1;
-	update_option('mathilda_import', $json_import);
-
 	/*
 	Update Import Status
 	*/
@@ -215,6 +212,9 @@ function mathilda_import_process() {
 		update_option('mathilda_import_running',0);
 		update_option('mathilda_import_finish',1);
 		update_option('mathilda_import_interval',86400);
+
+		$json_import=1;
+		update_option('mathilda_import', $json_import);
 
 		echo '<p>***</p>';
 		echo '<p>Finished!</p>';
