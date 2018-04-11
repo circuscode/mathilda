@@ -39,9 +39,14 @@ function mathilda_import_status_notification(){
 
 	if($mathilda_notification_show==true) {
 
-		$mathilda_import_status=mathilda_get_import_status();
-		echo '<div class="notice notice-success is-dismissible"><p>';
-		echo 'Mathilda Import Status: '.$mathilda_import_status.' %</p></div>';
+		if(!(isset($_GET['resetisconfirmed']))) {
+			if(!($_GET['resetisconfirmed']=='true'))
+			{
+				$mathilda_import_status=mathilda_get_import_status();
+				echo '<div class="notice notice-success is-dismissible"><p>';
+				echo 'Mathilda Import Status: '.$mathilda_import_status.' %</p></div>';
+			}
+		}
 
 	}
 
@@ -77,12 +82,12 @@ function mathilda_import_notice(){
     global $pagenow;
     if ( $pagenow == 'index.php' OR $pagenow == 'tools.php' OR $pagenow == 'options-general.php' OR $pagenow == 'plugins.php') {
 		if(get_option('mathilda_import_finish')==1) {
-			
-			$number_of_files=get_option('mathilda_import_numberoffiles');
-			echo '<div class="notice notice-success is-dismissible"><p>';
-			echo 'Mathilda Import Notice: Tweet History imported completly. '.$number_of_files.' Files processed.</p></div>';
-			update_option('mathilda_import_finish',0);
-			
+
+				$number_of_files=get_option('mathilda_import_numberoffiles');
+				echo '<div class="notice notice-success is-dismissible"><p>';
+				echo 'Mathilda Import Notice: Tweet History imported completly. '.$number_of_files.' Files processed.</p></div>';
+				update_option('mathilda_import_finish',0);
+
 		}
     }
 }
