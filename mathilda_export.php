@@ -8,6 +8,11 @@ if (!defined('ABSPATH')) { exit; }
 
 function mathilda_export_csv() {
 
+$amount_of_tweets=mathilda_tweets_count();
+if($amount_of_tweets==0) {
+    return 'Error! No Tweets for Export available.';
+}
+
 /* 
 File 
 */ 

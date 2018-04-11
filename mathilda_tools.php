@@ -149,9 +149,16 @@ function mathilda_tools() {
 		if($_GET['exportcsv']=='true')
 		{
 		$result=mathilda_export_csv();
-		echo '<div class="updated fade">
-		<p><strong>'.$result.'</strong></p> 
-		</div>';
+			if(strpos($result, 'Error')===0) {
+			echo '<div class="notice notice-warning is-dismissible">
+			<p><strong>'.$result.'</strong></p> 
+			</div>';
+			}
+			else {
+			echo '<div class="updated fade">
+			<p><strong>'.$result.'</strong></p> 
+			</div>';
+			}
 		}	
 	}
 
