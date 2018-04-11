@@ -258,7 +258,13 @@ function mathilda_healthy_check() {
 
         // 1. Info
         $this_environment_php_execution_time=ini_get('max_execution_time');
-        $output.='Max PHP script execution time: '.$this_environment_php_execution_time.' seconds.';
+        if($this_environment_php_execution_time==0) {
+              $this_environment_php_execution_time='Not limited';
+        }
+        else {
+              $this_environment_php_execution_time=$this_environment_php_execution_time .' seconds';
+        }
+        $output.='Max PHP script execution time: '.$this_environment_php_execution_time.'.';
         $output.='<br/>';
 
         // 2. Info
