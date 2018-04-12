@@ -39,8 +39,8 @@ function mathilda_import_status_notification(){
 
 	if($mathilda_notification_show==true) {
 
-		if(!(isset($_GET['resetisconfirmed']))) {
-			if(!($_GET['resetisconfirmed']=='true'))
+		if(!(isset($_GET['resetisconfirmed'])) AND !(isset($_GET['importbreak']))) {
+			if(!($_GET['resetisconfirmed']=='true') AND !($_GET['importbreak']=='true'))
 			{
 				$mathilda_import_status=mathilda_get_import_status();
 				echo '<div class="notice notice-success is-dismissible"><p>';
