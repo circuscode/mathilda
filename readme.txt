@@ -115,6 +115,7 @@ Currently the procedure, which is loading and importing tweets, is one large scr
 * Feature: Import Tweet Archive reinvented
 * Feature: New Navigation Type with limited Numbering
 * Improvement: Differentiated Message to User if inital cron not yet done
+* Improvement: Secure Execution
 * Changed: Mathilda Initial Load is limited 200 tweets now
 * Changed: Date Rendering
 * Updated: Mathilda Handbook

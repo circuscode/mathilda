@@ -25,6 +25,21 @@ function mathilda_cron_script() {
 	<h1 class="mathilda_tools_headline">Load Tweets</h1>
 	<p class="mathilda_tools_description">Output</p>';
 
+	/*
+	Secure Execution
+	*/
+
+	$secure_execution=get_option('mathilda_load_process_running');
+	if($secure_execution==1) {
+		echo '<p><strong>I cannot!</strong></p>';
+		echo '<p>Loading Process is already running.</p>';
+		echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
+		return;
+	}
+	else {
+		update_option('mathilda_load_process_running',1);
+	}
+
 	/* 
 	Authorization Data @ Twitter API
 	*/
@@ -487,6 +502,7 @@ $number_of_select=mathilda_select_count();
 update_option('mathilda_latest_tweet', $latest_tweet);
 update_option('mathilda_tweets_count', $number_of_tweets);
 update_option('mathilda_select_amount', $number_of_select);
+update_option('mathilda_load_process_running',0);
 mathilda_update_cron_lastrun();
 
 /*

@@ -179,6 +179,7 @@ function mathilda_update () {
 		add_option('mathilda_import_interval', "60");
 		add_option('mathilda_import_finish', "0");
 		add_option('mathilda_import_subprocess_running', "0");
+		add_option('mathilda_load_process_running',"0");
 		update_option('mathilda_num_fetches', "1");
 	}
 
