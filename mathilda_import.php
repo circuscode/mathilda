@@ -183,7 +183,7 @@ function mathilda_import_break() {
 
 	echo '<h1 class="mathilda_tools_headline">Import Archive</h1>';
 	echo '<p><strong>Status</strong></p>';
-	echo '<p>Import aborted.</p>';
+	echo '<p>Aborted.</p>';
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 }
 
