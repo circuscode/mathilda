@@ -204,7 +204,7 @@ function mathilda_options_userinterface_display()
 	add_settings_field("mathilda_navigation", "Navigation Type", "mathilda_options_display_navigation", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_hyperlink_rendering", "Hyperlink Rendering", "mathilda_options_display_hyperlink_rendering", "mathilda-options", "userinterface_settings_section");
 	add_settings_field("mathilda_embed", "Embedding?", "mathilda_options_display_embed", "mathilda-options", "userinterface_settings_section");
-	add_settings_field("mathilda_tweet_backlink", "Backlink @ Tweets?", "mathilda_options_display_tweet_backlink", "mathilda-options", "userinterface_settings_section");
+	add_settings_field("mathilda_tweet_backlink", "Backlink @ Tweet?", "mathilda_options_display_tweet_backlink", "mathilda-options", "userinterface_settings_section");
 	
 	register_setting("mathilda_settings", "mathilda_tweets_on_page", "mathilda_validate_tweetsonpage");
 	register_setting("mathilda_settings", "mathilda_replies", "mathilda_validate_replies");
