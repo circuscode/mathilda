@@ -33,7 +33,6 @@ function mathilda_tools_controller() {
 	$run_initial=false;
 	$handbook_show=false;
 	$mathilda_reset=false;
-	$import_break=false;
 
 	// Load Tweets
   	if(isset($_GET['cron'])) {
@@ -77,13 +76,6 @@ function mathilda_tools_controller() {
 		$run_import=true;
 		}	
 	}
-	// Import Break
-	if(isset($_GET['importbreak'])) {
-		if($_GET['importbreak']=='true')
-		{
-		$import_break=true;
-		}	
-	}
 	// Handbook
 	if(isset($_GET['handbook'])) {
 		if($_GET['handbook']=='true')
@@ -114,9 +106,6 @@ function mathilda_tools_controller() {
 	}
 	elseif ($run_import) {
 		mathilda_import_tool(); 
-	}
-	elseif ($import_break) {
-		mathilda_import_break(); 
 	}
 	elseif ($run_initial) {
 		mathilda_cron_script();

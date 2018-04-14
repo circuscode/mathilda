@@ -175,6 +175,9 @@ function mathilda_import_tool() {
 }
 
 function mathilda_import_break() {
+
+	// Function currently not used
+
 	update_option('mathilda_import_running',0);
 	update_option('mathilda_import_interval',86400);
 	update_option('mathilda_import_open','0');
