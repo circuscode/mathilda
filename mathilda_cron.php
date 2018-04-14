@@ -84,6 +84,7 @@ function mathilda_cron_script() {
 	{
 	echo "<p>Error: Twitter Authentification Data is missing! Please check the Mathilda Options!</p>";
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'options-general.php?page=mathilda-options">Go to Mathilda Options</a></p>';
+	update_option('mathilda_load_process_running',0);
 	return;
 	}
 
@@ -91,6 +92,7 @@ function mathilda_cron_script() {
 	{
 	echo "<p>Error: Twitter User is missing! Please check the Mathilda Options!</p>";
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'options-general.php?page=mathilda-options">Go to Mathilda Options</a></p>';
+	update_option('mathilda_load_process_running',0);
 	return;
 	}
 
@@ -156,7 +158,7 @@ function mathilda_cron_script() {
 		->performRequest();
 		$string = json_decode($json_output,$assoc = TRUE);
 		if(isset($string['errors'])) {
-		if($string['errors'][0]['message'] != "") {echo "<p><strong>Sorry, there was a problem.</strong></p><p>Twitter returned the following error message:</p><p><em>".$string['errors'][0]['message']."</em></p>";return;}
+		if($string['errors'][0]['message'] != "") {echo "<p><strong>Sorry, there was a problem.</strong></p><p>Twitter returned the following error message:</p><p><em>".$string['errors'][0]['message']."</em></p>";update_option('mathilda_load_process_running',0);return;}
 		}
 
 		/* Save JSON */
@@ -166,8 +168,13 @@ function mathilda_cron_script() {
 			if ($json_message==true)
 			{
 			echo '<div>';
-			echo '<p><strong>Response from Twitter API</strong></p>';
-			echo '<p>New Tweets are available.<br/>API Response will be archived.</p>';
+				if($initial_load==0) {
+					echo '<p><strong>Response from Twitter API</strong></p>';
+					echo '<p>Tweets are available.<br/>API Response will be archived.</p>';
+				} else {
+					echo '<p><strong>Response from Twitter API</strong></p>';
+					echo '<p>New Tweets are available.<br/>API Response will be archived.</p>';	
+				}
 			echo '</div>';
 			$json_message=false;	
 			}
@@ -181,9 +188,10 @@ function mathilda_cron_script() {
 			echo '<div>';
 			echo '<p><strong>Response from Twitter API</strong></p>';
 			echo '<p>New Tweets are not available.<br/>API Response will not be archived.</p>';
-			echo '<p><em>Load Script is stopped.</em></p></div>';
+			echo '<p><em>Loading is stopped.</em></p></div>';
 			echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 			mathilda_update_cron_lastrun();
+			update_option('mathilda_load_process_running',0);
 			return;
 			}
 			else
