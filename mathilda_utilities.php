@@ -311,15 +311,11 @@ function mathilda_healthy_check() {
         } else {
             $output.='Mathilda is doing well! :-)';
        }
+       $output.='</p>';
         
        // Helpful Links
-       $output.='</p>';
        $output.='<p><strong>Helpful Resources</strong></p>';
-       $output.='<p>';
-
-       $output.='<a href="https://wordpress.org/plugins/mathilda/faq/" target="_blank">Mathilda FAQ</a><br/>';
-       $output.='<a href="https://wordpress.org/support/plugin/mathilda" target="_blank">Mathilda Support Forum</a>';
-       $output.='</p>';
+       $output.=mathilda_helpful_resources();
 
        return $output;
 }

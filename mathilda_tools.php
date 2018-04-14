@@ -350,7 +350,7 @@ function mathilda_reset_confirmation() {
 	echo 'This will delete all your tweet data in WordPress.<br/>';
 	echo 'Your custom settings will remain in the plugin options.<br/>';
 	echo 'Images and logfiles on the webspace will also not deleted.<br/>';
-	echo 'After the reset you can use the inital cron or import to catch the data again.<br/>';
+	echo 'After reset you can use the inital cron or import to catch the data again.<br/>';
 	echo '</p>';
 	echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&resetisconfirmed=true">Yes, go for it!</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Cancel</a></p>';
 
@@ -435,7 +435,7 @@ function mathilda_handbook() {
 	echo '<h2>Initial Configuration</h2><p>
 	1. <a href="https://www.unmus.de/wp-content/uploads/Mathilda-Twitter-App-Registration-EN.pdf" target="_blank">Register</a> your Mathilda-Instance for Twitter API Access.<br/>
 	2. Maintain OAUTH Access Token, OAUTH Access Token Secret, Consumer Key, Consumer Secret and your Twitter Account in the plugin settings.<br/>
-	3. Run the initial Mathilda Cron.<br/>
+	3. Run the initial tweet load.<br/>
 	4. Create a WordPress page to show your tweets (page slug must match to mathilda slug)</p>';
 
 	/* Remarks */
@@ -448,7 +448,27 @@ function mathilda_handbook() {
 	2. Upload all files from the folder data/js/tweets to the folder wp-content/uploads/mathilda-import.</br>
 	3. Run the import.</p>';
 
+	echo '<h2>Helpful Resources</h2>';
+	echo mathilda_helpful_resources();
+
 	mathilda_tools_close();
+
+}
+
+/*
+Mathilda Helpful Resources
+*/
+
+function mathilda_helpful_resources() {
+
+	$output='<p>';
+	$output.='<a href="https://wordpress.org/plugins/mathilda/faq/" target="_blank">Mathilda FAQ</a><br/>';
+	$output.='<a href="https://wordpress.org/support/plugin/mathilda" target="_blank">Mathilda Support Forum</a><br/>';
+	$output.='<a href="https://github.com/circuscode/mathilda" target="_blank">Mathilda @ GitHub</a><br/>';
+	$output.='<a href="https://www.unmus.de/mathilda/" target="_blank">Official Plugin Page</a>';
+	$output.='</p>';
+
+	return $output;
 
 }
 
