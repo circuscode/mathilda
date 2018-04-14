@@ -168,7 +168,7 @@ function mathilda_import_tool() {
 		echo 'Files open: '.$mathilda_import_open.'<br/>';
 		echo 'Files done: '.$mathilda_import_done.'</p>';
 		echo '<p>Status: '.$mathilda_import_status .' %</p>';
-		echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true">Update Status</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&importbreak=true">Abort</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
+		echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true">Update Status</a>&nbsp;&nbsp;&nbsp;<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 
 	}
 
