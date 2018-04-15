@@ -95,11 +95,11 @@ The length of the cron period in combination with the configuration of caching d
 
 Yes.
 
-### Why require some updates a reset of the plugin and reload of the data? =
+### Why require some updates a reset of the plugin and reload of the data?
 
 The plugin is an early stage of development. It is still a long way to a stable 1.0 version. To avoid data inconsistency and process errors some updates require a reload of the data. Sometime Mathilda will have a maturity level, which does not require such resets anymore.
 
-### Does Mathilda support WordPress Multisite? =
+### Does Mathilda support WordPress Multisite?
 
 No. Mathilda does not support the WordPress Multisite Feature. The plugin is working on the master-site, but is not working on all other child sites within the wordpress network.
 
