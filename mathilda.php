@@ -3,12 +3,12 @@
 /*
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
-Description:  Mathilda takes your tweets from Twitter continuously, saves them in the WordPress database and displays the tweets on the blog.
+Description:  Mathilda copies your tweets from Twitter continuously, stores them in the WordPress database and displays them in the blog.
 Version:	  0.9
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
-License:      GPL2
-License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+License:      GPL3
+License URI:  https://www.gnu.org/licenses/gpl-3.0.html
 Domain Path:  /languages
 Text Domain:  mathilda
 */
