@@ -51,7 +51,7 @@ function mathilda_import_status_notification(){
 	}
 
 }
-add_action('admin_notices', 'mathilda_import_status_notification');
+// add_action('admin_notices', 'mathilda_import_status_notification');
 
 // mathilda_update_notice
 // The function brings a message, if activites are required

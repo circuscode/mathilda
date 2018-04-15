@@ -33,6 +33,7 @@ function mathilda_tools_controller() {
 	$run_initial=false;
 	$handbook_show=false;
 	$mathilda_reset=false;
+	$import_break=false;
 
 	// Load Tweets
   	if(isset($_GET['cron'])) {
@@ -76,6 +77,13 @@ function mathilda_tools_controller() {
 		$run_import=true;
 		}	
 	}
+	// Import Break
+	if(isset($_GET['importbreak'])) {
+		if($_GET['importbreak']=='true')
+		{
+		$import_break=true;
+		}	
+	}
 	// Handbook
 	if(isset($_GET['handbook'])) {
 		if($_GET['handbook']=='true')
@@ -116,6 +124,9 @@ function mathilda_tools_controller() {
 	elseif ($mathilda_reset) {
 		mathilda_reset_confirmation();
 	}
+	elseif ($import_break) {
+		mathilda_import_break(); 
+	}
 	else {
 		mathilda_tools();
 		/* Developer - Yes or No? */
@@ -136,6 +147,15 @@ Tools Page
 
 function mathilda_tools() {
 	
+	/* Dynamic Labels */
+	$label_import_botton="";
+	$label_import_status=get_option('mathilda_import_running');
+	if($label_import_status==0) {
+		$label_import_botton="Load!";
+	} else {
+		$label_import_botton="Status!";
+	}
+
 	/* Headline */
 	echo '<h1 class="mathilda_tools_headline">Tweets</h1>
 	<p class="mathilda_tools_description">Mathilda Tools</p>';
@@ -213,7 +233,7 @@ function mathilda_tools() {
 	<label for="cron">Import Archive</label>
 	</th>
 	<td>
-	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true">Load!</a>
+	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&import=true">'.$label_import_botton.'</a>
 	</td>
 	</tr>
 	
