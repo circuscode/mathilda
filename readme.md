@@ -1,6 +1,6 @@
 # Mathilda WordPress Plugin
 
-Mathilda copies your tweets from Twitter continuously, stores them in the WordPress database and displays them in the blog.
+Mathilda copies your tweets from Twitter to WordPress continuously.
 
 ## Description
 
@@ -30,16 +30,13 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 4. Run the initial load (Tools/Tweets)
 5. Create a WordPress page (page slug must match mathilda slug) 
 
-## How to setup Mathilda?
-[Screencast Video](https://www.unmus.de/wordpress-plugin-mathilda/#screencast) (German)
-
 ## CSS classes
 
 You know the game! Mathilda can not assure that it looks fine on your theme. That is why all mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes. 
 
 ## Mathilda API
 
-Action: mathilda_tweets_updated (fired on tweet update)
+WordPress Action: mathilda_tweets_updated (fired on tweet update)
 
 ## Data & Files
 
@@ -113,6 +110,9 @@ The embedded content will be retrieved and generated every 15 minutes (or with t
 ### How is Mathilda handling the nofollow Attribute?
 
 Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentions and the Backlink of the Tweet itself. Links within the tweets are declared as follow.
+
+## How to setup Mathilda?
+[Screencast Video](https://www.unmus.de/wordpress-plugin-mathilda/#screencast) (German)
 
 ## Live Demo
 

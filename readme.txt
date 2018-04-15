@@ -8,7 +8,7 @@ License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://www.unmus.de/
 
-Mathilda copies your tweets from Twitter continuously, stores them in the WordPress database and displays them in the blog.
+Mathilda copies your tweets from Twitter to WordPress continuously.
 
 == Description ==
 
@@ -263,7 +263,7 @@ You know the game! Mathilda can not assure that it looks fine on your theme. Tha
 
 = API =
 
-Action: mathilda_tweets_updated (fired on tweet update)
+WordPress Action: mathilda_tweets_updated (fired on tweet update)
 
 = Data & Files =
 
