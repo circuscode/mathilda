@@ -118,6 +118,14 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 
 [Here!](https://www.unmus.de/tweets/)
 
+## Built With
+
+* [Visual Studio Code](https://code.visualstudio.com)
+
+## License
+
+This project is licensed under the GPL3 License.
+
 ## Related Links
 
 * [Plugin Page (German)](https://www.unmus.de/mathilda/)
