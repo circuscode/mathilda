@@ -43,7 +43,7 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 
 = Which Tweets are displayed in the blog? =
 
-Mathilda focuses on the core functionality of Twitter meaning only Text-Tweets, Images, Hashtags, Mentions and Links are displayed. Surveys, Threads, Stories, Videos and GEO-Locations are not supported. 
+Mathilda focuses on the core functionality of Twitter meaning only Text-Tweets, Images, Galleries, Hashtags, Mentions and Links are displayed. Surveys, Threads, Stories, Videos and GEO-Locations are not supported. 
 
 = Why does Mathilda not support Retweets? =
 
@@ -108,8 +108,6 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 = 0.10 "Deadshot" =
 * June 2018
 * Feature: Support of Tweet Galleries
-
-== Changelog ==
 
 = 0.9 "Renee Montoya" =
 * April 2018
@@ -279,6 +277,25 @@ Mathilda creates 4 folders within wp-content/uploads.
 * mathilda-images = Tweet Image Folder
 * mathilda-export = Export Directory 
 * mathilda-import = Import Directory 
+
+= Supported Tweet Types =
+
+Following tweet types are supported.
+
+* 140 Character Tweets
+* 280 Character Tweets
+* Replys
+* Quotes
+
+= Supported Tweet Objects =
+
+Following tweet objects are supported.
+
+* Images
+* Hashtags
+* Links
+* Mentions
+* Galleries
 
 = Mathilda Cron Jobs @ WordPress =
 
