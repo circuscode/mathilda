@@ -300,9 +300,9 @@ function mathilda_cron_script() {
 				$index_end=false;
 				$media_yes_or_no="FALSE";
 				
-				if(isset($items['entities']['media'])) 
+				if(isset($items['extended_entities']['media'])) 
 				{
-					foreach($items['entities']['media'] as $images)
+					foreach($items['extended_entities']['media'] as $images)
 					{	
 
 					/* Image Meta Data */

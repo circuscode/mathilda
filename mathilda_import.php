@@ -595,7 +595,7 @@ function mathilda_import_file( $file ) {
 			if ($i==0) { echo '<h2>Media Import</h2>'; }
 			
 			$media_existing=2;
-			$media_existing=mathilda_is_media_existing($media_cache[$i][12]);
+			$media_existing=mathilda_is_image_file_existing($media_cache[$i][13]);
 			
 			if($media_existing==1) {
 				echo ($i+1) . ': Media ' . $media_cache[$i][1] . ' already exists.<br/>';

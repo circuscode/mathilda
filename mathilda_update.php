@@ -183,6 +183,11 @@ function mathilda_update () {
 		update_option('mathilda_num_fetches', "1");
 	}
 
+	/* Update Process Version 0.10 */
+	if($mathilda_previous_version==12) {
+		update_option('mathilda_plugin_version', "13");
+	}
+
 }
 add_action( 'plugins_loaded', 'mathilda_update' );
 

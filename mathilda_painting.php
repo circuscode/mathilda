@@ -564,11 +564,31 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	/* Paint Image */
 	if ($image=='TRUE')
 	{
-		$mathilda_tweet_image=$tweet_images[0][14];
+
+		// Initialize Image Counter for Line Break
+		$number_of_images=count($tweet_images);
+		$current_image=1;
+
+		foreach($tweet_images as $tweet_image)
+		{	
+
+		$mathilda_tweet_image=$tweet_image[14];
 		$upload_dir = wp_upload_dir();
 		$mathilda_images_dirname="mathilda-images";
 		$mathilda_images_dirwithpath = $upload_dir['baseurl'].'/'.$mathilda_images_dirname .'/';
 		$mathilda_content.='<img src="'.$mathilda_images_dirwithpath.$mathilda_tweet_image.'" alt="Tweet Image" class="mathilda-tweet-image"/>';	  
+
+			// Line Break for Tweet Galerys
+			if($number_of_images>1) {
+				if($number_of_images != $current_image ) {
+					$mathilda_content.="<br/>&nbsp;<br/>"; 
+				}
+			}
+
+		$current_image=$current_image+1;
+
+		}
+
 	}
 	
 	/* Close */

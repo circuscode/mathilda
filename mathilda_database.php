@@ -414,6 +414,19 @@ function mathilda_is_media_existing($tweetid) {
 }
 
 /*
+Is Image File Existing
+*/
+
+function mathilda_is_image_file_existing($imagefile) {
+
+	global $wpdb;
+	$table_name=$wpdb->prefix . 'mathilda_media';
+	$result=$wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE mathilda_media_filename='$imagefile'");
+
+	return $result;
+}
+
+/*
 Latest Tweet
 */
 
@@ -430,49 +443,48 @@ Mathilda Reset Data
 
 function mathilda_reset_data() {
 
-	/*
-	$secure_execution_import=get_option('mathilda_import_subprocess_running');
-	while($secure_execution_import==1) {
-		sleep(1);
-		$secure_execution_import=get_option('mathilda_import_subprocess_running');
+	$secure_reset_import=get_option('mathilda_import_subprocess_running');
+	$secure_reset_load=get_option('mathilda_load_process_running');
+
+	if($secure_reset_import==0 AND $secure_reset_load==0) {
+
+		update_option('mathilda_initial_load',0);
+		update_option('mathilda_import_running',"0");
+		update_option('mathilda_latest_tweet',"");
+		update_option('mathilda_tweets_count',0);
+		update_option('mathilda_import', "0");
+		update_option('mathilda_highest_imported_tweet','');
+		update_option('mathilda_select_amount','0');
+		update_option('mathilda_cron_lastrun', "0");
+		update_option('mathilda_import_open',"0");
+		update_option('mathilda_import_files',"0");
+		update_option('mathilda_import_numberoffiles',"0");
+		update_option('mathilda_import_subprocess_running',0);
+		update_option('mathilda_load_process_running',0);
+		update_option('mathilda_import_interval', "86400");
+ 
+		global $wpdb;
+		$table_name=$wpdb->prefix . 'mathilda_tweets';
+		$wpdb->get_var( "DELETE FROM $table_name" );
+		$table_name=$wpdb->prefix . 'mathilda_hashtags';
+		$wpdb->get_var( "DELETE FROM $table_name" );
+		$table_name=$wpdb->prefix . 'mathilda_mentions';
+		$wpdb->get_var( "DELETE FROM $table_name" );
+		$table_name=$wpdb->prefix . 'mathilda_media';
+		$wpdb->get_var( "DELETE FROM $table_name" );
+		$table_name=$wpdb->prefix . 'mathilda_urls';
+		$wpdb->get_var( "DELETE FROM $table_name" );
+
+		$message="Mathilda Reset is done.";
+		return $message;
+
 	}
-
-	$secure_execution_load=get_option('mathilda_load_process_running');
-	while($secure_execution_load==1) {
-		sleep(1);
-		$secure_execution_load=get_option('mathilda_load_process_running');
+	elseif ($secure_reset_import==1) {
+		return $message="Oh No! Culture Clash! Please wait a second and reset Mathilda again!";
 	}
-	*/
-
-	global $wpdb;
-	$table_name=$wpdb->prefix . 'mathilda_tweets';
-	$wpdb->get_var( "DELETE FROM $table_name" );
-	$table_name=$wpdb->prefix . 'mathilda_hashtags';
-	$wpdb->get_var( "DELETE FROM $table_name" );
-	$table_name=$wpdb->prefix . 'mathilda_mentions';
-	$wpdb->get_var( "DELETE FROM $table_name" );
-	$table_name=$wpdb->prefix . 'mathilda_media';
-	$wpdb->get_var( "DELETE FROM $table_name" );
-	$table_name=$wpdb->prefix . 'mathilda_urls';
-	$wpdb->get_var( "DELETE FROM $table_name" );
-
-	update_option('mathilda_initial_load',0);
-	update_option('mathilda_latest_tweet',"");
-	update_option('mathilda_tweets_count',0);
-	update_option('mathilda_import', "0");
-	update_option('mathilda_highest_imported_tweet','');
-	update_option('mathilda_select_amount','0');
-	update_option('mathilda_cron_lastrun', "0");
-	update_option('mathilda_import_running',"0");
-	update_option('mathilda_import_open',"0");
-	update_option('mathilda_import_files',"0");
-	update_option('mathilda_import_numberoffiles',"0");
-	update_option('mathilda_import_subprocess_running',0);
-	update_option('mathilda_load_process_running',0);
-	update_option('mathilda_import_interval', "86400");
-
-	$message="Mathilda Reset is done.";
-	return $message;
+	elseif ($secure_reset_load==1) {
+		return $message="Oh No! Culture Clash! Please wait a second and reset Mathilda again!";
+	}
 
 }
 

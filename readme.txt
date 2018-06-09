@@ -3,7 +3,7 @@ Contributors: unmus, vbachem
 Tags: twitter, tweets, microblogging, blog, social network
 Requires at least: 4.5
 Tested up to: 4.9.5
-Stable tag: 0.9
+Stable tag: 0.10
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://www.unmus.de/
@@ -102,6 +102,12 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 1. Mathilda Settings
 2. Mathilda Tools
 3. Tweets @ User Interface
+
+== Changelog ==
+
+= 0.10 "Deadshot" =
+* June 2018
+* Feature: Support of Tweet Galleries
 
 == Changelog ==
 

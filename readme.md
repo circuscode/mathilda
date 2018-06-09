@@ -133,6 +133,11 @@ This project is licensed under the GPL3 License.
 
 ## Changelog
 
+### 0.10 "Deadshot"
+
+* June 2018
+* Feature: Support of Tweet Galleries
+
 ### 0.9 "Renee Montoya"
 
 * April 2018
