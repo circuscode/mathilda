@@ -156,6 +156,7 @@ This project is licensed under the GPL3 License.
 
 * June 2018
 * Feature: Support of Tweet Galleries
+* Bugfix: URL Rendering (if more as 1 Link is included)
 
 ### 0.9 "Renee Montoya"
 

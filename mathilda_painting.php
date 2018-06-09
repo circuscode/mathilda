@@ -493,23 +493,29 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	
 	if ($url=='TRUE')
 	{
+		foreach($tweet_urls as $tweet_url) {
+
 		if ($url_handling=='Longlink') {
-		$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;	
+			
+				$tweet=str_replace ( $tweet_url[1], ' ' , $tweet ) ;	
+		
 		}
 		elseif ($url_handling=='Shortlink') {
 			if($embed_content) {
-				$embed_value=mathilda_embed_rendering($tweet_urls[0][0],$tweet_urls[0][2]);
+				$embed_value=mathilda_embed_rendering($tweet_url[0],$tweet_url[2]);
 				if($embed_value) {
 					$url_handling="Longlink";
-					$tweet=str_replace ( $tweet_urls[0][1], ' ' , $tweet ) ;
+					$tweet=str_replace ( $tweet_url[1], ' ' , $tweet ) ;
 				}
 				else {
-					$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_urls[0][1].'" target="_blank">'.$tweet_urls[0][3].'</a>';$tweet=str_replace ( $tweet_urls[0][1], $shortlink , $tweet ) ;
+					$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_url[1].'" target="_blank">'.$tweet_url[3].'</a>';$tweet=str_replace ( $tweet_url[1], $shortlink , $tweet ) ;
 				}
 			} else {
-				$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_urls[0][1].'" target="_blank">'.$tweet_urls[0][3].'</a>';	
-				$tweet=str_replace ( $tweet_urls[0][1], $shortlink , $tweet ) ;
+				$shortlink='<a class="mathilda-tweet-url-link mathilda-shortlink" href="'.$tweet_url[1].'" target="_blank">'.$tweet_url[3].'</a>';	
+				$tweet=str_replace ( $tweet_url[1], $shortlink , $tweet ) ;
 			}
+		}
+
 		}
 	}
 		  
@@ -528,37 +534,56 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 	/* Paint URL */  
 	if ($url=='TRUE') 
 	{
-		if ($url_handling=='Longlink') {
-			if($embed_content) { 
 
-				$embed_value=mathilda_embed_rendering($tweet_urls[0][0],$tweet_urls[0][2]);
+		// Initialize URL Counter
+		$number_of_urls=count($tweet_urls);
+		$current_url=1;
+		
+		foreach($tweet_urls as $tweet_url)
+		{	
+			// Margin Bottom More As 1 URL
+			if($number_of_urls > $current_url ) {
+				$current_url_style=' style="margin-bottom:5px"'; 
+			}
+			else {
+				$current_url_style="";
+			}
+			
+			$current_url=$current_url+1;
 
-				if ($embed_value) {
+			if ($url_handling=='Longlink') {
 
-					if (is_ssl()) {
-						if (strpos($tweet_urls[0][2], 'https://') !== false) {
+				if($embed_content) { 
+
+					$embed_value=mathilda_embed_rendering($tweet_url[0],$tweet_url[2]);
+
+					if ($embed_value) {
+
+						if (is_ssl()) {
+							if (strpos($tweet_url[2], 'https://') !== false) {
+								$mathilda_content.='<div class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'"> ';
+								$mathilda_content.=$embed_value;
+								$mathilda_content.=' </div>';
+							}
+							else {
+								$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" '.$current_url_style.' href="'.$tweet_url[2].'" target="_blank">'.$tweet_url[2].'</a></p>';
+							}
+						} else {
 							$mathilda_content.='<div class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'"> ';
 							$mathilda_content.=$embed_value;
 							$mathilda_content.=' </div>';
 						}
-						else {
-							$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
-						}
+
 					} else {
-						$mathilda_content.='<div class="mathilda-tweet-url mathilda-embed mathilda-longlink'.$image_follows_class_url.'"> ';
-						$mathilda_content.=$embed_value;
-						$mathilda_content.=' </div>';
+						$mathilda_content.='<p '.$current_url_style.' class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_url[2].'" target="_blank">'.$tweet_url[2].'</a></p>';
 					}
 
-				} else {
-					$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
 				}
-
-			}
-			else {
-				$mathilda_content.='<p class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_urls[0][2].'" target="_blank">'.$tweet_urls[0][2].'</a></p>';
-			} 
-		}	
+				else {
+					$mathilda_content.='<p '.$current_url_style.' class="mathilda-tweet-url mathilda-longlink'.$image_follows_class_url.'"><a class="mathilda-tweet-url-link" href="'.$tweet_url[2].'" target="_blank">'.$tweet_url[2].'</a></p>';
+				} 
+			}	
+		}
 	}
 		  
 	/* Paint Image */
