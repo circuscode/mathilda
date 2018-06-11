@@ -108,7 +108,7 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 = 0.10 "Deadshot" =
 * June 2018
 * Feature: Support of Tweet Galleries
-* Bugfix: URL Rendering (if more as 1 Link is included)
+* Bugfix: URL Rendering (if more as 1 Link is included in Tweet)
 
 = 0.9 "Renee Montoya" =
 * April 2018
@@ -226,6 +226,9 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 * Initial Release
 
 == Upgrade Notice ==
+
+= 0.10 =
+This version brings tweet galleries.
 
 = 0.9 =
 This version brings stability, stability and stability.
