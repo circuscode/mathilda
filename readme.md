@@ -137,6 +137,22 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 
 [Here!](https://www.unmus.de/tweets/)
 
+## Branches
+
+This repository follows the git-flow workflow.
+
+* master branch is the latest release
+* develop branch is the current state of development
+* feature branches contain dedicated features in development
+* bugfix branches contain dedicated bugfixes in development
+* hotfix branches contain dedicated bugfixes in development
+* release branches contain the next release in preparation
+
+## Unterstanding the Deployment
+
+Releases in the WordPress Plugin Directory will be processed via SVN. 
+The Version-to-Ship will be created manually on GitHub. See Release Section.
+
 ## Built With
 
 * [Visual Studio Code](https://code.visualstudio.com)
