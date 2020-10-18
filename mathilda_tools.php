@@ -454,8 +454,9 @@ function mathilda_handbook() {
 
 	echo '<h2>How to import your complete twitter history?</h2>
 	1. Download your tweet archive from Twitter (Profile/Settings/Your Data).<br/>
-	2. Upload all files from the folder data/js/tweets to the folder wp-content/uploads/mathilda-import.</br>
-	3. Run the import.</p>';
+	2. Split the file data/tweets.js into smaller files (<400 KB) with a local app.<br/>
+	3. Upload all files to the folder wp-content/uploads/mathilda-import.</br>
+	4. Run the import.</p>';
 
 	echo '<h2>Helpful Resources</h2>';
 	echo mathilda_helpful_resources();
