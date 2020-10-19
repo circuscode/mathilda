@@ -466,9 +466,9 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 		$num_hashtags=count($tweet_hashtags);
 		for($i=0; $i<$num_hashtags; $i++)
 		{
-			$hashtag_html='<a href="https://twitter.com/search?q=%23'.$tweet_hashtags[$i][1].'" class="mathilda-hashtag" rel="nofollow" target="_blank">#'.$tweet_hashtags[$i][1].'</a>';
-			$hashtag_search='#'.$tweet_hashtags[$i][1];
-			$tweet=str_replace ( $hashtag_search, $hashtag_html , $tweet ) ;	
+			$hashtag_html='<a href="https://twitter.com/search?q=%23'.$tweet_hashtags[$i][1].'" class="mathilda-hashtag" rel="nofollow" target="_blank">#'.$tweet_hashtags[$i][1].'</a> ';
+			$hashtag_search='#'.$tweet_hashtags[$i][1].' ';
+			$tweet=str_replace ( $hashtag_search, $hashtag_html , $tweet ) ;
 		}
 		
 	}
