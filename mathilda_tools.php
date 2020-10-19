@@ -477,7 +477,7 @@ function mathilda_helpful_resources() {
 
 	$output='<p>';
 	$output.='<a href="https://wordpress.org/plugins/mathilda/faq/" target="_blank">Mathilda FAQ</a><br/>';
-	$output.='<a href="https://wordpress.org/support/plugin/mathilda" target="_blank">Mathilda Support Forum</a><br/>';
+	$output.='<a href="https://wordpress.org/support/plugin/mathilda" target="_blank">Mathilda Support</a><br/>';
 	$output.='<a href="https://github.com/circuscode/mathilda" target="_blank">Mathilda @ GitHub</a><br/>';
 	$output.='<a href="https://www.unmus.de/mathilda/" target="_blank">Official Plugin Page</a>';
 	$output.='</p>';
