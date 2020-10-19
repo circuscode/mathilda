@@ -601,7 +601,17 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 		$upload_dir = wp_upload_dir();
 		$mathilda_images_dirname="mathilda-images";
 		$mathilda_images_dirwithpath = $upload_dir['baseurl'].'/'.$mathilda_images_dirname .'/';
-		$mathilda_content.='<img src="'.$mathilda_images_dirwithpath.$mathilda_tweet_image.'" alt="Tweet Image" class="mathilda-tweet-image"/>';	  
+		$mathilda_content.='<img src="'.$mathilda_images_dirwithpath.$mathilda_tweet_image.'" alt="Tweet Image" class="mathilda-tweet-image"/>';	 
+
+		// Identify Video Tweet
+		$video_extendedurl=$tweet_image[6];
+		$is_video_url = strpos($video_extendedurl, 'video');
+		if($is_video_url!==false) {
+			$mathilda_content.='<span style="position:relative;top:7px;padding-left:50px;">';
+			$mathilda_content.='Video: <a href="'.$tweet_image[6].'">'.$tweet_image[6].'</a>';
+			$mathilda_content.="</span>";
+			$mathilda_content.="&nbsp;<br/>";  
+		}
 
 			// Line Break for Tweet Galerys
 			if($number_of_images>1) {
