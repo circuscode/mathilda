@@ -435,6 +435,10 @@ Mathilda Docu
 */
 
 function mathilda_handbook() {
+
+	$filesize_max_threshold=get_option('mathilda_import_filesize_max');
+	$filesize_max_string=$filesize_max_threshold;
+	$filesize_max_string=$filesize_max_string/1024;
 	
 	echo '<h1 class="mathilda_tools_headline">Mathilda Handbook</h1>';
 	echo '<p class="mathilda_tools_description">Get it working!<br/>&nbsp;</p>';
@@ -454,7 +458,7 @@ function mathilda_handbook() {
 
 	echo '<h2>How to import your complete twitter history?</h2>
 	1. Download your tweet archive from Twitter (Profile/Settings/Your Data).<br/>
-	2. Split the file data/tweets.js into smaller files (<400 KB) with a local app.<br/>
+	2. Split the file data/tweets.js into smaller files (<'.$filesize_max_string.' KB) with a local app.<br/>
 	3. Upload all files to the folder wp-content/uploads/mathilda-import.</br>
 	4. Run the import.</p>';
 

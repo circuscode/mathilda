@@ -94,6 +94,7 @@ function mathilda_activate () {
 	add_option('mathilda_import_finish', "0");
 	add_option('mathilda_import_subprocess_running', "0");
 	add_option('mathilda_load_process_running',"0");
+	add_option('mathilda_import_filesize_max',"409600");
 
 	/* Create Mathilda Tables */
 
@@ -206,6 +207,7 @@ function mathilda_delete () {
 		delete_option('mathilda_import_finish');
 		delete_option('mathilda_import_subprocess_running');
 		delete_option('mathilda_load_process_running');
+		delete_option('mathilda_import_filesize_max');
 
 		/* Delete Tables */
 

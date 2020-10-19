@@ -46,13 +46,17 @@ function mathilda_import_tool() {
 		$twitter_import_path = mathilda_get_import_directory();
 
 		/*
-		Arrays
+		Variables & Arrays
 		*/
 
 		$list_import_files_draft=array();
 		$number_of_files_draft=0;
 		$list_import_files=array();
 		$number_of_files=0;
+		$max_file_size=0;
+		$filesize_max_threshold=get_option('mathilda_import_filesize_max');
+		$filesize_max_string=$filesize_max_threshold;
+		$filesize_max_string=$filesize_max_string/1024;
 
 		/*
 		Read Files @ Import Directory
@@ -106,6 +110,22 @@ function mathilda_import_tool() {
 		array_multisort($list_import_files);
 
 		/*
+		Get Max File Size
+		*/
+
+		for($i=0; $i<$number_of_files; $i++)
+		{
+
+			$filename_with_path=$twitter_import_path . '/' . $list_import_files[$i][0]; 
+			$filesize_this=filesize($filename_with_path);
+
+			if($filesize_this>$max_file_size) {
+				$max_file_size=$filesize_this;
+			}
+			
+		}
+
+		/*
 		Check Number of Files 
 		*/
 	
@@ -116,10 +136,24 @@ function mathilda_import_tool() {
 			echo 'Please follow the instructions below.</p>';
 			echo '<p><strong>Required Steps</strong></p>';
 			echo '<p>1. Download your tweet archive from Twitter (Profile/Settings).<br/>';
-			echo '2. Upload all files from /data/js/tweets to /wp-content/uploads/mathilda-import.<br/>';
-			echo '3. Run this import script again.</p>';
+			echo '2. Split the file data/tweets.js into smaller files (<'.$filesize_max_string.' KB) with a local app.<br/>';
+			echo '3. Upload all files to the folder wp-content/uploads/mathilda-import.</br>';
+			echo '4. Run this import script again.</p>';
 			echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 			return;
+			
+		}
+
+		if ($max_file_size>$filesize_max_threshold) {
+
+			echo '<p><strong>Error</strong></p>';
+			echo '<p>One or more files in the import folder are larger as '.$filesize_max_string.' KB.<br/>';
+			echo 'Unfortunately the import process is limited to files not larger as 400 KB.<br/>';
+			echo 'You must split the affected files in smaller files with a local app.<br/>';
+			echo 'After that run this import script again.</p>';
+			echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
+			return;
+			
 		}
 
 		if ($number_of_files>0) {
