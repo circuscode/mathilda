@@ -607,9 +607,9 @@ function mathilda_tweet_paint($date,$tweet,$id,$me,$image,$mention,$url,$hashtag
 		$video_extendedurl=$tweet_image[6];
 		$is_video_url = strpos($video_extendedurl, 'video');
 		if($is_video_url!==false) {
-			$mathilda_content.='<span style="position:relative;top:7px;padding-left:50px;">';
+			$mathilda_content.='<div class="mathilda-tweet-video-link">';
 			$mathilda_content.='Video: <a href="'.$tweet_image[6].'">'.$tweet_image[6].'</a>';
-			$mathilda_content.="</span>";
+			$mathilda_content.="</div>";
 			$mathilda_content.="&nbsp;<br/>";  
 		}
 
