@@ -46,13 +46,17 @@ function mathilda_import_tool() {
 		$twitter_import_path = mathilda_get_import_directory();
 
 		/*
-		Arrays
+		Variables & Arrays
 		*/
 
 		$list_import_files_draft=array();
 		$number_of_files_draft=0;
 		$list_import_files=array();
 		$number_of_files=0;
+		$max_file_size=0;
+		$filesize_max_threshold=get_option('mathilda_import_filesize_max');
+		$filesize_max_string=$filesize_max_threshold;
+		$filesize_max_string=$filesize_max_string/1024;
 
 		/*
 		Read Files @ Import Directory
@@ -106,6 +110,22 @@ function mathilda_import_tool() {
 		array_multisort($list_import_files);
 
 		/*
+		Get Max File Size
+		*/
+
+		for($i=0; $i<$number_of_files; $i++)
+		{
+
+			$filename_with_path=$twitter_import_path . '/' . $list_import_files[$i][0]; 
+			$filesize_this=filesize($filename_with_path);
+
+			if($filesize_this>$max_file_size) {
+				$max_file_size=$filesize_this;
+			}
+			
+		}
+
+		/*
 		Check Number of Files 
 		*/
 	
@@ -116,10 +136,24 @@ function mathilda_import_tool() {
 			echo 'Please follow the instructions below.</p>';
 			echo '<p><strong>Required Steps</strong></p>';
 			echo '<p>1. Download your tweet archive from Twitter (Profile/Settings).<br/>';
-			echo '2. Upload all files from /data/js/tweets to /wp-content/uploads/mathilda-import.<br/>';
-			echo '3. Run this import script again.</p>';
+			echo '2. <a href="https://www.unmus.de/wp-content/uploads/Mathilda-JSON-File-Split-EN.pdf" target="_blank">Split the file</a> data/tweets.js into smaller files (<'.$filesize_max_string.' KB) with a local app.<br/>';
+			echo '3. Upload all files to the folder wp-content/uploads/mathilda-import.</br>';
+			echo '4. Run this import script again.</p>';
 			echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
 			return;
+			
+		}
+
+		if ($max_file_size>$filesize_max_threshold) {
+
+			echo '<p><strong>Error</strong></p>';
+			echo '<p>One or more files in the import folder are larger as '.$filesize_max_string.' KB.<br/>';
+			echo 'Unfortunately the import process is limited to files not larger as 400 KB.<br/>';
+			echo 'You must split the affected files in smaller files with a local app.<br/>';
+			echo 'After that run this import script again.</p>';
+			echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
+			return;
+			
 		}
 
 		if ($number_of_files>0) {
@@ -327,15 +361,15 @@ function mathilda_import_file( $file ) {
 		$hashtag_index_e=false;
 		$hashtags_yes_or_no="FALSE";
 		
-		if(array_key_exists('0', $items['entities']['hashtags'])) 
+		if(array_key_exists('0', $items['tweet']['entities']['hashtags'])) 
 		{
-			foreach($items['entities']['hashtags'] as $hashtags)
+			foreach($items['tweet']['entities']['hashtags'] as $hashtags)
 			{	
 			$hashtag_text=$hashtags['text'];
 			$hashtag_index_s=$hashtags['indices'][0];
 			$hashtag_index_e=$hashtags['indices'][1];
 			$hashtags_yes_or_no="TRUE";
-			$hashtag_cache[]=array($hashtag_text,$hashtag_index_s,$hashtag_index_e,$items['id_str']);
+			$hashtag_cache[]=array($hashtag_text,$hashtag_index_s,$hashtag_index_e,$items['tweet']['id_str']);
 			$num_hashtags=$num_hashtags+1;
 			}
 		}
@@ -349,9 +383,9 @@ function mathilda_import_file( $file ) {
 		$mention_index_end=false;
 		$mentions_yes_or_no="FALSE";
 		
-		if(array_key_exists('0', $items['entities']['user_mentions'])) 
+		if(array_key_exists('0', $items['tweet']['entities']['user_mentions'])) 
 		{
-			foreach($items['entities']['user_mentions'] as $mentions)
+			foreach($items['tweet']['entities']['user_mentions'] as $mentions)
 			{	
 			$mention_useridstr=$mentions['id_str'];
 			$mention_screenname=$mentions['screen_name'];
@@ -359,7 +393,7 @@ function mathilda_import_file( $file ) {
 			$mention_index_start=$mentions['indices'][0];
 			$mention_index_end=$mentions['indices'][1];
 			$mentions_yes_or_no="TRUE";
-			$mention_cache[]=array($mention_useridstr,$mention_screenname,$mention_fullname,$mention_index_start,$mention_index_end,$items['id_str']);
+			$mention_cache[]=array($mention_useridstr,$mention_screenname,$mention_fullname,$mention_index_start,$mention_index_end,$items['tweet']['id_str']);
 			$num_mentions=$num_mentions+1;
 			}
 		}
@@ -373,9 +407,9 @@ function mathilda_import_file( $file ) {
 		$url_index_end=false;
 		$urls_yes_or_no="FALSE";
 		
-		if(array_key_exists('0', $items['entities']['urls'])) 
+		if(array_key_exists('0', $items['tweet']['entities']['urls'])) 
 		{
-			foreach($items['entities']['urls'] as $urls)
+			foreach($items['tweet']['entities']['urls'] as $urls)
 			{	
 			$url_tco=$urls['url'];
 			$url_extended=$urls['expanded_url'];
@@ -383,7 +417,7 @@ function mathilda_import_file( $file ) {
 			$url_index_start=$urls['indices'][0];
 			$url_index_end=$urls['indices'][1];
 			$urls_yes_or_no="TRUE";
-			$url_cache[]=array($url_tco,$url_extended,$url_display,$url_index_start,$url_index_end,$items['id_str']);
+			$url_cache[]=array($url_tco,$url_extended,$url_display,$url_index_start,$url_index_end,$items['tweet']['id_str']);
 			$num_urls=$num_urls+1;
 			}
 		}
@@ -404,9 +438,9 @@ function mathilda_import_file( $file ) {
 		$index_end=false;
 		$media_yes_or_no="FALSE";
 		
-		if(isset($items['entities']['media'])) 
+		if(isset($items['tweet']['entities']['media'])) 
 		{
-			foreach($items['entities']['media'] as $images)
+			foreach($items['tweet']['entities']['media'] as $images)
 			{	
 
 			$media_idstr=$images['id_str'];
@@ -416,23 +450,9 @@ function mathilda_import_file( $file ) {
 			$media_displayurl=$images['display_url'];
 			$media_extendedurl=$images['expanded_url'];
 			
-			/*
-			Twitter Export JSON does not contain the size-array (small, medium, large, xxx)
-			Search Largest Value Pair
-			*/
-
-			$select_size=0;
-			for ($x=0; $x<4; $x++)
-			{
-				if($images['sizes'][$select_size]['w']<$images['sizes'][($x+1)]['w'])
-				{
-				$select_size=($x+1);
-				}	
-			}
-			
-			$media_size_w=$images['sizes'][$select_size]['w'];
-			$media_size_h=$images['sizes'][$select_size]['h'];
-			$media_size_resize=$images['sizes'][$select_size]['resize'];
+			$media_size_w=$images['sizes']['large']['w'];
+			$media_size_h=$images['sizes']['large']['h'];
+			$media_size_resize=$images['sizes']['large']['resize'];
 			$media_type='photo';
 			$index_start=$images['indices'][0];
 			$index_end=$images['indices'][1];
@@ -457,7 +477,7 @@ function mathilda_import_file( $file ) {
 			
 			// Update Media Array
 			
-			$media_cache[]=array($media_idstr,$media_mediaurl,$media_mediaurlhttps,$media_url,$media_displayurl,$media_extendedurl, $media_size_w, $media_size_h, $media_size_resize,$media_type, $index_start, $index_end,$items['id_str'],$filename,$loaded);
+			$media_cache[]=array($media_idstr,$media_mediaurl,$media_mediaurlhttps,$media_url,$media_displayurl,$media_extendedurl, $media_size_w, $media_size_h, $media_size_resize,$media_type, $index_start, $index_end,$items['tweet']['id_str'],$filename,$loaded);
 			$media_yes_or_no="TRUE";
 			$num_media=$num_media+1;
 			}
@@ -470,16 +490,19 @@ function mathilda_import_file( $file ) {
 		$tweet_retweet="FALSE";
 		$tweet_quote="FALSE";
 
-		if(isset($items['retweeted_status'])) {
-		$tweet_retweet="TRUE";
+		// Identify Retweets
+		$is_retweet = strpos($items['tweet']['full_text'], 'RT ');
+		if($is_retweet===0) {
+			$tweet_retweet="TRUE";
 		}
-		if(isset($items['truncated'])) {
-			if($items['truncated']=='true') {
+
+		if(isset($items['tweet']['truncated'])) {
+			if($items['tweet']['truncated']=='true') {
 			$tweet_truncate="TRUE";
 			}
 		}
-		if(isset($items['in_reply_to_status_id'])) {
-			if($items['in_reply_to_status_id']!=null) {
+		if(isset($items['tweet']['in_reply_to_user_id'])) {
+			if($items['tweet']['in_reply_to_user_id']!=null) {
 			$tweet_reply="TRUE";
 			}
 		}
@@ -490,9 +513,9 @@ function mathilda_import_file( $file ) {
 		}
 		
 		$tweet_cache[]=array($num_tweets,
-							$items['id_str'],
-							$items['text'],
-							$items['created_at'],
+							$items['tweet']['id_str'],
+							$items['tweet']['full_text'],
+							$items['tweet']['created_at'],
 							$hashtags_yes_or_no,
 							$mentions_yes_or_no,
 							$media_yes_or_no,
@@ -518,10 +541,8 @@ function mathilda_import_file( $file ) {
 
 		// Convert Date
 
-		$tweet_cache[$i][3]=str_replace ( '-' , '' , $tweet_cache[$i][3] );
-		$tweet_cache[$i][3]=str_replace ( ' ' , '' , $tweet_cache[$i][3] );
-		$tweet_cache[$i][3]=str_replace ( ':' , '' , $tweet_cache[$i][3] );
-		$tweet_cache[$i][3]=str_replace ( '+0000' , '' , $tweet_cache[$i][3] );
+		$tweet_date=strtotime($tweet_cache[$i][3]);
+		$tweet_cache[$i][3]=date('YmdHis', $tweet_date);
 		
 		// Update Tweets
 		

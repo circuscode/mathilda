@@ -2,13 +2,13 @@
 Contributors: unmus, vbachem
 Tags: twitter, tweets, microblogging, blog, social network
 Requires at least: 4.5
-Tested up to: 4.9.5
-Stable tag: 0.10
+Tested up to: 5.5.1
+Stable tag: 0.11
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://www.unmus.de/
 
-Mathilda copies your tweets from Twitter to WordPress continuously.
+Mathilda copies your tweets from Twitter to WordPress.
 
 == Description ==
 
@@ -47,7 +47,7 @@ Mathilda focuses on the core functionality of Twitter meaning only Text-Tweets, 
 
 = Why does Mathilda not support Retweets? =
 
-Retweets are not your data. That is why we do not show them.
+Retweets are not your data. That is why we do not support them.
 
 = Will the tweets be loaded automaticly? =
 
@@ -67,7 +67,7 @@ All the same. It works both. Mathilda is flexible. But the autoload will only be
 
 = How can I import my tweet history? =
 
-To import your tweets, you must download your tweet archive from Twitter (Profile/Settings/Your Twitter Data). Your archive contains the folder "data/js/tweets". Upload the containing files to "www.yourblog.com/wp-content/uploads/mathilda-import/". Now you can run the import (Tools/Tweets).
+To import your tweets, you must download your tweet archive from Twitter (Profile/Settings/Your Twitter Data). Your archive contains the file data/tweet.js. Split this file in smaller files (<400 KB) with a local tool like [JSON Splitter](https://github.com/jhsu98/json-splitter). After that upload the splitted files to "www.yourblog.com/wp-content/uploads/mathilda-import/". Now you can run the import (Tools/Tweets).
 
 = How does Mathilda handle the canonical URL? =
 
@@ -83,7 +83,7 @@ Yes.
 
 = Why require some updates a reset of the plugin and reload of the data? =
 
-The plugin is an early stage of development. It is still a long way to a stable 1.0 version. To avoid data inconsistency and process errors some updates require a reload of the data. Sometime Mathilda will have a maturity level, which does not require such resets anymore.
+To avoid data inconsistency and process errors some updates require a reload of the data. Sometime Mathilda will have a maturity level, which does not require such resets anymore.
 
 = Does Mathilda support WordPress Multisite? =
 
@@ -104,6 +104,12 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 3. Tweets @ User Interface
 
 == Changelog ==
+
+= 0.11 "Alice" =
+* October 2020
+* Feature: Support of new large DSGVO Twitter Data Export
+* Feature: Displaying Link to Video for Video Tweets
+* Bugfix: Broken 2nd Hashtag (if similar hashtag was before)
 
 = 0.10 "Deadshot" =
 * June 2018
@@ -227,6 +233,9 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 
 == Upgrade Notice ==
 
+= 0.11 =
+This version supports the new DSGVO Twitter Data Export.
+
 = 0.10 =
 This version brings tweet galleries.
 
@@ -263,11 +272,14 @@ This version does not require a webcron anymore.
 5. Create a WordPress page (page slug must match mathilda slug) 
 
 = How to setup Mathilda? =
-[Screencast Video](https://www.unmus.de/wordpress-plugin-mathilda/#screencast) (German)
+[Screencast Video](https://www.unmus.de/mathilda/#screencast) (German)
+
+= How to split large JSON files? =
+[JSON Splitter](https://github.com/jhsu98/json-splitter) 
 
 = CSS classes =
 
-You know the game! Mathilda can not assure that it looks fine on your theme. That is why all mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes. 
+All mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes.
 
 = API =
 

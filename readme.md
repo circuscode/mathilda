@@ -32,7 +32,7 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 
 ## CSS classes
 
-You know the game! Mathilda can not assure that it looks fine on your theme. That is why all mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes. 
+All mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes. 
 
 ## Mathilda API
 
@@ -100,7 +100,7 @@ All the same. It works both. Mathilda is flexible. But the autoload will only be
 
 ### How can I import my tweet history?
 
-To import your tweets, you must download your tweet archive from Twitter (Profile/Settings/Your Twitter Data). Your archive contains the folder "data/js/tweets". Upload the containing files to "www.yourblog.com/wp-content/uploads/mathilda-import/". Now you can run the import (Tools/Tweets).
+To import your tweets, you must download your tweet archive from Twitter (Profile/Settings/Your Twitter Data). Your archive contains the file data/tweet.js. Split this file in smaller files (<400 KB) with a local tool like [JSON Splitter](https://github.com/jhsu98/json-splitter). After that upload the splitted files to "www.yourblog.com/wp-content/uploads/mathilda-import/". Now you can run the import (Tools/Tweets).
 
 ### How does Mathilda handle the canonical URL?
 
@@ -131,7 +131,10 @@ The embedded content will be retrieved and generated every 15 minutes (or with t
 Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentions and the Backlink of the Tweet itself. Links within the tweets are declared as follow.
 
 ## How to setup Mathilda?
-[Screencast Video](https://www.unmus.de/wordpress-plugin-mathilda/#screencast) (German)
+[Screencast Video](https://www.unmus.de/mathilda/#screencast) (German)
+
+## How to split large JSON files?
+[JSON Splitter](https://github.com/jhsu98/json-splitter) 
 
 ## Live Demo
 
@@ -139,14 +142,14 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 
 ## Branches
 
-This repository follows the git-flow workflow.
+This repository follows the git-flow workflow to a large extent.
 
 * master branch is the latest release
 * develop branch is the current state of development
 * feature branches contain dedicated features in development
 * bugfix branches contain dedicated bugfixes in development
-* hotfix branches contain dedicated bugfixes in development
-* release branches contain the next release in preparation
+
+Hotfix and release branches will not be applied.
 
 ## Unterstanding the Deployment
 
@@ -167,6 +170,13 @@ This project is licensed under the GPL3 License.
 * [Mathilda @ WordPress Repository](https://wordpress.org/plugins/mathilda/)
 
 ## Changelog
+
+### 0.11 "Alice"
+
+* October 2020
+* Feature: Support of new large DSGVO Twitter Data Export
+* Feature: Displaying Link to Video for Video Tweets
+* Bugfix: Broken 2nd Hashtag (if similar hashtag was before)
 
 ### 0.10 "Deadshot"
 

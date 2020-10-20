@@ -435,6 +435,10 @@ Mathilda Docu
 */
 
 function mathilda_handbook() {
+
+	$filesize_max_threshold=get_option('mathilda_import_filesize_max');
+	$filesize_max_string=$filesize_max_threshold;
+	$filesize_max_string=$filesize_max_string/1024;
 	
 	echo '<h1 class="mathilda_tools_headline">Mathilda Handbook</h1>';
 	echo '<p class="mathilda_tools_description">Get it working!<br/>&nbsp;</p>';
@@ -454,8 +458,9 @@ function mathilda_handbook() {
 
 	echo '<h2>How to import your complete twitter history?</h2>
 	1. Download your tweet archive from Twitter (Profile/Settings/Your Data).<br/>
-	2. Upload all files from the folder data/js/tweets to the folder wp-content/uploads/mathilda-import.</br>
-	3. Run the import.</p>';
+	2. <a href="https://www.unmus.de/wp-content/uploads/Mathilda-JSON-File-Split-EN.pdf" target="_blank">Split the file</a> data/tweets.js into smaller files (<'.$filesize_max_string.' KB) with a local app.<br/>
+	3. Upload all files to the folder wp-content/uploads/mathilda-import.</br>
+	4. Run the import.</p>';
 
 	echo '<h2>Helpful Resources</h2>';
 	echo mathilda_helpful_resources();
@@ -472,7 +477,7 @@ function mathilda_helpful_resources() {
 
 	$output='<p>';
 	$output.='<a href="https://wordpress.org/plugins/mathilda/faq/" target="_blank">Mathilda FAQ</a><br/>';
-	$output.='<a href="https://wordpress.org/support/plugin/mathilda" target="_blank">Mathilda Support Forum</a><br/>';
+	$output.='<a href="https://wordpress.org/support/plugin/mathilda" target="_blank">Mathilda Support</a><br/>';
 	$output.='<a href="https://github.com/circuscode/mathilda" target="_blank">Mathilda @ GitHub</a><br/>';
 	$output.='<a href="https://www.unmus.de/mathilda/" target="_blank">Official Plugin Page</a>';
 	$output.='</p>';

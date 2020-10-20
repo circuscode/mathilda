@@ -188,6 +188,12 @@ function mathilda_update () {
 		update_option('mathilda_plugin_version', "13");
 	}
 
+	/* Update Process Version 0.11 */
+	if($mathilda_previous_version==13) {
+		update_option('mathilda_plugin_version', "14");
+		add_option('mathilda_import_filesize_max',"409600");
+	}
+
 }
 add_action( 'plugins_loaded', 'mathilda_update' );
 

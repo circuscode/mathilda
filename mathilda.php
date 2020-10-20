@@ -3,8 +3,8 @@
 /*
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
-Description:  Mathilda copies your tweets from Twitter continuously, stores them in the WordPress database and displays them in the blog.
-Version:	  0.10
+Description:  Mathilda copies your tweets from Twitter to WordPress.
+Version:	  0.11
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
 License:      GPL3
@@ -94,6 +94,7 @@ function mathilda_activate () {
 	add_option('mathilda_import_finish', "0");
 	add_option('mathilda_import_subprocess_running', "0");
 	add_option('mathilda_load_process_running',"0");
+	add_option('mathilda_import_filesize_max',"409600");
 
 	/* Create Mathilda Tables */
 
@@ -206,6 +207,7 @@ function mathilda_delete () {
 		delete_option('mathilda_import_finish');
 		delete_option('mathilda_import_subprocess_running');
 		delete_option('mathilda_load_process_running');
+		delete_option('mathilda_import_filesize_max');
 
 		/* Delete Tables */
 
