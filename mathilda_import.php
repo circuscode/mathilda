@@ -136,7 +136,7 @@ function mathilda_import_tool() {
 			echo 'Please follow the instructions below.</p>';
 			echo '<p><strong>Required Steps</strong></p>';
 			echo '<p>1. Download your tweet archive from Twitter (Profile/Settings).<br/>';
-			echo '2. Split the file data/tweets.js into smaller files (<'.$filesize_max_string.' KB) with a local app.<br/>';
+			echo '2. <a href="https://www.unmus.de/wp-content/uploads/Mathilda-JSON-File-Split-EN.pdf" target="_blank">Split the file</a> data/tweets.js into smaller files (<'.$filesize_max_string.' KB) with a local app.<br/>';
 			echo '3. Upload all files to the folder wp-content/uploads/mathilda-import.</br>';
 			echo '4. Run this import script again.</p>';
 			echo '<p>&nbsp;<br/><a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu">Close</a></p>';
