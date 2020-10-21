@@ -100,7 +100,8 @@ All the same. It works both. Mathilda is flexible. But the autoload will only be
 
 ### How can I import my tweet history?
 
-To import your tweets, you must download your tweet archive from Twitter (Profile/Settings/Your Twitter Data). Your archive contains the file data/tweet.js. Split this file in smaller files (<400 KB) with a local tool like [JSON Splitter](https://github.com/jhsu98/json-splitter). After that upload the splitted files to "www.yourblog.com/wp-content/uploads/mathilda-import/". Now you can run the import (Tools/Tweets).
+To import your tweets, you must download your tweet archive from Twitter (Profile/Settings/Your Twitter Data). Your archive contains the file data/tweet.js. Split this file in smaller files (<400 KB) with a local tool like [JSON Splitter](https://github.com/jhsu98/json-splitter). After that upload the splitted files to 
+/wp-content/uploads/mathilda-import/. Now you can run the import (Tools/Tweets).
 
 ### How does Mathilda handle the canonical URL?
 
