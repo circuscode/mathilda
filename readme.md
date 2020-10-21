@@ -135,7 +135,7 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 [Screencast Video](https://www.unmus.de/mathilda/#screencast) (German)
 
 ## How to split large JSON files?
-[JSON Splitter](https://github.com/jhsu98/json-splitter) 
+[JSON Splitter](https://www.unmus.de/wp-content/uploads/Mathilda-JSON-File-Split-EN.pdf) 
 
 ## Live Demo
 
