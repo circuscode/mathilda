@@ -224,11 +224,20 @@ function mathilda_tools() {
 				<p><strong>Auto Load has been deactivated.</strong></p> 
 				</div>';
 			} else {
-				update_option('mathilda_cron_status','1');
-				$label_cronstatus_button="Deactivate!";
-				echo '<div class="updated fade">
-				<p><strong>Auto Load has been activated.</strong></p> 
-				</div>';
+
+				$initial_load = get_option('mathilda_initial_load');
+				if($initial_load==1) {
+					update_option('mathilda_cron_status','1');
+					$label_cronstatus_button="Deactivate!";
+					echo '<div class="updated fade">
+					<p><strong>Auto Load has been activated.</strong></p> 
+					</div>';
+				} else {
+					echo '<div class="notice notice-warning is-dismissible">
+					<p><strong>Auto Load can still not be activated. You have to run an initial load manually first (Load Tweets).</strong></p> 
+					</div>';
+				}
+
 			}
 		}
 	}
