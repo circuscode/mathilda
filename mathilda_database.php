@@ -462,6 +462,7 @@ function mathilda_reset_data() {
 		update_option('mathilda_import_subprocess_running',0);
 		update_option('mathilda_load_process_running',0);
 		update_option('mathilda_import_interval', "86400");
+		update_option('mathilda_cron_status',"0");
  
 		global $wpdb;
 		$table_name=$wpdb->prefix . 'mathilda_tweets';

@@ -34,6 +34,7 @@ function mathilda_tools_controller() {
 	$handbook_show=false;
 	$mathilda_reset=false;
 	$import_break=false;
+	$cron_status=false;
 
 	// Load Tweets
   	if(isset($_GET['cron'])) {
@@ -42,6 +43,13 @@ function mathilda_tools_controller() {
  		$run_cron=true;
  		}	
  	}
+	// Cron Status
+	if(isset($_GET['cronstatus'])) {
+		if($_GET['cronstatus']=='true')
+		{
+		$cron_status=true;
+		}	
+	}
 	// Scripting
 	if(isset($_GET['scripting'])) {
 		if($_GET['scripting']=='true')
@@ -148,12 +156,23 @@ Tools Page
 function mathilda_tools() {
 	
 	/* Dynamic Labels */
+
+	/* Import Status */
 	$label_import_botton="";
 	$label_import_status=get_option('mathilda_import_running');
 	if($label_import_status==0) {
 		$label_import_botton="Load!";
 	} else {
 		$label_import_botton="Status!";
+	}
+
+	/* cron Status */
+	$label_cronstatus_button="";
+	$label_cronstatus_status=get_option('mathilda_cron_status');
+	if($label_cronstatus_status==0) {
+		$label_cronstatus_button="Activate!";
+	} else {
+		$label_cronstatus_button="Deactivate!";
 	}
 
 	/* Headline */
@@ -193,6 +212,27 @@ function mathilda_tools() {
 		}
 	}
 
+	// Auto Load
+	if(isset($_GET['cronstatus'])) {
+		if($_GET['cronstatus']=='true')
+		{
+			$autoload_status=get_option('mathilda_cron_status');
+			if($autoload_status) {
+				update_option('mathilda_cron_status','0');
+				$label_cronstatus_button="Activate!";
+				echo '<div class="updated fade">
+				<p><strong>Auto Load has been deactivated.</strong></p> 
+				</div>';
+			} else {
+				update_option('mathilda_cron_status','1');
+				$label_cronstatus_button="Deactivate!";
+				echo '<div class="updated fade">
+				<p><strong>Auto Load has been activated.</strong></p> 
+				</div>';
+			}
+		}
+	}
+
 	// Embed Reset
 	if(isset($_GET['resetisconfirmed'])) {
 		if($_GET['resetisconfirmed']=='true')
@@ -224,6 +264,16 @@ function mathilda_tools() {
 	</th>
 	<td>
 	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&cron=true" >Run!</a>
+	</td>
+	</tr>
+
+	<!-- Status Cron -->
+	<tr valign="top">
+	<th scope="row">
+	<label for="cron">Auto Load</label>
+	</th>
+	<td>
+	<a class="button" href="'.admin_url().'tools.php?page=mathilda-tools-menu&cronstatus=true">'.$label_cronstatus_button.'</a>
 	</td>
 	</tr>
 	
