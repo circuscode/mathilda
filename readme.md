@@ -6,7 +6,7 @@ Mathilda copies your tweets from Twitter to WordPress continuously.
 
 Mathilda is trying to give you back some control of your tweets. The plugin copies your tweets from Twitter continuously and saves them into the WordPress database. The tweets can be displayed on the blog chronologically (but do not have to). Indeed, Twitter is also blogging, micro-blogging so to speak.  
 
-## Functions
+## Features
 
 * Copy your tweets back
 * Copy your tweeted images back
@@ -152,10 +152,9 @@ This repository follows the git-flow workflow to a large extent.
 
 Hotfix and release branches will not be applied.
 
-## Unterstanding the Deployment
+## Future of this Plugin
 
-Releases in the WordPress Plugin Directory will be processed via SVN. 
-The Version-to-Ship will be created manually on GitHub. See Release Section.
+xxx
 
 ## Built With
 
