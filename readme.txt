@@ -6,7 +6,6 @@ Tested up to: 6.2
 Stable tag: 0.12
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Donate link: https://www.unmus.de/
 
 Mathilda copies your tweets from Twitter to WordPress.
 
@@ -28,7 +27,7 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 
 [Here!](https://www.unmus.de/tweets/)
 
-== Future of this Plugin ='=
+== Future of this Plugin =
 
 As Twitter has decided to discontinue free access to the Twitter API, I have stopped using Twitter. This will also impact the future of this plugin. In the medium term the api request function to copy tweets will be removed from the plugin. Displaying of already received tweet data and the import of DSGVO Data Export will be further supported and maintained. The plugin features will be reduced to minimum. At the present time, the plugin is still be able to execute API Calls as the plugin is using the Twitter API Standard v1.1, which still is usable without payment. But that can change at any time.
 
