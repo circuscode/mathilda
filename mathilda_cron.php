@@ -503,7 +503,10 @@ function mathilda_cron_script() {
 Update Meta 
 */
 
-if($initial_load == 0) { update_option('mathilda_initial_load', 1); }
+if($initial_load == 0) { 
+	update_option('mathilda_initial_load', 1); 
+	update_option('mathilda_cron_status', 1); 
+}
 $latest_tweet=mathilda_latest_tweet();
 $number_of_tweets=mathilda_tweets_count();
 $number_of_select=mathilda_select_count();

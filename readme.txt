@@ -2,8 +2,8 @@
 Contributors: unmus, vbachem
 Tags: twitter, tweets, microblogging, blog, social network
 Requires at least: 4.5
-Tested up to: 5.5.1
-Stable tag: 0.11
+Tested up to: 6.2
+Stable tag: 0.12
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://www.unmus.de/
@@ -14,7 +14,7 @@ Mathilda copies your tweets from Twitter to WordPress.
 
 Mathilda is trying to give you back some control of your tweets. The plugin copies your tweets from Twitter continuously and saves them into the WordPress database. The tweets can be displayed on the blog chronologically (but do not have to). Indeed, Twitter is also blogging, micro-blogging so to speak. 
 
-= Functions =
+= Features =
 
 * Copy your tweets back
 * Copy your tweeted images back
@@ -28,16 +28,82 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 
 [Here!](https://www.unmus.de/tweets/)
 
+== Future of this Plugin ='=
+
+As Twitter has decided to discontinue free access to the Twitter API, I have stopped using Twitter. This will also impact the future of this plugin. In the medium term the api request function to copy tweets will be removed from the plugin. Displaying of already received tweet data and the import of DSGVO Data Export will be further supported and maintained. The plugin features will be reduced to minimum. At the present time, the plugin is still be able to execute API Calls as the plugin is using the Twitter API Standard v1.1, which still is usable without payment. But that can change at any time.
+
+== Configuration ==
+
+1. [Register](https://dev.unmus.de/wp-content/uploads/Mathilda-Twitter-App-Registration.pdf) your Mathilda-Instance as Twitter-Application for API Access [apps.twitter.com](https://apps.twitter.com)
+2. Activate the plugin in WordPress
+3. Maintain OAUTH Access Token, OAUTH Access Token Secret, Consumer Key, Consumer Secret and your Twitter Account in the settings
+4. Run the initial load (Tools/Tweets)
+5. Create a WordPress page (page slug must match mathilda slug) 
+
+== Further Information ==
+
+= Supported Tweet Types =
+
+Following tweet types are supported.
+
+* 140 Character Tweets
+* 280 Character Tweets
+* Replys
+* Quotes
+
+= Supported Tweet Objects =
+
+Following tweet objects are supported.
+
+* Images
+* Hashtags
+* Links
+* Mentions
+* Galleries
+
+= Architecture =
+
+Data storage and process logic is separated from the WordPress Framework. The toots are not saved in the table wp_posts. And TootPress is not registering a custom post type for the toots as well.
+
+= CSS classes =
+
+All mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes.
+
+= Data & Files =
+
+Mathilda creates 4 folders within wp-content/uploads.
+
+* mathilda-twitterapi = Archive of the Twitter API data
+* mathilda-images = Tweet Image Folder
+* mathilda-export = Export Directory 
+* mathilda-import = Import Directory 
+
+= wpCrons =
+
+* Autoload Tweets (every 15 minutes, customizable)
+* Get Embedding Code from External Source (every 15 minutes, customizable)
+* Import Tweets (every Minute, if Import is running)
+
+= API =
+
+WordPress Action: mathilda_tweets_updated (fired on tweet update)
+
 = Related Links =
 
 * [Plugin Page (German)](https://www.unmus.de/mathilda/)
 * [Source Code @ GitHub](https://github.com/circuscode/mathilda)
 
-== Installation ==
+= How to setup Mathilda? =
+[Screencast Video](https://www.unmus.de/mathilda/#screencast) (German)
 
-1. Download the plugin from the WordPress Plugin Repository
-2. Activate the plugin in WordPress
-3. Follow the configuration manual
+= How to split large JSON files? =
+[JSON Splitter](https://github.com/jhsu98/json-splitter) 
+
+== Screenshots ==
+
+1. Mathilda Settings
+2. Mathilda Tools
+3. Tweets @ User Interface
 
 == Frequently Asked Questions ==
 
@@ -97,13 +163,11 @@ The embedded content will be retrieved and generated every 15 minutes (or with t
 
 Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentions and the Backlink of the Tweet itself. Links within the tweets are declared as follow.
 
-== Screenshots ==
-
-1. Mathilda Settings
-2. Mathilda Tools
-3. Tweets @ User Interface
-
 == Changelog ==
+
+= 0.12 "Alfred" =
+* April 2023
+* Feature: Deactivate regular API Request
 
 = 0.11 "Alice" =
 * October 2020
@@ -233,6 +297,9 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 
 == Upgrade Notice ==
 
+= 0.12 =
+This version prepares the plugin for Twitter API Shutdown.
+
 = 0.11 =
 This version supports the new DSGVO Twitter Data Export.
 
@@ -262,59 +329,3 @@ This version supports replies, makes import and cron more stable and includes ma
 
 = 0.2 =
 This version does not require a webcron anymore.
-
-== Configuration ==
-
-1. [Register](https://dev.unmus.de/wp-content/uploads/Mathilda-Twitter-App-Registration.pdf) your Mathilda-Instance as Twitter-Application for API Access [apps.twitter.com](https://apps.twitter.com)
-2. Activate the plugin in WordPress
-3. Maintain OAUTH Access Token, OAUTH Access Token Secret, Consumer Key, Consumer Secret and your Twitter Account in the settings
-4. Run the initial load (Tools/Tweets)
-5. Create a WordPress page (page slug must match mathilda slug) 
-
-= How to setup Mathilda? =
-[Screencast Video](https://www.unmus.de/mathilda/#screencast) (German)
-
-= How to split large JSON files? =
-[JSON Splitter](https://github.com/jhsu98/json-splitter) 
-
-= CSS classes =
-
-All mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes.
-
-= API =
-
-WordPress Action: mathilda_tweets_updated (fired on tweet update)
-
-= Data & Files =
-
-Mathilda creates 4 folders within wp-content/uploads.
-
-* mathilda-twitterapi = Archive of the Twitter API data
-* mathilda-images = Tweet Image Folder
-* mathilda-export = Export Directory 
-* mathilda-import = Import Directory 
-
-= Supported Tweet Types =
-
-Following tweet types are supported.
-
-* 140 Character Tweets
-* 280 Character Tweets
-* Replys
-* Quotes
-
-= Supported Tweet Objects =
-
-Following tweet objects are supported.
-
-* Images
-* Hashtags
-* Links
-* Mentions
-* Galleries
-
-= Mathilda Cron Jobs @ WordPress =
-
-* Autoload Tweets (every 15 minutes, customizable)
-* Get Embedding Code from External Source (every 15 minutes, customizable)
-* Import Tweets (every Minute, if Import is running)

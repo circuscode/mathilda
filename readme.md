@@ -6,7 +6,7 @@ Mathilda copies your tweets from Twitter to WordPress continuously.
 
 Mathilda is trying to give you back some control of your tweets. The plugin copies your tweets from Twitter continuously and saves them into the WordPress database. The tweets can be displayed on the blog chronologically (but do not have to). Indeed, Twitter is also blogging, micro-blogging so to speak.  
 
-## Functions
+## Features
 
 * Copy your tweets back
 * Copy your tweeted images back
@@ -15,6 +15,10 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 * Import your complete tweet history
 * Export your tweets as CSV file
 * Languague: English, German (only FrontEnd)
+
+## Future of this Plugin
+
+As Twitter has decided to discontinue free access to the Twitter API, I have stopped using Twitter. This will also impact the future of this plugin. In the medium term the api request function to copy tweets will be removed from the plugin. Displaying of already received tweet data and the import of DSGVO Data Export will be further supported and maintained. The plugin features will be reduced to minimum. At the present time, the plugin is still be able to execute API Calls as the plugin is using the Twitter API Standard v1.1, which still is usable without payment. But that can change at any time.
 
 ## Installation
 
@@ -29,23 +33,6 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 3. Maintain OAUTH Access Token, OAUTH Access Token Secret, Consumer Key, Consumer Secret and your Twitter Account in the settings
 4. Run the initial load (Tools/Tweets)
 5. Create a WordPress page (page slug must match mathilda slug) 
-
-## CSS classes
-
-All mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes. 
-
-## Mathilda API
-
-WordPress Action: mathilda_tweets_updated (fired on tweet update)
-
-## Data & Files
-
-Mathilda creates 4 folders within wp-content/uploads.
-
-* mathilda-twitterapi = Archive of the Twitter API data
-* mathilda-images = Tweet Image Folder
-* mathilda-export = Export Directory 
-* mathilda-import = Import Directory 
 
 ## Supported Tweet Types
 
@@ -66,11 +53,32 @@ Following tweet objects are supported.
 * Mentions
 * Galleries
 
-## Mathilda Cron Jobs @ WordPress
+## Architecture
+
+Data storage and process logic is separated from the WordPress Framework. The tweets are not saved in the table wp_posts. And Mathilda is not registering a custom post type for the tweets as well.
+
+## CSS classes
+
+All mathilda UI elements can be addressed with individual CSS selectors. Please use your debugger to find the right classes. 
+
+## Data & Files
+
+Mathilda creates 4 folders within wp-content/uploads.
+
+* mathilda-twitterapi = Archive of the Twitter API data
+* mathilda-images = Tweet Image Folder
+* mathilda-export = Export Directory 
+* mathilda-import = Import Directory 
+
+## wpCrons
 
 * Autoload Tweets (every 15 minutes, customizable)
 * Get Embedding Code from External Source (every 15 minutes, customizable)
 * Import Tweets (every Minute, if Import is running)
+
+## Mathilda API
+
+WordPress Action: mathilda_tweets_updated (fired on tweet update)
 
 ## Frequently Asked Questions
 
@@ -137,10 +145,6 @@ Backlinks to Twitter will be declared as nofollow. This affects Hashtags, Mentio
 ## How to split large JSON files?
 [JSON Splitter](https://www.unmus.de/wp-content/uploads/Mathilda-JSON-File-Split-EN.pdf) 
 
-## Live Demo
-
-[Here!](https://www.unmus.de/tweets/)
-
 ## Branches
 
 This repository follows the git-flow workflow to a large extent.
@@ -152,10 +156,9 @@ This repository follows the git-flow workflow to a large extent.
 
 Hotfix and release branches will not be applied.
 
-## Unterstanding the Deployment
+## Live Demo
 
-Releases in the WordPress Plugin Directory will be processed via SVN. 
-The Version-to-Ship will be created manually on GitHub. See Release Section.
+[Here!](https://www.unmus.de/tweets/)
 
 ## Built With
 
@@ -171,6 +174,11 @@ This project is licensed under the GPL3 License.
 * [Mathilda @ WordPress Repository](https://wordpress.org/plugins/mathilda/)
 
 ## Changelog
+
+### 0.12 "Alfred"
+
+* April 2023
+* Feature: Deactivate regular API Request
 
 ### 0.11 "Alice"
 

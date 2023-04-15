@@ -48,7 +48,9 @@ add_filter( 'cron_schedules', 'mathilda_import_interval' );
 function mathilda_cron_execute_tweetload() {
 
 	$initial_load = get_option('mathilda_initial_load');
-	if($initial_load==1) {
+	$cron_status=get_option('mathilda_cron_status');
+
+	if($initial_load==1 && $cron_status==1) {
 		mathilda_cron_script();
 	}
 }

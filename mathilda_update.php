@@ -194,6 +194,19 @@ function mathilda_update () {
 		add_option('mathilda_import_filesize_max',"409600");
 	}
 
+	/* Update Process Version 0.12 */
+	if($mathilda_previous_version==14) {
+		update_option('mathilda_plugin_version', "15");
+		$cron_status='';
+		$initial_load = get_option('mathilda_initial_load');
+		if($initial_load==1) {
+			$cron_status=1;
+		} else {
+			$cron_status=0;
+		}
+		add_option('mathilda_cron_status',$cron_status);
+	}
+
 }
 add_action( 'plugins_loaded', 'mathilda_update' );
 
