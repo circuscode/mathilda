@@ -291,7 +291,18 @@ function mathilda_healthy_check() {
         
         $output.='<br/>';
 
-        // 4. Info
+      // 4. Info
+      $cron_status=get_option('mathilda_cron_status');
+      if($cron_status==0) {
+            $output.='Auto Load is deactive.';
+      }
+      else {
+            $output.='Auto Load is active.';
+      }
+      
+      $output.='<br/>';
+
+        // 5. Info
         $tweets_loaded=mathilda_tweets_count();
         if($tweets_loaded==0) {
             $output.='No Tweets are loaded.';
