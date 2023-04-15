@@ -4,7 +4,7 @@
 Plugin Name:  Mathilda
 Plugin URI:   https://www.unmus.de/wordpress-plugin-mathilda/
 Description:  Mathilda copies your tweets from Twitter to WordPress.
-Version:	  0.11
+Version:	  0.12
 Author:       Marco Hitschler
 Author URI:   https://www.unmus.de/
 License:      GPL3
