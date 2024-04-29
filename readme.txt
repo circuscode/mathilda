@@ -2,7 +2,7 @@
 Contributors: unmus, vbachem
 Tags: twitter, tweets, microblogging, blog, social network
 Requires at least: 4.5
-Tested up to: 6.2
+Tested up to: 6.5.2
 Stable tag: 0.12
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -27,9 +27,9 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 
 [Here!](https://www.unmus.de/tweets/)
 
-== Future of this Plugin =
+== Future of this Plugin ==
 
-As Twitter has decided to discontinue free access to the Twitter API, I have stopped using Twitter. This will also impact the future of this plugin. In the medium term the api request function to copy tweets will be removed from the plugin. Displaying of already received tweet data and the import of DSGVO Data Export will be further supported and maintained. The plugin features will be reduced to minimum. At the present time, the plugin is still be able to execute API Calls as the plugin is using the Twitter API Standard v1.1, which still is usable without payment. But that can change at any time.
+As Twitter has decided to discontinue free access to the Twitter API, I have stopped using Twitter, which also impacts the future of this plugin. For a longer period of time, the plugin was still able to execute API calls strangly enough. The plugin is using the Twitter API Standard v1.1. In the meantime Twitter became X and also free access to v1.1 is still possible, but X has removed the required endpoint to fetch data. As consequence the core feature of the plugin is not working anymore, which is very sad. Independent from this, displaying of already received tweet data and the import of DSGVO Data Export from X is still possible with this plugin and will be supported and maintained as long as possible.
 
 == Configuration ==
 
