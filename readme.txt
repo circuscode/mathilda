@@ -2,7 +2,7 @@
 Contributors: unmus, vbachem
 Tags: twitter, tweets, microblogging, blog, social network
 Requires at least: 4.5
-Tested up to: 6.5.2
+Tested up to: 6.7
 Stable tag: 0.12
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -29,7 +29,7 @@ Mathilda is trying to give you back some control of your tweets. The plugin copi
 
 == Future of this Plugin ==
 
-As Twitter has decided to discontinue free access to the Twitter API, I have stopped using Twitter, which also impacts the future of this plugin. For a longer period of time, the plugin was still able to execute API calls strangly enough. The plugin is using the Twitter API Standard v1.1. In the meantime Twitter became X and also free access to v1.1 is still possible, but X has removed the required endpoint to fetch data. As consequence the core feature of the plugin is not working anymore, which is very sad. Independent from this, displaying of already received tweet data and the import of DSGVO Data Export from X is still possible with this plugin and will be supported and maintained as long as possible.
+As Twitter has decided to discontinue free access to the Twitter API in February 2023, I have stopped using Twitter, which also impacts the future of this plugin. For a longer period of time, the plugin was still able to execute API calls strangly enough. The plugin is using the Twitter API Standard v1.1. In the meantime Twitter became X and also free write access to v1.1 is still possible, but X has removed the required endpoint to fetch data. As consequence the core feature of the plugin is not working anymore, which is very sad. Independent from this, displaying of already received tweet data is still possible with this plugin. This feature will be kept alive until further notice. But further development in general is discontinued.
 
 == Configuration ==
 
